@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>DailyDiary</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f8dce8;
+      color: #111;
+    }
+
+    header {
+      text-align: center;
+      padding: 35px 20px 20px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 42px;
+      color: #111;
+    }
+
+    header p {
+      margin-top: 8px;
+      color: #555;
+      font-size: 17px;
+    }
+
+    main {
+      width: 92%;
+      max-width: 900px;
+      margin: auto;
+      padding-bottom: 60px;
+    }
+
+    .card {
+      background: #fffdf5;
+      border-radius: 22px;
+      padding: 25px;
+      margin-top: 25px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      color: #111;
+    }
+
+    /* TEXTFELD */
+
+    #textEditor {
+      width: 100%;
+      min-height: 300px;
+      border: 2px solid #e4b7c9;
+      border-radius: 16px;
+      padding: 18px;
+      background: #fffdf5;
+      color: #111;
+      font-size: 18px;
+      line-height: 1.6;
+      resize: vertical;
+      outline: none;
+    }
+
+    #textEditor:focus {
+      border-color: #d979a0;
+    }
+
+    .save-status {
+      margin-top: 10px;
+      color: #777;
+      font-size: 14px;
+    }
+
+    /* ZEICHENFELD */
+
+    #drawingCanvas {
+      width: 100%;
+      height: 400px;
+      display: block;
+      background: #fffdf5;
+      border: 2px solid #e4b7c9;
+      border-radius: 16px;
+      touch-action: none;
+    }
+
+    .drawing-buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    button {
+      border: none;
+      border-radius: 12px;
+      padding: 13px 18px;
+      font-size: 16px;
+      cursor: pointer;
+      background: #e98ab0;
+      color: white;
+    }
+
+    button:hover {
+      background: #d9789f;
+    }
+
+    .secondary {
+      background: #eee1e7;
+      color: #111;
+    }
+
+    /* BILDERSHOW */
+
+    .slideshow {
+      position: relative;
+      width: 100%;
+      height: 420px;
+      background: #f4e8ed;
+      border-radius: 18px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .slideshow img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: none;
+    }
+
+    .slideshow img.active {
+      display: block;
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      padding: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.85);
+      color: #111;
+      font-size: 25px;
+      z-index: 5;
+    }
+
+    .arrow.left {
+      left: 12px;
+    }
+
+    .arrow.right {
+      right: 12px;
+    }
+
+    #noImages {
+      color: #777;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .upload-area {
+      margin-top: 15px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    input[type="file"] {
+      max-width: 100%;
+    }
+
+    /* MOBILE */
+
+    @media (max-width: 600px) {
+
+      header h1 {
+        font-size: 32px;
+      }
+
+      .card {
+        padding: 18px;
+      }
+
+      #drawingCanvas {
+        height: 320px;
+      }
+
+      .slideshow {
+        height: 300px;
+      }
+
+      button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>🌸 DailyDiary</h1>
+  <p>Unser gemeinsamer Ort für Gedanken, Bilder und Kreativität</p>
+</header>
+
+<main>
+
+  <!-- TEXT -->
+
+  <section class="card">
+    <h2>💭 Unser Text</h2>
+
+    <textarea
+      id="textEditor"
+      placeholder="Schreibe hier etwas..."
+    ></textarea>
+
+    <div class="save-status" id="textStatus">
+      Wird geladen...
+    </div>
+  </section>
+
+
+  <!-- ZEICHENFELD -->
+
+  <section class="card">
+
+    <h2>🎨 Unser Zeichenfeld</h2>
+
+    <canvas id="drawingCanvas"></canvas>
+
+    <div class="drawing-buttons">
+      <button onclick="clearDrawing()">
+        🗑️ Löschen
+      </button>
+
+      <button class="secondary" onclick="saveDrawing()">
+        💾 Zeichnung speichern
+      </button>
+    </div>
+
+    <div class="save-status" id="drawingStatus">
+      Zeichnung wird geladen...
+    </div>
+
+  </section>
+
+
+  <!-- BILDERSHOW -->
+
+  <section class="card">
+
+    <h2>🖼️ Unsere Bilder</h2>
+
+    <div class="slideshow" id="slideshow">
+
+      <div id="noImages">
+        Noch keine Bilder vorhanden.
+      </div>
+
+      <button
+        class="arrow left"
+        onclick="previousImage()"
+      >
+        ‹
+      </button>
+
+      <button
+        class="arrow right"
+        onclick="nextImage()"
+      >
+        ›
+      </button>
+
+    </div>
+
+    <div class="upload-area">
+
+      <input
+        type="file"
+        id="imageUpload"
+        accept="image/*"
+        multiple
+      >
+
+      <button onclick="uploadImages()">
+        📷 Bilder hinzufügen
+      </button>
+
+    </div>
+
+    <div class="save-status" id="imageStatus">
+      Bilder werden geladen...
+    </div>
+
+  </section>
+
+</main>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+  /*
+   * =========================================================
+   * DEINE SUPABASE DATEN
+   * =========================================================
+   */
+
+ const SUPABASE_URL =
+  "https://cqgrtybenbanfppoiuba.supabase.co";
+
+  const SUPABASE_ANON_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNxZ3J0eWJlbmJhbmZwcG9pdWJhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc0MzY4MTEsImV4cCI6MjEwMzAxMjgxMX0.8qwqAGwH4ylkI-b-nAgfkjJma4KbBP4we789S9pdaAk";
+
+
+  const supabaseClient =
+    supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_ANON_KEY
+    );
+
+
+  /*
+   * =========================================================
+   * TEXT
+   * =========================================================
+   */
+
+  const textEditor =
+    document.getElementById("textEditor");
+
+  const textStatus =
+    document.getElementById("textStatus");
+
+
+  async function loadText() {
+
+    const { data, error } =
+      await supabaseClient
+        .from("website_content")
+        .select("text_content")
+        .eq("id", 1)
+        .single();
+
+    if (error) {
+      console.error(error);
+      textStatus.innerText =
+        "Fehler beim Laden des Textes.";
+      return;
+    }
+
+    textEditor.value =
+      data.text_content || "";
+
+    textStatus.innerText =
+      "Text geladen ✓";
+  }
+
+
+  let saveTimer;
+
+
+  textEditor.addEventListener(
+    "input",
+    function () {
+
+      textStatus.innerText =
+        "Speichern...";
+
+      clearTimeout(saveTimer);
+
+      saveTimer = setTimeout(
+        saveText,
+        700
+      );
+
+    }
+  );
+
+
+  async function saveText() {
+
+    const { error } =
+      await supabaseClient
+        .from("website_content")
+        .update({
+          text_content:
+            textEditor.value
+        })
+        .eq("id", 1);
+
+    if (error) {
+
+      console.error(error);
+
+      textStatus.innerText =
+        "Fehler beim Speichern.";
+
+      return;
+    }
+
+    textStatus.innerText =
+      "Gespeichert ✓";
+  }
+
+
+  /*
+   * =========================================================
+   * ZEICHENFELD
+   * =========================================================
+   */
+
+  const canvas =
+    document.getElementById(
+      "drawingCanvas"
+    );
+
+  const ctx =
+    canvas.getContext("2d");
+
+  const drawingStatus =
+    document.getElementById(
+      "drawingStatus"
+    );
+
+
+  function resizeCanvas() {
+
+    const oldImage =
+      canvas.toDataURL();
+
+    canvas.width =
+      canvas.clientWidth * window.devicePixelRatio;
+
+    canvas.height =
+      canvas.clientHeight * window.devicePixelRatio;
+
+    ctx.scale(
+      window.devicePixelRatio,
+      window.devicePixelRatio
+    );
+
+    ctx.fillStyle =
+      "#fffdf5";
+
+    ctx.fillRect(
+      0,
+      0,
+      canvas.clientWidth,
+      canvas.clientHeight
+    );
+
+    const img =
+      new Image();
+
+    img.onload = function () {
+
+      ctx.drawImage(
+        img,
+        0,
+        0,
+        canvas.clientWidth,
+        canvas.clientHeight
+      );
+
+    };
+
+    img.src = oldImage;
+  }
+
+
+  window.addEventListener(
+    "resize",
+    resizeCanvas
+  );
+
+
+  let drawing = false;
+
+
+  function getPosition(event) {
+
+    const rect =
+      canvas.getBoundingClientRect();
+
+    return {
+
+      x:
+        event.clientX -
+        rect.left,
+
+      y:
+        event.clientY -
+        rect.top
+
+    };
+  }
+
+
+  canvas.addEventListener(
+    "pointerdown",
+    function(event) {
+
+      drawing = true;
+
+      canvas.setPointerCapture(
+        event.pointerId
+      );
+
+      const pos =
+        getPosition(event);
+
+      ctx.beginPath();
+
+      ctx.moveTo(
+        pos.x,
+        pos.y
+      );
+
+    }
+  );
+
+
+  canvas.addEventListener(
+    "pointermove",
+    function(event) {
+
+      if (!drawing) return;
+
+      const pos =
+        getPosition(event);
+
+      ctx.lineWidth = 4;
+
+      ctx.lineCap = "round";
+
+      ctx.strokeStyle =
+        "#111";
+
+      ctx.lineTo(
+        pos.x,
+        pos.y
+      );
+
+      ctx.stroke();
+
+    }
+  );
+
+
+  canvas.addEventListener(
+    "pointerup",
+    function() {
+
+      drawing = false;
+
+      saveDrawing();
+
+    }
+  );
+
+
+  canvas.addEventListener(
+    "pointercancel",
+    function() {
+
+      drawing = false;
+
+    }
+  );
+
+
+  async function loadDrawing() {
+
+    const { data, error } =
+      await supabaseClient
+        .from("website_content")
+        .select("drawing_data")
+        .eq("id", 1)
+        .single();
+
+
+    if (error) {
+
+      console.error(error);
+
+      drawingStatus.innerText =
+        "Fehler beim Laden.";
+
+      return;
+
+    }
+
+
+    if (data.drawing_data) {
+
+      const img =
+        new Image();
+
+      img.onload =
+        function() {
+
+          ctx.drawImage(
+            img,
+            0,
+            0,
+            canvas.clientWidth,
+            canvas.clientHeight
+          );
+
+        };
+
+      img.src =
+        data.drawing_data;
+
+    }
+
+
+    drawingStatus.innerText =
+      "Zeichnung geladen ✓";
+  }
+
+
+  async function saveDrawing() {
+
+    const image =
+      canvas.toDataURL(
+        "image/png"
+      );
+
+
+    const { error } =
+      await supabaseClient
+        .from("website_content")
+        .update({
+
+          drawing_data:
+            image
+
+        })
+        .eq("id", 1);
+
+
+    if (error) {
+
+      console.error(error);
+
+      drawingStatus.innerText =
+        "Fehler beim Speichern.";
+
+      return;
+
+    }
+
+
+    drawingStatus.innerText =
+      "Zeichnung gespeichert ✓";
+  }
+
+
+  async function clearDrawing() {
+
+    ctx.clearRect(
+      0,
+      0,
+      canvas.clientWidth,
+      canvas.clientHeight
+    );
+
+    ctx.fillStyle =
+      "#fffdf5";
+
+    ctx.fillRect(
+      0,
+      0,
+      canvas.clientWidth,
+      canvas.clientHeight
+    );
+
+    await saveDrawing();
+
+  }
+
+
+  /*
+   * =========================================================
+   * BILDER
+   * =========================================================
+   */
+
+  const BUCKET =
+    "daily-diary-images";
+
+
+  let images = [];
+
+  let currentImage = 0;
+
+
+  async function loadImages() {
+
+    const { data, error } =
+      await supabaseClient
+        .storage
+        .from(BUCKET)
+        .list();
+
+
+    if (error) {
+
+      console.error(error);
+
+      document.getElementById(
+        "imageStatus"
+      ).innerText =
+        "Fehler beim Laden der Bilder.";
+
+      return;
+
+    }
+
+
+    images = data || [];
+
+    displayImages();
+
+  }
+
+
+  function displayImages() {
+
+    const slideshow =
+      document.getElementById(
+        "slideshow"
+      );
+
+    const oldImages =
+      slideshow.querySelectorAll(
+        "img"
+      );
+
+    oldImages.forEach(
+      img => img.remove()
+    );
+
+
+    const noImages =
+      document.getElementById(
+        "noImages"
+      );
+
+
+    if (images.length === 0) {
+
+      noImages.style.display =
+        "block";
+
+      return;
+
+    }
+
+
+    noImages.style.display =
+      "none";
+
+
+    images.forEach(
+      function(file, index) {
+
+        const { data } =
+          supabaseClient
+            .storage
+            .from(BUCKET)
+            .getPublicUrl(
+              file.name
+            );
+
+
+        const img =
+          document.createElement(
+            "img"
+          );
+
+        img.src =
+          data.publicUrl;
+
+        if (
+          index === currentImage
+        ) {
+
+          img.classList.add(
+            "active"
+          );
+
+        }
+
+
+        slideshow.insertBefore(
+          img,
+          slideshow.querySelector(
+            ".arrow.left"
+          )
+        );
+
+      }
+    );
+
+
+    document.getElementById(
+      "imageStatus"
+    ).innerText =
+      images.length +
+      " Bild(er) vorhanden ✓";
+  }
+
+
+  function nextImage() {
+
+    if (images.length === 0)
+      return;
+
+    currentImage =
+      (currentImage + 1) %
+      images.length;
+
+    displayImages();
+
+  }
+
+
+  function previousImage() {
+
+    if (images.length === 0)
+      return;
+
+    currentImage =
+      (currentImage - 1 +
+       images.length) %
+      images.length;
+
+    displayImages();
+
+  }
+
+
+  async function uploadImages() {
+
+    const input =
+      document.getElementById(
+        "imageUpload"
+      );
+
+
+    if (
+      !input.files ||
+      input.files.length === 0
+    ) {
+
+      alert(
+        "Bitte zuerst ein Bild auswählen."
+      );
+
+      return;
+
+    }
+
+
+    const status =
+      document.getElementById(
+        "imageStatus"
+      );
+
+
+    status.innerText =
+      "Bilder werden hochgeladen...";
+
+
+    for (
+      const file of input.files
+    ) {
+
+      const fileName =
+        Date.now() +
+        "-" +
+        Math.random()
+          .toString(36)
+          .substring(2) +
+        "-" +
+        file.name;
+
+
+      const { error } =
+        await supabaseClient
+          .storage
+          .from(BUCKET)
+          .upload(
+            fileName,
+            file
+          );
+
+
+      if (error) {
+
+        console.error(error);
+
+        status.innerText =
+          "Fehler beim Hochladen.";
+
+        return;
+
+      }
+
+    }
+
+
+    input.value = "";
+
+    await loadImages();
+
+  }
+
+
+  /*
+   * =========================================================
+   * START
+   * =========================================================
+   */
+
+  async function start() {
+
+    resizeCanvas();
+
+    await loadText();
+
+    await loadDrawing();
+
+    await loadImages();
+
+  }
+
+
+  start();
+
+</script>
+
+</body>
+</html>
