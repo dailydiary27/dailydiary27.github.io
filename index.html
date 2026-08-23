@@ -13,7 +13,7 @@
 
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
+      font-family: "Cochin", Georgia, serif;
       background: #f8dce8;
       color: #111;
     }
@@ -25,19 +25,19 @@
 
     header h1 {
       margin: 0;
-      font-size: 42px;
-      color: #111;
+      font-size: 44px;
+      font-weight: 700;
     }
 
     header p {
       margin-top: 8px;
       color: #555;
-      font-size: 17px;
+      font-size: 19px;
     }
 
     main {
       width: 92%;
-      max-width: 900px;
+      max-width: 1000px;
       margin: auto;
       padding-bottom: 60px;
     }
@@ -53,9 +53,189 @@
     .card h2 {
       margin-top: 0;
       color: #111;
+      font-size: 30px;
     }
 
-    /* TEXTFELD */
+    /* =====================================================
+       KALENDER
+       ===================================================== */
+
+    .calendar-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .calendar-year {
+      font-size: 42px;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .year-buttons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .year-buttons button {
+      width: auto;
+      min-width: 50px;
+      padding: 10px 14px;
+    }
+
+    .calendar-divider {
+      height: 1px;
+      background: #d8d1ce;
+      margin-bottom: 28px;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px 30px;
+    }
+
+    .month h3 {
+      font-size: 32px;
+      margin: 0 0 14px;
+      font-weight: 700;
+    }
+
+    .weekdays,
+    .days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      text-align: center;
+    }
+
+    .weekdays {
+      margin-bottom: 6px;
+      font-size: 13px;
+      color: #777;
+    }
+
+    .day {
+      min-height: 32px;
+      font-size: 16px;
+      padding: 5px 2px;
+      border-radius: 50%;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .day:hover {
+      background: #f2c8d9;
+    }
+
+    .day.today {
+      background: #df8fb0;
+      color: white;
+      font-weight: bold;
+    }
+
+    .day.has-event::after {
+      content: "";
+      position: absolute;
+      bottom: 1px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #d46d96;
+    }
+
+    .calendar-help {
+      margin-top: 25px;
+      color: #777;
+      font-size: 15px;
+      text-align: center;
+    }
+
+    /* =====================================================
+       TERMINE
+       ===================================================== */
+
+    .event-panel {
+      border-top: 1px solid #e2d7dc;
+      margin-top: 25px;
+      padding-top: 22px;
+    }
+
+    .selected-date {
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .event-form {
+      display: grid;
+      gap: 10px;
+    }
+
+    .event-form input,
+    .event-form textarea {
+      width: 100%;
+      border: 2px solid #e4b7c9;
+      border-radius: 12px;
+      padding: 13px;
+      font-family: inherit;
+      font-size: 17px;
+      background: #fffdf5;
+      outline: none;
+    }
+
+    .event-form textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .event-form input:focus,
+    .event-form textarea:focus {
+      border-color: #d979a0;
+    }
+
+    .event-list {
+      margin-top: 20px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .event-item {
+      background: #f8e5ed;
+      border-radius: 14px;
+      padding: 13px;
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      align-items: flex-start;
+    }
+
+    .event-title {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .event-description {
+      margin-top: 4px;
+      color: #555;
+      white-space: pre-wrap;
+    }
+
+    .delete-event {
+      background: #d9799f;
+      padding: 8px 11px;
+      font-size: 14px;
+      width: auto;
+      flex-shrink: 0;
+    }
+
+    /* =====================================================
+       NACHRICHTEN
+       ===================================================== */
 
     #textEditor {
       width: 100%;
@@ -65,7 +245,8 @@
       padding: 18px;
       background: #fffdf5;
       color: #111;
-      font-size: 18px;
+      font-family: inherit;
+      font-size: 19px;
       line-height: 1.6;
       resize: vertical;
       outline: none;
@@ -81,7 +262,9 @@
       font-size: 14px;
     }
 
-    /* ZEICHENFELD */
+    /* =====================================================
+       KUNSTWERKE
+       ===================================================== */
 
     #drawingCanvas {
       width: 100%;
@@ -104,7 +287,8 @@
       border: none;
       border-radius: 12px;
       padding: 13px 18px;
-      font-size: 16px;
+      font-family: inherit;
+      font-size: 17px;
       cursor: pointer;
       background: #e98ab0;
       color: white;
@@ -119,7 +303,9 @@
       color: #111;
     }
 
-    /* BILDERSHOW */
+    /* =====================================================
+       UNSERE MOMENTE
+       ===================================================== */
 
     .slideshow {
       position: relative;
@@ -182,18 +368,38 @@
 
     input[type="file"] {
       max-width: 100%;
+      font-family: inherit;
     }
 
-    /* MOBILE */
+    /* =====================================================
+       MOBIL
+       ===================================================== */
 
-    @media (max-width: 600px) {
+    @media (max-width: 750px) {
 
       header h1 {
-        font-size: 32px;
+        font-size: 34px;
+      }
+
+      header p {
+        font-size: 16px;
       }
 
       .card {
         padding: 18px;
+      }
+
+      .calendar-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+      }
+
+      .calendar-year {
+        font-size: 34px;
+      }
+
+      .month h3 {
+        font-size: 28px;
       }
 
       #drawingCanvas {
@@ -207,6 +413,18 @@
       button {
         width: 100%;
       }
+
+      .year-buttons button {
+        width: auto;
+      }
+
+      .event-item {
+        flex-direction: column;
+      }
+
+      .delete-event {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -215,15 +433,86 @@
 
 <header>
   <h1>🌸 DailyDiary</h1>
-  <p>Unser gemeinsamer Ort für Gedanken, Bilder und Kreativität</p>
+  <p>Unser kleines Tagebuch</p>
 </header>
 
 <main>
 
-  <!-- TEXT -->
+  <!-- =====================================================
+       KALENDER
+       ===================================================== -->
 
   <section class="card">
-    <h2>💭 Unser Text</h2>
+
+    <div class="calendar-top">
+
+      <h2 class="calendar-year" id="calendarYear">
+        2026
+      </h2>
+
+      <div class="year-buttons">
+        <button class="secondary" onclick="changeYear(-1)">
+          ‹
+        </button>
+
+        <button class="secondary" onclick="changeYear(1)">
+          ›
+        </button>
+      </div>
+
+    </div>
+
+    <div class="calendar-divider"></div>
+
+    <div id="calendarGrid" class="calendar-grid"></div>
+
+    <div class="calendar-help">
+      Tippe auf einen Tag, um einen Termin einzutragen.
+    </div>
+
+    <div class="event-panel">
+
+      <div class="selected-date" id="selectedDate">
+        Bitte einen Tag auswählen
+      </div>
+
+      <div class="event-form">
+
+        <input
+          type="text"
+          id="eventTitle"
+          placeholder="Termin"
+        >
+
+        <textarea
+          id="eventDescription"
+          placeholder="Beschreibung (optional)"
+        ></textarea>
+
+        <button onclick="addEvent()">
+          📅 Termin speichern
+        </button>
+
+      </div>
+
+      <div class="event-list" id="eventList"></div>
+
+      <div class="save-status" id="calendarStatus">
+        Kalender wird geladen...
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       NACHRICHTEN
+       ===================================================== -->
+
+  <section class="card">
+
+    <h2>💭 Nachrichten</h2>
 
     <textarea
       id="textEditor"
@@ -233,18 +522,22 @@
     <div class="save-status" id="textStatus">
       Wird geladen...
     </div>
+
   </section>
 
 
-  <!-- ZEICHENFELD -->
+  <!-- =====================================================
+       KUNSTWERKE
+       ===================================================== -->
 
   <section class="card">
 
-    <h2>🎨 Unser Zeichenfeld</h2>
+    <h2>🎨 Kunstwerke</h2>
 
     <canvas id="drawingCanvas"></canvas>
 
     <div class="drawing-buttons">
+
       <button onclick="clearDrawing()">
         🗑️ Löschen
       </button>
@@ -252,6 +545,7 @@
       <button class="secondary" onclick="saveDrawing()">
         💾 Zeichnung speichern
       </button>
+
     </div>
 
     <div class="save-status" id="drawingStatus">
@@ -261,11 +555,13 @@
   </section>
 
 
-  <!-- BILDERSHOW -->
+  <!-- =====================================================
+       UNSERE MOMENTE
+       ===================================================== -->
 
   <section class="card">
 
-    <h2>🖼️ Unsere Bilder</h2>
+    <h2>🖼️ Unsere Momente</h2>
 
     <div class="slideshow" id="slideshow">
 
@@ -317,18 +613,15 @@
 
 <script>
 
-  /*
-   * =========================================================
-   * DEINE SUPABASE DATEN
-   * =========================================================
-   */
+  /* ========================================================
+     SUPABASE
+     ======================================================== */
 
- const SUPABASE_URL =
-  "https://cqgrtybenbanfppoiuba.supabase.co";
+  const SUPABASE_URL =
+    "https://cqgrtybenbanfppoiuba.supabase.co";
 
   const SUPABASE_ANON_KEY =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNxZ3J0eWJlbmJhbmZwcG9pdWJhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc0MzY4MTEsImV4cCI6MjEwMzAxMjgxMX0.8qwqAGwH4ylkI-b-nAgfkjJma4KbBP4we789S9pdaAk";
-
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjZ3J0eWJlbmJhbmZwcG9pdWJhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc0MzY4MTEsImV4cCI6MjEwMzAxMjgxMX0.8qwqAGwH4ylkI-b-nAgfkjJma4KbBP4we789S9pdaAk";
 
   const supabaseClient =
     supabase.createClient(
@@ -337,17 +630,642 @@
     );
 
 
-  /*
-   * =========================================================
-   * TEXT
-   * =========================================================
-   */
+  /* ========================================================
+     KALENDER
+     ======================================================== */
+
+  const MIN_YEAR = 2026;
+  const MAX_YEAR = 2030;
+
+  let selectedYear = new Date().getFullYear();
+
+  if (selectedYear < MIN_YEAR) {
+    selectedYear = MIN_YEAR;
+  }
+
+  if (selectedYear > MAX_YEAR) {
+    selectedYear = MAX_YEAR;
+  }
+
+  let selectedDate = null;
+  let calendarEvents = [];
+
+
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mär",
+    "Apr",
+    "Mai",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Okt",
+    "Nov",
+    "Dez"
+  ];
+
+
+  const weekdayNames = [
+    "So",
+    "Mo",
+    "Di",
+    "Mi",
+    "Do",
+    "Fr",
+    "Sa"
+  ];
+
+
+  function formatDate(dateString) {
+
+    const parts =
+      dateString.split("-");
+
+    return (
+      parts[2] +
+      "." +
+      parts[1] +
+      "." +
+      parts[0]
+    );
+  }
+
+
+  function dateKey(year, month, day) {
+
+    return (
+      year +
+      "-" +
+      String(month + 1).padStart(2, "0") +
+      "-" +
+      String(day).padStart(2, "0")
+    );
+
+  }
+
+
+  function renderCalendar() {
+
+    document.getElementById(
+      "calendarYear"
+    ).innerText = selectedYear;
+
+    const grid =
+      document.getElementById(
+        "calendarGrid"
+      );
+
+    grid.innerHTML = "";
+
+
+    for (
+      let month = 0;
+      month < 12;
+      month++
+    ) {
+
+      const monthBox =
+        document.createElement("div");
+
+      monthBox.className =
+        "month";
+
+
+      const title =
+        document.createElement("h3");
+
+      title.innerText =
+        monthNames[month];
+
+      monthBox.appendChild(title);
+
+
+      const weekdays =
+        document.createElement("div");
+
+      weekdays.className =
+        "weekdays";
+
+
+      weekdayNames.forEach(
+        dayName => {
+
+          const day =
+            document.createElement("div");
+
+          day.innerText =
+            dayName;
+
+          weekdays.appendChild(day);
+
+        }
+      );
+
+
+      monthBox.appendChild(
+        weekdays
+      );
+
+
+      const days =
+        document.createElement("div");
+
+      days.className =
+        "days";
+
+
+      const firstDay =
+        new Date(
+          selectedYear,
+          month,
+          1
+        ).getDay();
+
+
+      const daysInMonth =
+        new Date(
+          selectedYear,
+          month + 1,
+          0
+        ).getDate();
+
+
+      for (
+        let i = 0;
+        i < firstDay;
+        i++
+      ) {
+
+        const empty =
+          document.createElement("div");
+
+        days.appendChild(empty);
+
+      }
+
+
+      for (
+        let dayNumber = 1;
+        dayNumber <= daysInMonth;
+        dayNumber++
+      ) {
+
+        const day =
+          document.createElement("div");
+
+        day.className = "day";
+
+        day.innerText =
+          dayNumber;
+
+
+        const key =
+          dateKey(
+            selectedYear,
+            month,
+            dayNumber
+          );
+
+
+        const today =
+          new Date();
+
+
+        if (
+          today.getFullYear() === selectedYear &&
+          today.getMonth() === month &&
+          today.getDate() === dayNumber
+        ) {
+
+          day.classList.add("today");
+
+        }
+
+
+        const hasEvent =
+          calendarEvents.some(
+            event =>
+              event.event_date === key
+          );
+
+
+        if (hasEvent) {
+
+          day.classList.add(
+            "has-event"
+          );
+
+        }
+
+
+        day.onclick =
+          function() {
+
+            selectDate(key);
+
+          };
+
+
+        days.appendChild(day);
+
+      }
+
+
+      monthBox.appendChild(days);
+
+      grid.appendChild(monthBox);
+
+    }
+
+  }
+
+
+  function changeYear(amount) {
+
+    const newYear =
+      selectedYear + amount;
+
+    if (
+      newYear < MIN_YEAR ||
+      newYear > MAX_YEAR
+    ) {
+      return;
+    }
+
+    selectedYear = newYear;
+
+    selectedDate = null;
+
+    document.getElementById(
+      "eventList"
+    ).innerHTML = "";
+
+    document.getElementById(
+      "selectedDate"
+    ).innerText =
+      "Bitte einen Tag auswählen";
+
+    loadCalendarEvents();
+
+  }
+
+
+  async function loadCalendarEvents() {
+
+    document.getElementById(
+      "calendarStatus"
+    ).innerText =
+      "Kalender wird geladen...";
+
+
+    const start =
+      selectedYear + "-01-01";
+
+    const end =
+      selectedYear + "-12-31";
+
+
+    const { data, error } =
+      await supabaseClient
+        .from("calendar_events")
+        .select("*")
+        .gte("event_date", start)
+        .lte("event_date", end)
+        .order("event_date", {
+          ascending: true
+        });
+
+
+    if (error) {
+
+      console.error(error);
+
+      document.getElementById(
+        "calendarStatus"
+      ).innerText =
+        "Fehler beim Laden des Kalenders.";
+
+      renderCalendar();
+
+      return;
+
+    }
+
+
+    calendarEvents =
+      data || [];
+
+    renderCalendar();
+
+
+    document.getElementById(
+      "calendarStatus"
+    ).innerText =
+      calendarEvents.length +
+      " Termin(e) gespeichert ✓";
+
+  }
+
+
+  function selectDate(dateString) {
+
+    selectedDate =
+      dateString;
+
+
+    document.getElementById(
+      "selectedDate"
+    ).innerText =
+      "📅 " +
+      formatDate(dateString);
+
+
+    document.getElementById(
+      "eventTitle"
+    ).focus();
+
+
+    renderEventList();
+
+  }
+
+
+  function renderEventList() {
+
+    const list =
+      document.getElementById(
+        "eventList"
+      );
+
+    list.innerHTML = "";
+
+
+    if (!selectedDate) {
+      return;
+    }
+
+
+    const events =
+      calendarEvents.filter(
+        event =>
+          event.event_date ===
+          selectedDate
+      );
+
+
+    if (events.length === 0) {
+
+      const empty =
+        document.createElement("div");
+
+      empty.className =
+        "save-status";
+
+      empty.innerText =
+        "Für diesen Tag gibt es noch keinen Termin.";
+
+      list.appendChild(empty);
+
+      return;
+
+    }
+
+
+    events.forEach(
+      event => {
+
+        const item =
+          document.createElement("div");
+
+        item.className =
+          "event-item";
+
+
+        const content =
+          document.createElement("div");
+
+
+        const title =
+          document.createElement("div");
+
+        title.className =
+          "event-title";
+
+        title.innerText =
+          event.title;
+
+
+        content.appendChild(title);
+
+
+        if (event.description) {
+
+          const description =
+            document.createElement("div");
+
+          description.className =
+            "event-description";
+
+          description.innerText =
+            event.description;
+
+          content.appendChild(
+            description
+          );
+
+        }
+
+
+        const deleteButton =
+          document.createElement("button");
+
+        deleteButton.className =
+          "delete-event";
+
+        deleteButton.innerText =
+          "Löschen";
+
+        deleteButton.onclick =
+          () => deleteEvent(event.id);
+
+
+        item.appendChild(content);
+
+        item.appendChild(
+          deleteButton
+        );
+
+        list.appendChild(item);
+
+      }
+    );
+
+  }
+
+
+  async function addEvent() {
+
+    if (!selectedDate) {
+
+      alert(
+        "Bitte zuerst einen Tag auswählen."
+      );
+
+      return;
+
+    }
+
+
+    const title =
+      document.getElementById(
+        "eventTitle"
+      ).value.trim();
+
+
+    const description =
+      document.getElementById(
+        "eventDescription"
+      ).value.trim();
+
+
+    if (!title) {
+
+      alert(
+        "Bitte einen Termin eingeben."
+      );
+
+      return;
+
+    }
+
+
+    document.getElementById(
+      "calendarStatus"
+    ).innerText =
+      "Termin wird gespeichert...";
+
+
+    const { data, error } =
+      await supabaseClient
+        .from("calendar_events")
+        .insert({
+
+          event_date:
+            selectedDate,
+
+          title:
+            title,
+
+          description:
+            description
+
+        })
+        .select()
+        .single();
+
+
+    if (error) {
+
+      console.error(error);
+
+      document.getElementById(
+        "calendarStatus"
+      ).innerText =
+        "Fehler beim Speichern des Termins.";
+
+      return;
+
+    }
+
+
+    calendarEvents.push(data);
+
+
+    document.getElementById(
+      "eventTitle"
+    ).value = "";
+
+
+    document.getElementById(
+      "eventDescription"
+    ).value = "";
+
+
+    renderCalendar();
+
+    renderEventList();
+
+
+    document.getElementById(
+      "calendarStatus"
+    ).innerText =
+      "Termin gespeichert ✓";
+
+  }
+
+
+  async function deleteEvent(id) {
+
+    const confirmed =
+      confirm(
+        "Diesen Termin wirklich löschen?"
+      );
+
+
+    if (!confirmed) {
+      return;
+    }
+
+
+    const { error } =
+      await supabaseClient
+        .from("calendar_events")
+        .delete()
+        .eq("id", id);
+
+
+    if (error) {
+
+      console.error(error);
+
+      alert(
+        "Der Termin konnte nicht gelöscht werden."
+      );
+
+      return;
+
+    }
+
+
+    calendarEvents =
+      calendarEvents.filter(
+        event =>
+          event.id !== id
+      );
+
+
+    renderCalendar();
+
+    renderEventList();
+
+  }
+
+
+  /* ========================================================
+     NACHRICHTEN
+     ======================================================== */
 
   const textEditor =
-    document.getElementById("textEditor");
+    document.getElementById(
+      "textEditor"
+    );
 
   const textStatus =
-    document.getElementById("textStatus");
+    document.getElementById(
+      "textStatus"
+    );
 
 
   async function loadText() {
@@ -359,18 +1277,26 @@
         .eq("id", 1)
         .single();
 
+
     if (error) {
+
       console.error(error);
+
       textStatus.innerText =
-        "Fehler beim Laden des Textes.";
+        "Fehler beim Laden der Nachrichten.";
+
       return;
+
     }
+
 
     textEditor.value =
       data.text_content || "";
 
+
     textStatus.innerText =
-      "Text geladen ✓";
+      "Nachrichten geladen ✓";
+
   }
 
 
@@ -379,17 +1305,18 @@
 
   textEditor.addEventListener(
     "input",
-    function () {
+    function() {
 
       textStatus.innerText =
         "Speichern...";
 
       clearTimeout(saveTimer);
 
-      saveTimer = setTimeout(
-        saveText,
-        700
-      );
+      saveTimer =
+        setTimeout(
+          saveText,
+          700
+        );
 
     }
   );
@@ -401,10 +1328,13 @@
       await supabaseClient
         .from("website_content")
         .update({
+
           text_content:
             textEditor.value
+
         })
         .eq("id", 1);
+
 
     if (error) {
 
@@ -414,18 +1344,19 @@
         "Fehler beim Speichern.";
 
       return;
+
     }
+
 
     textStatus.innerText =
       "Gespeichert ✓";
+
   }
 
 
-  /*
-   * =========================================================
-   * ZEICHENFELD
-   * =========================================================
-   */
+  /* ========================================================
+     KUNSTWERKE / CANVAS
+     ======================================================== */
 
   const canvas =
     document.getElementById(
@@ -441,21 +1372,34 @@
     );
 
 
-  function resizeCanvas() {
+  let drawing = false;
 
-    const oldImage =
-      canvas.toDataURL();
+
+  function setupCanvas() {
+
+    const rect =
+      canvas.getBoundingClientRect();
+
+    const ratio =
+      window.devicePixelRatio || 1;
+
 
     canvas.width =
-      canvas.clientWidth * window.devicePixelRatio;
+      rect.width * ratio;
 
     canvas.height =
-      canvas.clientHeight * window.devicePixelRatio;
+      rect.height * ratio;
 
-    ctx.scale(
-      window.devicePixelRatio,
-      window.devicePixelRatio
+
+    ctx.setTransform(
+      ratio,
+      0,
+      0,
+      ratio,
+      0,
+      0
     );
+
 
     ctx.fillStyle =
       "#fffdf5";
@@ -463,42 +1407,18 @@
     ctx.fillRect(
       0,
       0,
-      canvas.clientWidth,
-      canvas.clientHeight
+      rect.width,
+      rect.height
     );
 
-    const img =
-      new Image();
-
-    img.onload = function () {
-
-      ctx.drawImage(
-        img,
-        0,
-        0,
-        canvas.clientWidth,
-        canvas.clientHeight
-      );
-
-    };
-
-    img.src = oldImage;
   }
-
-
-  window.addEventListener(
-    "resize",
-    resizeCanvas
-  );
-
-
-  let drawing = false;
 
 
   function getPosition(event) {
 
     const rect =
       canvas.getBoundingClientRect();
+
 
     return {
 
@@ -511,6 +1431,7 @@
         rect.top
 
     };
+
   }
 
 
@@ -524,8 +1445,10 @@
         event.pointerId
       );
 
+
       const pos =
         getPosition(event);
+
 
       ctx.beginPath();
 
@@ -542,17 +1465,26 @@
     "pointermove",
     function(event) {
 
-      if (!drawing) return;
+      if (!drawing) {
+        return;
+      }
+
 
       const pos =
         getPosition(event);
 
+
       ctx.lineWidth = 4;
 
-      ctx.lineCap = "round";
+      ctx.lineCap =
+        "round";
+
+      ctx.lineJoin =
+        "round";
 
       ctx.strokeStyle =
         "#111";
+
 
       ctx.lineTo(
         pos.x,
@@ -614,18 +1546,24 @@
       const img =
         new Image();
 
+
       img.onload =
         function() {
+
+          const rect =
+            canvas.getBoundingClientRect();
+
 
           ctx.drawImage(
             img,
             0,
             0,
-            canvas.clientWidth,
-            canvas.clientHeight
+            rect.width,
+            rect.height
           );
 
         };
+
 
       img.src =
         data.drawing_data;
@@ -634,7 +1572,8 @@
 
 
     drawingStatus.innerText =
-      "Zeichnung geladen ✓";
+      "Kunstwerk geladen ✓";
+
   }
 
 
@@ -671,39 +1610,45 @@
 
 
     drawingStatus.innerText =
-      "Zeichnung gespeichert ✓";
+      "Kunstwerk gespeichert ✓";
+
   }
 
 
   async function clearDrawing() {
 
+    const rect =
+      canvas.getBoundingClientRect();
+
+
     ctx.clearRect(
       0,
       0,
-      canvas.clientWidth,
-      canvas.clientHeight
+      rect.width,
+      rect.height
     );
+
 
     ctx.fillStyle =
       "#fffdf5";
 
+
     ctx.fillRect(
       0,
       0,
-      canvas.clientWidth,
-      canvas.clientHeight
+      rect.width,
+      rect.height
     );
+
 
     await saveDrawing();
 
   }
 
 
-  /*
-   * =========================================================
-   * BILDER
-   * =========================================================
-   */
+  /* ========================================================
+     BILDER / UNSERE MOMENTE
+     ======================================================== */
 
   const BUCKET =
     "daily-diary-images";
@@ -720,7 +1665,16 @@
       await supabaseClient
         .storage
         .from(BUCKET)
-        .list();
+        .list(
+          "",
+          {
+            limit: 100,
+            sortBy: {
+              column: "created_at",
+              order: "asc"
+            }
+          }
+        );
 
 
     if (error) {
@@ -737,7 +1691,11 @@
     }
 
 
-    images = data || [];
+    images =
+      data || [];
+
+
+    currentImage = 0;
 
     displayImages();
 
@@ -751,14 +1709,12 @@
         "slideshow"
       );
 
-    const oldImages =
-      slideshow.querySelectorAll(
-        "img"
-      );
 
-    oldImages.forEach(
-      img => img.remove()
-    );
+    slideshow
+      .querySelectorAll("img")
+      .forEach(
+        img => img.remove()
+      );
 
 
     const noImages =
@@ -798,8 +1754,10 @@
             "img"
           );
 
+
         img.src =
           data.publicUrl;
+
 
         if (
           index === currentImage
@@ -828,17 +1786,25 @@
     ).innerText =
       images.length +
       " Bild(er) vorhanden ✓";
+
   }
 
 
   function nextImage() {
 
-    if (images.length === 0)
+    if (
+      images.length === 0
+    ) {
       return;
+    }
+
 
     currentImage =
-      (currentImage + 1) %
+      (
+        currentImage + 1
+      ) %
       images.length;
+
 
     displayImages();
 
@@ -847,13 +1813,21 @@
 
   function previousImage() {
 
-    if (images.length === 0)
+    if (
+      images.length === 0
+    ) {
       return;
+    }
+
 
     currentImage =
-      (currentImage - 1 +
-       images.length) %
+      (
+        currentImage -
+        1 +
+        images.length
+      ) %
       images.length;
+
 
     displayImages();
 
@@ -937,21 +1911,27 @@
   }
 
 
-  /*
-   * =========================================================
-   * START
-   * =========================================================
-   */
+  /* ========================================================
+     START
+     ======================================================== */
 
   async function start() {
 
-    resizeCanvas();
+    setupCanvas();
 
-    await loadText();
+    renderCalendar();
 
-    await loadDrawing();
+    await Promise.all([
 
-    await loadImages();
+      loadCalendarEvents(),
+
+      loadText(),
+
+      loadDrawing(),
+
+      loadImages()
+
+    ]);
 
   }
 
