@@ -1338,10 +1338,13 @@
 
     if (error) {
 
-      console.error(error);
+  console.error(error);
 
-      textStatus.innerText =
-        "Fehler beim Speichern.";
+  textStatus.innerText =
+    "Fehler: " + error.message;
+
+  return;
+}
 
       return;
 
