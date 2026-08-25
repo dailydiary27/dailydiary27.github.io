@@ -13,7 +13,7 @@
 
     body {
       margin: 0;
-      font-family: "Cochin", Georgia, serif;
+      font-family: Georgia, "Times New Roman", serif;
       background: #f8dce8;
       color: #111;
     }
@@ -26,276 +26,128 @@
     header h1 {
       margin: 0;
       font-size: 44px;
-      font-weight: 700;
+      color: #111;
     }
 
     header p {
-      margin-top: 8px;
-      color: #555;
-      font-size: 19px;
+      margin-top: 10px;
+      color: #666;
+      font-size: 17px;
+      font-family: Arial, Helvetica, sans-serif;
     }
 
     main {
       width: 92%;
-      max-width: 1000px;
+      max-width: 900px;
       margin: auto;
       padding-bottom: 60px;
     }
 
     .card {
       background: #fffdf5;
-      border-radius: 22px;
-      padding: 25px;
+      border-radius: 26px;
+      padding: 28px;
       margin-top: 25px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      box-shadow: 0 6px 25px rgba(0,0,0,0.08);
     }
 
     .card h2 {
       margin-top: 0;
-      color: #111;
-      font-size: 30px;
-    }
-
-    /* =====================================================
-       KALENDER
-       ===================================================== */
-
-    .calendar-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 15px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-
-    .calendar-year {
-      font-size: 42px;
-      font-weight: 700;
-      margin: 0;
-    }
-
-    .year-buttons {
-      display: flex;
-      gap: 8px;
-    }
-
-    .year-buttons button {
-      width: auto;
-      min-width: 50px;
-      padding: 10px 14px;
-    }
-
-    .calendar-divider {
-      height: 1px;
-      background: #d8d1ce;
-      margin-bottom: 28px;
-    }
-
-    .calendar-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 48px 30px;
-    }
-
-    .month h3 {
       font-size: 32px;
-      margin: 0 0 14px;
-      font-weight: 700;
     }
 
-    .weekdays,
-    .days {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      text-align: center;
-    }
-
-    .weekdays {
-      margin-bottom: 6px;
-      font-size: 13px;
-      color: #777;
-    }
-
-    .day {
-      min-height: 32px;
-      font-size: 16px;
-      padding: 5px 2px;
-      border-radius: 50%;
-      cursor: pointer;
-      position: relative;
-    }
-
-    .day:hover {
-      background: #f2c8d9;
-    }
-
-    .day.today {
-      background: #df8fb0;
-      color: white;
-      font-weight: bold;
-    }
-
-    .day.has-event::after {
-      content: "";
-      position: absolute;
-      bottom: 1px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: #d46d96;
-    }
-
-    .calendar-help {
-      margin-top: 25px;
-      color: #777;
-      font-size: 15px;
-      text-align: center;
-    }
-
-    /* =====================================================
-       TERMINE
-       ===================================================== */
-
-    .event-panel {
-      border-top: 1px solid #e2d7dc;
-      margin-top: 25px;
-      padding-top: 22px;
-    }
-
-    .selected-date {
-      font-size: 22px;
-      font-weight: bold;
-      margin-bottom: 15px;
-    }
-
-    .event-form {
-      display: grid;
-      gap: 10px;
-    }
-
-    .event-form input,
-    .event-form textarea {
+    textarea {
       width: 100%;
-      border: 2px solid #e4b7c9;
-      border-radius: 12px;
-      padding: 13px;
-      font-family: inherit;
-      font-size: 17px;
-      background: #fffdf5;
-      outline: none;
-    }
-
-    .event-form textarea {
-      min-height: 90px;
+      min-height: 330px;
       resize: vertical;
-    }
 
-    .event-form input:focus,
-    .event-form textarea:focus {
-      border-color: #d979a0;
-    }
+      border: 3px solid #e4b7c9;
+      border-radius: 20px;
 
-    .event-list {
-      margin-top: 20px;
-      display: grid;
-      gap: 10px;
-    }
+      padding: 22px;
 
-    .event-item {
-      background: #f8e5ed;
-      border-radius: 14px;
-      padding: 13px;
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
-      align-items: flex-start;
-    }
-
-    .event-title {
-      font-weight: bold;
-      font-size: 18px;
-    }
-
-    .event-description {
-      margin-top: 4px;
-      color: #555;
-      white-space: pre-wrap;
-    }
-
-    .delete-event {
-      background: #d9799f;
-      padding: 8px 11px;
-      font-size: 14px;
-      width: auto;
-      flex-shrink: 0;
-    }
-
-    /* =====================================================
-       NACHRICHTEN
-       ===================================================== */
-
-    #textEditor {
-      width: 100%;
-      min-height: 300px;
-      border: 2px solid #e4b7c9;
-      border-radius: 16px;
-      padding: 18px;
       background: #fffdf5;
       color: #111;
-      font-family: inherit;
-      font-size: 19px;
+
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 22px;
       line-height: 1.6;
-      resize: vertical;
+
       outline: none;
     }
 
-    #textEditor:focus {
+    textarea:focus {
       border-color: #d979a0;
     }
 
-    .save-status {
-      margin-top: 10px;
-      color: #777;
-      font-size: 14px;
-    }
-
-    /* =====================================================
-       KUNSTWERKE
-       ===================================================== */
-
-    #drawingCanvas {
+    canvas {
       width: 100%;
-      height: 400px;
+      height: 420px;
+
       display: block;
+
       background: #fffdf5;
-      border: 2px solid #e4b7c9;
-      border-radius: 16px;
+
+      border: 3px solid #e4b7c9;
+      border-radius: 20px;
+
       touch-action: none;
     }
 
-    .drawing-buttons {
+    .status {
+      margin-top: 12px;
+
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 14px;
+
+      color: #777;
+
+      min-height: 20px;
+    }
+
+    .status.success {
+      color: #27834b;
+    }
+
+    .status.error {
+      color: #c0392b;
+    }
+
+    .status.loading {
+      color: #777;
+    }
+
+    .buttons {
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
-      margin-top: 12px;
+      margin-top: 14px;
     }
 
     button {
       border: none;
-      border-radius: 12px;
-      padding: 13px 18px;
-      font-family: inherit;
-      font-size: 17px;
+      border-radius: 14px;
+
+      padding: 13px 20px;
+
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 16px;
+
       cursor: pointer;
+
       background: #e98ab0;
       color: white;
+
+      transition: 0.2s;
     }
 
     button:hover {
       background: #d9789f;
+    }
+
+    button:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
     }
 
     .secondary {
@@ -303,17 +155,22 @@
       color: #111;
     }
 
-    /* =====================================================
-       UNSERE MOMENTE
-       ===================================================== */
+    .secondary:hover {
+      background: #e1d0d8;
+    }
 
     .slideshow {
       position: relative;
+
       width: 100%;
-      height: 420px;
+      height: 430px;
+
       background: #f4e8ed;
-      border-radius: 18px;
+
+      border-radius: 20px;
+
       overflow: hidden;
+
       display: flex;
       align-items: center;
       justify-content: center;
@@ -322,7 +179,9 @@
     .slideshow img {
       width: 100%;
       height: 100%;
+
       object-fit: contain;
+
       display: none;
     }
 
@@ -332,16 +191,27 @@
 
     .arrow {
       position: absolute;
+
       top: 50%;
       transform: translateY(-50%);
-      width: 48px;
-      height: 48px;
+
+      width: 50px;
+      height: 50px;
+
       padding: 0;
+
       border-radius: 50%;
-      background: rgba(255,255,255,0.85);
+
+      background: rgba(255,255,255,0.88);
       color: #111;
-      font-size: 25px;
+
+      font-size: 30px;
+
       z-index: 5;
+    }
+
+    .arrow:hover {
+      background: white;
     }
 
     .arrow.left {
@@ -354,55 +224,111 @@
 
     #noImages {
       color: #777;
+
       text-align: center;
+
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 16px;
+
       padding: 20px;
     }
 
     .upload-area {
-      margin-top: 15px;
+      margin-top: 16px;
+
       display: flex;
+
       gap: 10px;
+
       flex-wrap: wrap;
+
       align-items: center;
     }
 
     input[type="file"] {
       max-width: 100%;
-      font-family: inherit;
+
+      font-family: Arial, Helvetica, sans-serif;
     }
 
-    /* =====================================================
-       MOBIL
-       ===================================================== */
+    .config-warning {
+      display: none;
 
-    @media (max-width: 750px) {
+      background: #fff3cd;
+      color: #664d03;
+
+      border: 1px solid #ffecb5;
+
+      border-radius: 16px;
+
+      padding: 16px;
+
+      margin: 20px auto;
+
+      width: 92%;
+      max-width: 900px;
+
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .error-box {
+      display: none;
+
+      background: #fde2e2;
+
+      border: 1px solid #e5a4a4;
+
+      border-radius: 16px;
+
+      padding: 15px;
+
+      margin-top: 15px;
+
+      color: #8b1e1e;
+
+      font-family: Arial, Helvetica, sans-serif;
+
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .connection {
+      text-align: center;
+
+      font-family: Arial, Helvetica, sans-serif;
+
+      font-size: 13px;
+
+      color: #777;
+
+      margin-top: 25px;
+    }
+
+    @media (max-width: 600px) {
 
       header h1 {
         font-size: 34px;
       }
 
       header p {
-        font-size: 16px;
+        font-size: 15px;
       }
 
       .card {
         padding: 18px;
+        border-radius: 20px;
       }
 
-      .calendar-grid {
-        grid-template-columns: 1fr;
-        gap: 35px;
+      .card h2 {
+        font-size: 27px;
       }
 
-      .calendar-year {
-        font-size: 34px;
+      textarea {
+        min-height: 300px;
+        font-size: 19px;
       }
 
-      .month h3 {
-        font-size: 28px;
-      }
-
-      #drawingCanvas {
+      canvas {
         height: 320px;
       }
 
@@ -414,16 +340,9 @@
         width: 100%;
       }
 
-      .year-buttons button {
-        width: auto;
-      }
-
-      .event-item {
-        flex-direction: column;
-      }
-
-      .delete-event {
-        width: 100%;
+      .arrow {
+        width: 45px;
+        height: 45px;
       }
     }
   </style>
@@ -433,82 +352,22 @@
 
 <header>
   <h1>🌸 DailyDiary</h1>
-  <p>Unser kleines Tagebuch</p>
+  <p>Unser gemeinsamer Ort für Gedanken, Bilder und Kreativität</p>
 </header>
+
+<div
+  id="configWarning"
+  class="config-warning"
+>
+  ⚠️ Supabase ist noch nicht eingerichtet.
+  Bitte trage den aktuellen Publishable Key in der index.html ein.
+</div>
 
 <main>
 
-  <!-- =====================================================
-       KALENDER
-       ===================================================== -->
-
-  <section class="card">
-
-    <div class="calendar-top">
-
-      <h2 class="calendar-year" id="calendarYear">
-        2026
-      </h2>
-
-      <div class="year-buttons">
-        <button class="secondary" onclick="changeYear(-1)">
-          ‹
-        </button>
-
-        <button class="secondary" onclick="changeYear(1)">
-          ›
-        </button>
-      </div>
-
-    </div>
-
-    <div class="calendar-divider"></div>
-
-    <div id="calendarGrid" class="calendar-grid"></div>
-
-    <div class="calendar-help">
-      Tippe auf einen Tag, um einen Termin einzutragen.
-    </div>
-
-    <div class="event-panel">
-
-      <div class="selected-date" id="selectedDate">
-        Bitte einen Tag auswählen
-      </div>
-
-      <div class="event-form">
-
-        <input
-          type="text"
-          id="eventTitle"
-          placeholder="Termin"
-        >
-
-        <textarea
-          id="eventDescription"
-          placeholder="Beschreibung (optional)"
-        ></textarea>
-
-        <button onclick="addEvent()">
-          📅 Termin speichern
-        </button>
-
-      </div>
-
-      <div class="event-list" id="eventList"></div>
-
-      <div class="save-status" id="calendarStatus">
-        Kalender wird geladen...
-      </div>
-
-    </div>
-
-  </section>
-
-
-  <!-- =====================================================
-       NACHRICHTEN
-       ===================================================== -->
+  <!-- ========================= -->
+  <!-- NACHRICHTEN -->
+  <!-- ========================= -->
 
   <section class="card">
 
@@ -517,18 +376,27 @@
     <textarea
       id="textEditor"
       placeholder="Schreibe hier etwas..."
+      spellcheck="true"
     ></textarea>
 
-    <div class="save-status" id="textStatus">
-      Wird geladen...
+    <div
+      id="textStatus"
+      class="status loading"
+    >
+      Verbindung wird hergestellt...
     </div>
+
+    <div
+      id="textError"
+      class="error-box"
+    ></div>
 
   </section>
 
 
-  <!-- =====================================================
-       KUNSTWERKE
-       ===================================================== -->
+  <!-- ========================= -->
+  <!-- ZEICHNEN -->
+  <!-- ========================= -->
 
   <section class="card">
 
@@ -536,49 +404,71 @@
 
     <canvas id="drawingCanvas"></canvas>
 
-    <div class="drawing-buttons">
+    <div class="buttons">
 
-      <button onclick="clearDrawing()">
-        🗑️ Löschen
+      <button
+        id="clearDrawingButton"
+        type="button"
+      >
+        🗑️ Zeichnung löschen
       </button>
 
-      <button class="secondary" onclick="saveDrawing()">
+      <button
+        id="saveDrawingButton"
+        class="secondary"
+        type="button"
+      >
         💾 Zeichnung speichern
       </button>
 
     </div>
 
-    <div class="save-status" id="drawingStatus">
+    <div
+      id="drawingStatus"
+      class="status loading"
+    >
       Zeichnung wird geladen...
     </div>
+
+    <div
+      id="drawingError"
+      class="error-box"
+    ></div>
 
   </section>
 
 
-  <!-- =====================================================
-       UNSERE MOMENTE
-       ===================================================== -->
+  <!-- ========================= -->
+  <!-- BILDER -->
+  <!-- ========================= -->
 
   <section class="card">
 
-    <h2>🖼️ Unsere Momente</h2>
+    <h2>🖼️ Unsere Bilder</h2>
 
-    <div class="slideshow" id="slideshow">
+    <div
+      id="slideshow"
+      class="slideshow"
+    >
 
       <div id="noImages">
         Noch keine Bilder vorhanden.
       </div>
 
       <button
+        id="previousButton"
         class="arrow left"
-        onclick="previousImage()"
+        type="button"
+        aria-label="Vorheriges Bild"
       >
         ‹
       </button>
 
       <button
+        id="nextButton"
         class="arrow right"
-        onclick="nextImage()"
+        type="button"
+        aria-label="Nächstes Bild"
       >
         ›
       </button>
@@ -594,699 +484,371 @@
         multiple
       >
 
-      <button onclick="uploadImages()">
+      <button
+        id="uploadButton"
+        type="button"
+      >
         📷 Bilder hinzufügen
       </button>
 
     </div>
 
-    <div class="save-status" id="imageStatus">
+    <div
+      id="imageStatus"
+      class="status loading"
+    >
       Bilder werden geladen...
     </div>
 
+    <div
+      id="imageError"
+      class="error-box"
+    ></div>
+
   </section>
+
+  <div
+    id="connectionStatus"
+    class="connection"
+  >
+    Verbindung wird geprüft...
+  </div>
 
 </main>
 
 
+<!-- SUPABASE -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 
 <script>
 
-  /* ========================================================
-     SUPABASE
-     ======================================================== */
+"use strict";
 
-  const SUPABASE_URL =
-    "https://cqgrtybenbanfppoiuba.supabase.co";
 
-  const SUPABASE_ANON_KEY =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJjZ3J0eWJlbmJhbmZwcG9pdWJhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc0MzY4MTEsImV4cCI6MjEwMzAxMjgxMX0.8qwqAGwH4ylkI-b-nAgfkjJma4KbBP4we789S9pdaAk";
+/* =========================================================
+   SUPABASE KONFIGURATION
+   =========================================================
 
-  const supabaseClient =
-    supabase.createClient(
+   WICHTIG:
+
+   Die URL bleibt deine Projekt-URL.
+
+   Den folgenden Schlüssel bitte durch den aktuellen
+   PUBLISHABLE KEY aus:
+
+   Supabase
+   → Project Settings
+   → API Keys
+   → Publishable key
+   → default
+
+   ERSETZE NUR:
+
+   DEIN_PUBLISHABLE_KEY
+
+   NIEMALS einen service_role / secret key hier einsetzen.
+========================================================= */
+
+
+const SUPABASE_URL =
+  "https://cqgrtybenbanfppoiuba.supabase.co";
+
+
+const SUPABASE_PUBLISHABLE_KEY =
+  "DEIN_PUBLISHABLE_KEY";
+
+
+/* =========================================================
+   EINSTELLUNGEN
+========================================================= */
+
+const CONTENT_ID = 1;
+
+const BUCKET =
+  "daily-diary-images";
+
+
+/* =========================================================
+   ELEMENTE
+========================================================= */
+
+const textEditor =
+  document.getElementById("textEditor");
+
+const textStatus =
+  document.getElementById("textStatus");
+
+const textError =
+  document.getElementById("textError");
+
+
+const canvas =
+  document.getElementById("drawingCanvas");
+
+const ctx =
+  canvas.getContext("2d");
+
+const drawingStatus =
+  document.getElementById("drawingStatus");
+
+const drawingError =
+  document.getElementById("drawingError");
+
+
+const slideshow =
+  document.getElementById("slideshow");
+
+const noImages =
+  document.getElementById("noImages");
+
+const imageStatus =
+  document.getElementById("imageStatus");
+
+const imageError =
+  document.getElementById("imageError");
+
+const imageUpload =
+  document.getElementById("imageUpload");
+
+
+const uploadButton =
+  document.getElementById("uploadButton");
+
+const saveDrawingButton =
+  document.getElementById("saveDrawingButton");
+
+const clearDrawingButton =
+  document.getElementById("clearDrawingButton");
+
+const previousButton =
+  document.getElementById("previousButton");
+
+const nextButton =
+  document.getElementById("nextButton");
+
+
+const configWarning =
+  document.getElementById("configWarning");
+
+const connectionStatus =
+  document.getElementById("connectionStatus");
+
+
+/* =========================================================
+   SUPABASE CLIENT
+========================================================= */
+
+let supabaseClient = null;
+
+
+function isConfigured() {
+
+  return (
+    SUPABASE_URL &&
+    SUPABASE_PUBLISHABLE_KEY &&
+    SUPABASE_PUBLISHABLE_KEY !==
+      "DEIN_PUBLISHABLE_KEY"
+  );
+
+}
+
+
+function createSupabaseClient() {
+
+  if (!isConfigured()) {
+
+    configWarning.style.display =
+      "block";
+
+    connectionStatus.innerText =
+      "Supabase-Schlüssel fehlt.";
+
+    return null;
+  }
+
+
+  if (
+    !window.supabase ||
+    !window.supabase.createClient
+  ) {
+
+    connectionStatus.innerText =
+      "Supabase konnte nicht geladen werden.";
+
+    return null;
+  }
+
+
+  try {
+
+    return window.supabase.createClient(
       SUPABASE_URL,
-      SUPABASE_ANON_KEY
+      SUPABASE_PUBLISHABLE_KEY
     );
 
+  } catch (error) {
 
-  /* ========================================================
-     KALENDER
-     ======================================================== */
-
-  const MIN_YEAR = 2026;
-  const MAX_YEAR = 2030;
-
-  let selectedYear = new Date().getFullYear();
-
-  if (selectedYear < MIN_YEAR) {
-    selectedYear = MIN_YEAR;
-  }
-
-  if (selectedYear > MAX_YEAR) {
-    selectedYear = MAX_YEAR;
-  }
-
-  let selectedDate = null;
-  let calendarEvents = [];
-
-
-  const monthNames = [
-    "Jan",
-    "Feb",
-    "Mär",
-    "Apr",
-    "Mai",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Okt",
-    "Nov",
-    "Dez"
-  ];
-
-
-  const weekdayNames = [
-    "So",
-    "Mo",
-    "Di",
-    "Mi",
-    "Do",
-    "Fr",
-    "Sa"
-  ];
-
-
-  function formatDate(dateString) {
-
-    const parts =
-      dateString.split("-");
-
-    return (
-      parts[2] +
-      "." +
-      parts[1] +
-      "." +
-      parts[0]
-    );
-  }
-
-
-  function dateKey(year, month, day) {
-
-    return (
-      year +
-      "-" +
-      String(month + 1).padStart(2, "0") +
-      "-" +
-      String(day).padStart(2, "0")
+    console.error(
+      "Supabase Initialisierungsfehler:",
+      error
     );
 
+    connectionStatus.innerText =
+      "Supabase konnte nicht initialisiert werden.";
+
+    return null;
   }
 
-
-  function renderCalendar() {
-
-    document.getElementById(
-      "calendarYear"
-    ).innerText = selectedYear;
-
-    const grid =
-      document.getElementById(
-        "calendarGrid"
-      );
-
-    grid.innerHTML = "";
+}
 
 
-    for (
-      let month = 0;
-      month < 12;
-      month++
-    ) {
-
-      const monthBox =
-        document.createElement("div");
-
-      monthBox.className =
-        "month";
+supabaseClient =
+  createSupabaseClient();
 
 
-      const title =
-        document.createElement("h3");
+/* =========================================================
+   HILFSFUNKTIONEN
+========================================================= */
 
-      title.innerText =
-        monthNames[month];
+function showError(
+  element,
+  error,
+  fallback
+) {
 
-      monthBox.appendChild(title);
+  console.error(error);
 
-
-      const weekdays =
-        document.createElement("div");
-
-      weekdays.className =
-        "weekdays";
-
-
-      weekdayNames.forEach(
-        dayName => {
-
-          const day =
-            document.createElement("div");
-
-          day.innerText =
-            dayName;
-
-          weekdays.appendChild(day);
-
-        }
-      );
+  let message =
+    fallback || "Unbekannter Fehler.";
 
 
-      monthBox.appendChild(
-        weekdays
-      );
+  if (error) {
 
+    if (typeof error === "string") {
 
-      const days =
-        document.createElement("div");
+      message = error;
 
-      days.className =
-        "days";
+    } else if (error.message) {
 
+      message =
+        error.message;
 
-      const firstDay =
-        new Date(
-          selectedYear,
-          month,
-          1
-        ).getDay();
+    } else {
 
+      try {
 
-      const daysInMonth =
-        new Date(
-          selectedYear,
-          month + 1,
-          0
-        ).getDate();
+        message =
+          JSON.stringify(error);
 
+      } catch {
 
-      for (
-        let i = 0;
-        i < firstDay;
-        i++
-      ) {
-
-        const empty =
-          document.createElement("div");
-
-        days.appendChild(empty);
+        message =
+          fallback || "Unbekannter Fehler.";
 
       }
 
-
-      for (
-        let dayNumber = 1;
-        dayNumber <= daysInMonth;
-        dayNumber++
-      ) {
-
-        const day =
-          document.createElement("div");
-
-        day.className = "day";
-
-        day.innerText =
-          dayNumber;
-
-
-        const key =
-          dateKey(
-            selectedYear,
-            month,
-            dayNumber
-          );
-
-
-        const today =
-          new Date();
-
-
-        if (
-          today.getFullYear() === selectedYear &&
-          today.getMonth() === month &&
-          today.getDate() === dayNumber
-        ) {
-
-          day.classList.add("today");
-
-        }
-
-
-        const hasEvent =
-          calendarEvents.some(
-            event =>
-              event.event_date === key
-          );
-
-
-        if (hasEvent) {
-
-          day.classList.add(
-            "has-event"
-          );
-
-        }
-
-
-        day.onclick =
-          function() {
-
-            selectDate(key);
-
-          };
-
-
-        days.appendChild(day);
-
-      }
-
-
-      monthBox.appendChild(days);
-
-      grid.appendChild(monthBox);
-
     }
 
   }
 
 
-  function changeYear(amount) {
+  element.innerText =
+    message;
 
-    const newYear =
-      selectedYear + amount;
+  element.style.display =
+    "block";
 
-    if (
-      newYear < MIN_YEAR ||
-      newYear > MAX_YEAR
-    ) {
-      return;
-    }
+}
 
-    selectedYear = newYear;
 
-    selectedDate = null;
+function hideError(element) {
 
-    document.getElementById(
-      "eventList"
-    ).innerHTML = "";
+  element.innerText =
+    "";
 
-    document.getElementById(
-      "selectedDate"
-    ).innerText =
-      "Bitte einen Tag auswählen";
+  element.style.display =
+    "none";
 
-    loadCalendarEvents();
+}
 
-  }
 
+function setStatus(
+  element,
+  text,
+  type = ""
+) {
 
-  async function loadCalendarEvents() {
+  element.innerText =
+    text;
 
-    document.getElementById(
-      "calendarStatus"
-    ).innerText =
-      "Kalender wird geladen...";
+  element.className =
+    "status " + type;
 
+}
 
-    const start =
-      selectedYear + "-01-01";
 
-    const end =
-      selectedYear + "-12-31";
+/* =========================================================
+   TEXT LADEN
+========================================================= */
 
+async function loadText() {
 
-    const { data, error } =
-      await supabaseClient
-        .from("calendar_events")
-        .select("*")
-        .gte("event_date", start)
-        .lte("event_date", end)
-        .order("event_date", {
-          ascending: true
-        });
+  if (!supabaseClient) {
 
-
-    if (error) {
-
-      console.error(error);
-
-      document.getElementById(
-        "calendarStatus"
-      ).innerText =
-        "Fehler beim Laden des Kalenders.";
-
-      renderCalendar();
-
-      return;
-
-    }
-
-
-    calendarEvents =
-      data || [];
-
-    renderCalendar();
-
-
-    document.getElementById(
-      "calendarStatus"
-    ).innerText =
-      calendarEvents.length +
-      " Termin(e) gespeichert ✓";
-
-  }
-
-
-  function selectDate(dateString) {
-
-    selectedDate =
-      dateString;
-
-
-    document.getElementById(
-      "selectedDate"
-    ).innerText =
-      "📅 " +
-      formatDate(dateString);
-
-
-    document.getElementById(
-      "eventTitle"
-    ).focus();
-
-
-    renderEventList();
-
-  }
-
-
-  function renderEventList() {
-
-    const list =
-      document.getElementById(
-        "eventList"
-      );
-
-    list.innerHTML = "";
-
-
-    if (!selectedDate) {
-      return;
-    }
-
-
-    const events =
-      calendarEvents.filter(
-        event =>
-          event.event_date ===
-          selectedDate
-      );
-
-
-    if (events.length === 0) {
-
-      const empty =
-        document.createElement("div");
-
-      empty.className =
-        "save-status";
-
-      empty.innerText =
-        "Für diesen Tag gibt es noch keinen Termin.";
-
-      list.appendChild(empty);
-
-      return;
-
-    }
-
-
-    events.forEach(
-      event => {
-
-        const item =
-          document.createElement("div");
-
-        item.className =
-          "event-item";
-
-
-        const content =
-          document.createElement("div");
-
-
-        const title =
-          document.createElement("div");
-
-        title.className =
-          "event-title";
-
-        title.innerText =
-          event.title;
-
-
-        content.appendChild(title);
-
-
-        if (event.description) {
-
-          const description =
-            document.createElement("div");
-
-          description.className =
-            "event-description";
-
-          description.innerText =
-            event.description;
-
-          content.appendChild(
-            description
-          );
-
-        }
-
-
-        const deleteButton =
-          document.createElement("button");
-
-        deleteButton.className =
-          "delete-event";
-
-        deleteButton.innerText =
-          "Löschen";
-
-        deleteButton.onclick =
-          () => deleteEvent(event.id);
-
-
-        item.appendChild(content);
-
-        item.appendChild(
-          deleteButton
-        );
-
-        list.appendChild(item);
-
-      }
+    setStatus(
+      textStatus,
+      "Supabase ist nicht eingerichtet.",
+      "error"
     );
 
+    return;
   }
 
 
-  async function addEvent() {
+  hideError(textError);
 
-    if (!selectedDate) {
 
-      alert(
-        "Bitte zuerst einen Tag auswählen."
-      );
+  setStatus(
+    textStatus,
+    "Nachrichten werden geladen...",
+    "loading"
+  );
 
-      return;
 
-    }
+  try {
 
-
-    const title =
-      document.getElementById(
-        "eventTitle"
-      ).value.trim();
-
-
-    const description =
-      document.getElementById(
-        "eventDescription"
-      ).value.trim();
-
-
-    if (!title) {
-
-      alert(
-        "Bitte einen Termin eingeben."
-      );
-
-      return;
-
-    }
-
-
-    document.getElementById(
-      "calendarStatus"
-    ).innerText =
-      "Termin wird gespeichert...";
-
-
-    const { data, error } =
-      await supabaseClient
-        .from("calendar_events")
-        .insert({
-
-          event_date:
-            selectedDate,
-
-          title:
-            title,
-
-          description:
-            description
-
-        })
-        .select()
-        .single();
-
-
-    if (error) {
-
-      console.error(error);
-
-      document.getElementById(
-        "calendarStatus"
-      ).innerText =
-        "Fehler beim Speichern des Termins.";
-
-      return;
-
-    }
-
-
-    calendarEvents.push(data);
-
-
-    document.getElementById(
-      "eventTitle"
-    ).value = "";
-
-
-    document.getElementById(
-      "eventDescription"
-    ).value = "";
-
-
-    renderCalendar();
-
-    renderEventList();
-
-
-    document.getElementById(
-      "calendarStatus"
-    ).innerText =
-      "Termin gespeichert ✓";
-
-  }
-
-
-  async function deleteEvent(id) {
-
-    const confirmed =
-      confirm(
-        "Diesen Termin wirklich löschen?"
-      );
-
-
-    if (!confirmed) {
-      return;
-    }
-
-
-    const { error } =
-      await supabaseClient
-        .from("calendar_events")
-        .delete()
-        .eq("id", id);
-
-
-    if (error) {
-
-      console.error(error);
-
-      alert(
-        "Der Termin konnte nicht gelöscht werden."
-      );
-
-      return;
-
-    }
-
-
-    calendarEvents =
-      calendarEvents.filter(
-        event =>
-          event.id !== id
-      );
-
-
-    renderCalendar();
-
-    renderEventList();
-
-  }
-
-
-  /* ========================================================
-     NACHRICHTEN
-     ======================================================== */
-
-  const textEditor =
-    document.getElementById(
-      "textEditor"
-    );
-
-  const textStatus =
-    document.getElementById(
-      "textStatus"
-    );
-
-
-  async function loadText() {
-
-    const { data, error } =
+    const {
+      data,
+      error
+    } =
       await supabaseClient
         .from("website_content")
-        .select("text_content")
-        .eq("id", 1)
-        .single();
+        .select("id, text_content")
+        .eq("id", CONTENT_ID)
+        .maybeSingle();
 
 
     if (error) {
 
-      console.error(error);
+      throw error;
 
-      textStatus.innerText =
-  "Fehler: " + error.message;
+    }
+
+
+    if (!data) {
+
+      setStatus(
+        textStatus,
+        "Noch kein Nachrichten-Eintrag vorhanden.",
+        "loading"
+      );
+
+      textEditor.value =
+        "";
 
       return;
-
     }
 
 
@@ -1294,257 +856,551 @@
       data.text_content || "";
 
 
-    textStatus.innerText =
-      "Nachrichten geladen ✓";
+    setStatus(
+      textStatus,
+      "Nachrichten geladen ✓",
+      "success"
+    );
+
+
+  } catch (error) {
+
+    showError(
+      textError,
+      error,
+      "Nachrichten konnten nicht geladen werden."
+    );
+
+
+    setStatus(
+      textStatus,
+      "Fehler beim Laden.",
+      "error"
+    );
 
   }
 
-
-  let saveTimer;
-
-
-  textEditor.addEventListener(
-    "input",
-    function() {
-
-      textStatus.innerText =
-        "Speichern...";
-
-      clearTimeout(saveTimer);
-
-      saveTimer =
-        setTimeout(
-          saveText,
-          700
-        );
-
-    }
-  );
+}
 
 
-  async function saveText() {
+/* =========================================================
+   TEXT SPEICHERN
+========================================================= */
 
-    const { error } =
+let textSaveTimer = null;
+
+let textSaving = false;
+
+
+textEditor.addEventListener(
+  "input",
+  function() {
+
+    setStatus(
+      textStatus,
+      "Speichern...",
+      "loading"
+    );
+
+
+    clearTimeout(
+      textSaveTimer
+    );
+
+
+    textSaveTimer =
+      setTimeout(
+        saveText,
+        800
+      );
+
+  }
+);
+
+
+async function saveText() {
+
+  if (!supabaseClient) {
+
+    setStatus(
+      textStatus,
+      "Supabase ist nicht eingerichtet.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  if (textSaving)
+    return;
+
+
+  textSaving = true;
+
+  hideError(textError);
+
+
+  try {
+
+    const {
+      data,
+      error
+    } =
       await supabaseClient
         .from("website_content")
         .update({
-
           text_content:
             textEditor.value
-
         })
-        .eq("id", 1);
+        .eq("id", CONTENT_ID)
+        .select("id");
 
 
     if (error) {
 
-  console.error(error);
-
-  textStatus.innerText =
-    "Fehler: " + error.message;
-
-  return;
-}
-
-      return;
+      throw error;
 
     }
 
 
-    textStatus.innerText =
-      "Gespeichert ✓";
+    if (!data || data.length === 0) {
+
+      throw new Error(
+        "Der Text konnte nicht gespeichert werden. " +
+        "Prüfe in Supabase die RLS-Policy für UPDATE auf website_content."
+      );
+
+    }
+
+
+    setStatus(
+      textStatus,
+      "Gespeichert ✓",
+      "success"
+    );
+
+
+  } catch (error) {
+
+    showError(
+      textError,
+      error,
+      "Fehler beim Speichern des Textes."
+    );
+
+
+    setStatus(
+      textStatus,
+      "Fehler beim Speichern.",
+      "error"
+    );
+
+  } finally {
+
+    textSaving = false;
 
   }
 
+}
 
-  /* ========================================================
-     KUNSTWERKE / CANVAS
-     ======================================================== */
 
-  const canvas =
-    document.getElementById(
-      "drawingCanvas"
+/* =========================================================
+   CANVAS
+========================================================= */
+
+let drawing = false;
+
+let drawingDirty = false;
+
+
+function prepareCanvas() {
+
+  const rect =
+    canvas.getBoundingClientRect();
+
+
+  const width =
+    Math.max(
+      1,
+      Math.floor(rect.width)
     );
 
-  const ctx =
-    canvas.getContext("2d");
 
-  const drawingStatus =
-    document.getElementById(
-      "drawingStatus"
+  const height =
+    Math.max(
+      1,
+      Math.floor(rect.height)
     );
 
 
-  let drawing = false;
+  const oldCanvas =
+    document.createElement("canvas");
 
 
-  function setupCanvas() {
+  oldCanvas.width =
+    canvas.width;
 
-    const rect =
-      canvas.getBoundingClientRect();
-
-    const ratio =
-      window.devicePixelRatio || 1;
+  oldCanvas.height =
+    canvas.height;
 
 
-    canvas.width =
-      rect.width * ratio;
+  if (
+    canvas.width > 0 &&
+    canvas.height > 0
+  ) {
 
-    canvas.height =
-      rect.height * ratio;
+    const oldCtx =
+      oldCanvas.getContext("2d");
 
-
-    ctx.setTransform(
-      ratio,
-      0,
-      0,
-      ratio,
+    oldCtx.drawImage(
+      canvas,
       0,
       0
     );
 
-
-    ctx.fillStyle =
-      "#fffdf5";
-
-    ctx.fillRect(
-      0,
-      0,
-      rect.width,
-      rect.height
-    );
-
   }
 
 
-  function getPosition(event) {
-
-    const rect =
-      canvas.getBoundingClientRect();
+  const dpr =
+    window.devicePixelRatio || 1;
 
 
-    return {
+  canvas.width =
+    Math.floor(width * dpr);
 
-      x:
-        event.clientX -
-        rect.left,
+  canvas.height =
+    Math.floor(height * dpr);
 
-      y:
-        event.clientY -
-        rect.top
 
-    };
+  ctx.setTransform(
+    dpr,
+    0,
+    0,
+    dpr,
+    0,
+    0
+  );
+
+
+  ctx.fillStyle =
+    "#fffdf5";
+
+
+  ctx.fillRect(
+    0,
+    0,
+    width,
+    height
+  );
+
+
+  if (
+    oldCanvas.width > 0 &&
+    oldCanvas.height > 0
+  ) {
+
+    try {
+
+      ctx.drawImage(
+        oldCanvas,
+        0,
+        0,
+        oldCanvas.width / dpr,
+        oldCanvas.height / dpr,
+        0,
+        0,
+        width,
+        height
+      );
+
+    } catch (error) {
+
+      console.warn(
+        "Alte Zeichnung konnte nicht übernommen werden.",
+        error
+      );
+
+    }
 
   }
 
+}
 
-  canvas.addEventListener(
-    "pointerdown",
-    function(event) {
 
-      drawing = true;
+function clearCanvasOnly() {
+
+  const width =
+    canvas.clientWidth;
+
+  const height =
+    canvas.clientHeight;
+
+
+  ctx.clearRect(
+    0,
+    0,
+    width,
+    height
+  );
+
+
+  ctx.fillStyle =
+    "#fffdf5";
+
+
+  ctx.fillRect(
+    0,
+    0,
+    width,
+    height
+  );
+
+}
+
+
+function getCanvasPosition(event) {
+
+  const rect =
+    canvas.getBoundingClientRect();
+
+
+  return {
+
+    x:
+      event.clientX -
+      rect.left,
+
+    y:
+      event.clientY -
+      rect.top
+
+  };
+
+}
+
+
+canvas.addEventListener(
+  "pointerdown",
+  function(event) {
+
+    event.preventDefault();
+
+
+    drawing = true;
+
+    drawingDirty = true;
+
+
+    try {
 
       canvas.setPointerCapture(
         event.pointerId
       );
 
+    } catch {
 
-      const pos =
-        getPosition(event);
-
-
-      ctx.beginPath();
-
-      ctx.moveTo(
-        pos.x,
-        pos.y
-      );
-
+      // nicht kritisch
     }
+
+
+    const position =
+      getCanvasPosition(event);
+
+
+    ctx.beginPath();
+
+    ctx.moveTo(
+      position.x,
+      position.y
+    );
+
+  }
+);
+
+
+canvas.addEventListener(
+  "pointermove",
+  function(event) {
+
+    if (!drawing)
+      return;
+
+
+    event.preventDefault();
+
+
+    const position =
+      getCanvasPosition(event);
+
+
+    ctx.lineWidth =
+      4;
+
+    ctx.lineCap =
+      "round";
+
+    ctx.lineJoin =
+      "round";
+
+    ctx.strokeStyle =
+      "#111";
+
+
+    ctx.lineTo(
+      position.x,
+      position.y
+    );
+
+
+    ctx.stroke();
+
+  }
+);
+
+
+async function finishDrawing() {
+
+  if (!drawing)
+    return;
+
+
+  drawing = false;
+
+
+  if (drawingDirty) {
+
+    drawingDirty = false;
+
+    await saveDrawing();
+
+  }
+
+}
+
+
+canvas.addEventListener(
+  "pointerup",
+  finishDrawing
+);
+
+
+canvas.addEventListener(
+  "pointercancel",
+  function() {
+
+    drawing = false;
+
+  }
+);
+
+
+window.addEventListener(
+  "resize",
+  function() {
+
+    prepareCanvas();
+
+  }
+);
+
+
+/* =========================================================
+   ZEICHNUNG LADEN
+========================================================= */
+
+async function loadDrawing() {
+
+  if (!supabaseClient) {
+
+    setStatus(
+      drawingStatus,
+      "Supabase ist nicht eingerichtet.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  hideError(drawingError);
+
+
+  setStatus(
+    drawingStatus,
+    "Zeichnung wird geladen...",
+    "loading"
   );
 
 
-  canvas.addEventListener(
-    "pointermove",
-    function(event) {
+  try {
 
-      if (!drawing) {
-        return;
-      }
-
-
-      const pos =
-        getPosition(event);
-
-
-      ctx.lineWidth = 4;
-
-      ctx.lineCap =
-        "round";
-
-      ctx.lineJoin =
-        "round";
-
-      ctx.strokeStyle =
-        "#111";
-
-
-      ctx.lineTo(
-        pos.x,
-        pos.y
-      );
-
-      ctx.stroke();
-
-    }
-  );
-
-
-  canvas.addEventListener(
-    "pointerup",
-    function() {
-
-      drawing = false;
-
-      saveDrawing();
-
-    }
-  );
-
-
-  canvas.addEventListener(
-    "pointercancel",
-    function() {
-
-      drawing = false;
-
-    }
-  );
-
-
-  async function loadDrawing() {
-
-    const { data, error } =
+    const {
+      data,
+      error
+    } =
       await supabaseClient
         .from("website_content")
         .select("drawing_data")
-        .eq("id", 1)
-        .single();
+        .eq("id", CONTENT_ID)
+        .maybeSingle();
 
 
     if (error) {
 
-      console.error(error);
-
-      drawingStatus.innerText =
-        "Fehler beim Laden.";
-
-      return;
+      throw error;
 
     }
 
 
-    if (data.drawing_data) {
+    clearCanvasOnly();
+
+
+    if (
+      data &&
+      data.drawing_data
+    ) {
+
+      await loadImageIntoCanvas(
+        data.drawing_data
+      );
+
+    }
+
+
+    setStatus(
+      drawingStatus,
+      "Zeichnung geladen ✓",
+      "success"
+    );
+
+
+  } catch (error) {
+
+    showError(
+      drawingError,
+      error,
+      "Zeichnung konnte nicht geladen werden."
+    );
+
+
+    setStatus(
+      drawingStatus,
+      "Fehler beim Laden der Zeichnung.",
+      "error"
+    );
+
+  }
+
+}
+
+
+function loadImageIntoCanvas(
+  source
+) {
+
+  return new Promise(
+    function(resolve, reject) {
 
       const img =
         new Image();
@@ -1553,34 +1409,78 @@
       img.onload =
         function() {
 
-          const rect =
-            canvas.getBoundingClientRect();
+          const width =
+            canvas.clientWidth;
+
+          const height =
+            canvas.clientHeight;
 
 
           ctx.drawImage(
             img,
             0,
             0,
-            rect.width,
-            rect.height
+            width,
+            height
+          );
+
+
+          resolve();
+
+        };
+
+
+      img.onerror =
+        function() {
+
+          reject(
+            new Error(
+              "Die gespeicherte Zeichnung ist ungültig."
+            )
           );
 
         };
 
 
       img.src =
-        data.drawing_data;
+        source;
 
     }
+  );
+
+}
 
 
-    drawingStatus.innerText =
-      "Kunstwerk geladen ✓";
+/* =========================================================
+   ZEICHNUNG SPEICHERN
+========================================================= */
+
+async function saveDrawing() {
+
+  if (!supabaseClient) {
+
+    setStatus(
+      drawingStatus,
+      "Supabase ist nicht eingerichtet.",
+      "error"
+    );
+
+    return;
 
   }
 
 
-  async function saveDrawing() {
+  hideError(drawingError);
+
+
+  setStatus(
+    drawingStatus,
+    "Zeichnung wird gespeichert...",
+    "loading"
+  );
+
+
+  try {
 
     const image =
       canvas.toDataURL(
@@ -1588,83 +1488,129 @@
       );
 
 
-    const { error } =
+    const {
+      data,
+      error
+    } =
       await supabaseClient
         .from("website_content")
         .update({
-
           drawing_data:
             image
-
         })
-        .eq("id", 1);
+        .eq("id", CONTENT_ID)
+        .select("id");
 
 
     if (error) {
 
-      console.error(error);
-
-      drawingStatus.innerText =
-        "Fehler beim Speichern.";
-
-      return;
+      throw error;
 
     }
 
 
-    drawingStatus.innerText =
-      "Kunstwerk gespeichert ✓";
+    if (!data || data.length === 0) {
+
+      throw new Error(
+        "Die Zeichnung wurde nicht gespeichert. " +
+        "Prüfe die RLS-Policy für UPDATE auf website_content."
+      );
+
+    }
+
+
+    setStatus(
+      drawingStatus,
+      "Zeichnung gespeichert ✓",
+      "success"
+    );
+
+
+  } catch (error) {
+
+    showError(
+      drawingError,
+      error,
+      "Fehler beim Speichern der Zeichnung."
+    );
+
+
+    setStatus(
+      drawingStatus,
+      "Fehler beim Speichern.",
+      "error"
+    );
 
   }
 
-
-  async function clearDrawing() {
-
-    const rect =
-      canvas.getBoundingClientRect();
+}
 
 
-    ctx.clearRect(
-      0,
-      0,
-      rect.width,
-      rect.height
-    );
+/* =========================================================
+   ZEICHNUNG LÖSCHEN
+========================================================= */
 
+clearDrawingButton.addEventListener(
+  "click",
+  async function() {
 
-    ctx.fillStyle =
-      "#fffdf5";
-
-
-    ctx.fillRect(
-      0,
-      0,
-      rect.width,
-      rect.height
-    );
-
+    clearCanvasOnly();
 
     await saveDrawing();
 
   }
+);
 
 
-  /* ========================================================
-     BILDER / UNSERE MOMENTE
-     ======================================================== */
-
-  const BUCKET =
-    "daily-diary-images";
+saveDrawingButton.addEventListener(
+  "click",
+  saveDrawing
+);
 
 
-  let images = [];
+/* =========================================================
+   BILDER
+========================================================= */
 
-  let currentImage = 0;
+let images = [];
+
+let currentImage = 0;
 
 
-  async function loadImages() {
+/* =========================================================
+   BILDER LADEN
+========================================================= */
 
-    const { data, error } =
+async function loadImages() {
+
+  if (!supabaseClient) {
+
+    setStatus(
+      imageStatus,
+      "Supabase ist nicht eingerichtet.",
+      "error"
+    );
+
+    return;
+  }
+
+
+  hideError(imageError);
+
+
+  setStatus(
+    imageStatus,
+    "Bilder werden geladen...",
+    "loading"
+  );
+
+
+  try {
+
+    const {
+      data,
+      error
+    } =
       await supabaseClient
         .storage
         .from(BUCKET)
@@ -1672,9 +1618,10 @@
           "",
           {
             limit: 100,
+            offset: 0,
             sortBy: {
               column: "created_at",
-              order: "asc"
+              order: "desc"
             }
           }
         );
@@ -1682,124 +1629,186 @@
 
     if (error) {
 
-      console.error(error);
-
-      document.getElementById(
-        "imageStatus"
-      ).innerText =
-        "Fehler beim Laden der Bilder.";
-
-      return;
+      throw error;
 
     }
 
 
     images =
-      data || [];
+      (data || [])
+        .filter(
+          file =>
+            file &&
+            file.name &&
+            !file.name.endsWith("/")
+        );
 
 
     currentImage = 0;
 
+
     displayImages();
-
-  }
-
-
-  function displayImages() {
-
-    const slideshow =
-      document.getElementById(
-        "slideshow"
-      );
-
-
-    slideshow
-      .querySelectorAll("img")
-      .forEach(
-        img => img.remove()
-      );
-
-
-    const noImages =
-      document.getElementById(
-        "noImages"
-      );
 
 
     if (images.length === 0) {
 
-      noImages.style.display =
-        "block";
+      setStatus(
+        imageStatus,
+        "Noch keine Bilder vorhanden.",
+        "loading"
+      );
 
-      return;
+    } else {
+
+      setStatus(
+        imageStatus,
+        images.length +
+        " Bild(er) vorhanden ✓",
+        "success"
+      );
 
     }
 
 
-    noImages.style.display =
-      "none";
+  } catch (error) {
 
-
-    images.forEach(
-      function(file, index) {
-
-        const { data } =
-          supabaseClient
-            .storage
-            .from(BUCKET)
-            .getPublicUrl(
-              file.name
-            );
-
-
-        const img =
-          document.createElement(
-            "img"
-          );
-
-
-        img.src =
-          data.publicUrl;
-
-
-        if (
-          index === currentImage
-        ) {
-
-          img.classList.add(
-            "active"
-          );
-
-        }
-
-
-        slideshow.insertBefore(
-          img,
-          slideshow.querySelector(
-            ".arrow.left"
-          )
-        );
-
-      }
+    showError(
+      imageError,
+      error,
+      "Bilder konnten nicht geladen werden."
     );
 
 
-    document.getElementById(
-      "imageStatus"
-    ).innerText =
-      images.length +
-      " Bild(er) vorhanden ✓";
+    setStatus(
+      imageStatus,
+      "Fehler beim Laden der Bilder.",
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   BILDER ANZEIGEN
+========================================================= */
+
+function displayImages() {
+
+  const oldImages =
+    slideshow.querySelectorAll(
+      "img"
+    );
+
+
+  oldImages.forEach(
+    function(img) {
+
+      img.remove();
+
+    }
+  );
+
+
+  if (images.length === 0) {
+
+    noImages.style.display =
+      "block";
+
+    return;
 
   }
 
 
-  function nextImage() {
+  noImages.style.display =
+    "none";
 
-    if (
-      images.length === 0
-    ) {
-      return;
+
+  images.forEach(
+    function(file, index) {
+
+      const result =
+        supabaseClient
+          .storage
+          .from(BUCKET)
+          .getPublicUrl(
+            file.name
+          );
+
+
+      const publicUrl =
+        result &&
+        result.data
+          ? result.data.publicUrl
+          : null;
+
+
+      if (!publicUrl)
+        return;
+
+
+      const img =
+        document.createElement(
+          "img"
+        );
+
+
+      img.alt =
+        "DailyDiary Bild";
+
+
+      img.loading =
+        "lazy";
+
+
+      img.src =
+        publicUrl;
+
+
+      img.onerror =
+        function() {
+
+          console.error(
+            "Bild konnte nicht geladen werden:",
+            publicUrl
+          );
+
+        };
+
+
+      if (
+        index === currentImage
+      ) {
+
+        img.classList.add(
+          "active"
+        );
+
+      }
+
+
+      slideshow.insertBefore(
+        img,
+        previousButton
+      );
+
     }
+  );
+
+}
+
+
+/* =========================================================
+   NÄCHSTES BILD
+========================================================= */
+
+nextButton.addEventListener(
+  "click",
+  function() {
+
+    if (images.length === 0)
+      return;
 
 
     currentImage =
@@ -1812,15 +1821,19 @@
     displayImages();
 
   }
+);
 
 
-  function previousImage() {
+/* =========================================================
+   VORHERIGES BILD
+========================================================= */
 
-    if (
-      images.length === 0
-    ) {
+previousButton.addEventListener(
+  "click",
+  function() {
+
+    if (images.length === 0)
       return;
-    }
 
 
     currentImage =
@@ -1835,111 +1848,320 @@
     displayImages();
 
   }
+);
 
 
-  async function uploadImages() {
+/* =========================================================
+   BILDER HOCHLADEN
+========================================================= */
 
-    const input =
-      document.getElementById(
-        "imageUpload"
-      );
-
-
-    if (
-      !input.files ||
-      input.files.length === 0
-    ) {
-
-      alert(
-        "Bitte zuerst ein Bild auswählen."
-      );
-
-      return;
-
-    }
+uploadButton.addEventListener(
+  "click",
+  uploadImages
+);
 
 
-    const status =
-      document.getElementById(
-        "imageStatus"
-      );
+async function uploadImages() {
+
+  if (!supabaseClient) {
+
+    setStatus(
+      imageStatus,
+      "Supabase ist nicht eingerichtet.",
+      "error"
+    );
+
+    return;
+
+  }
 
 
-    status.innerText =
-      "Bilder werden hochgeladen...";
+  hideError(imageError);
 
+
+  const files =
+    Array.from(
+      imageUpload.files || []
+    );
+
+
+  if (files.length === 0) {
+
+    alert(
+      "Bitte zuerst mindestens ein Bild auswählen."
+    );
+
+    return;
+
+  }
+
+
+  uploadButton.disabled =
+    true;
+
+
+  setStatus(
+    imageStatus,
+    "Bilder werden hochgeladen...",
+    "loading"
+  );
+
+
+  try {
 
     for (
-      const file of input.files
+      let i = 0;
+      i < files.length;
+      i++
     ) {
+
+      const file =
+        files[i];
+
+
+      if (
+        !file.type.startsWith(
+          "image/"
+        )
+      ) {
+
+        throw new Error(
+          file.name +
+          " ist keine gültige Bilddatei."
+        );
+
+      }
+
+
+      const safeName =
+        file.name
+          .replace(
+            /[^a-zA-Z0-9._-]/g,
+            "_"
+          );
+
 
       const fileName =
         Date.now() +
         "-" +
         Math.random()
           .toString(36)
-          .substring(2) +
+          .substring(2, 10) +
         "-" +
-        file.name;
+        safeName;
 
 
-      const { error } =
+      setStatus(
+        imageStatus,
+        "Bild " +
+        (i + 1) +
+        " von " +
+        files.length +
+        " wird hochgeladen...",
+        "loading"
+      );
+
+
+      const {
+        error
+      } =
         await supabaseClient
           .storage
           .from(BUCKET)
           .upload(
             fileName,
-            file
+            file,
+            {
+              cacheControl:
+                "3600",
+
+              upsert:
+                false
+            }
           );
 
 
       if (error) {
 
-        console.error(error);
-
-        status.innerText =
-          "Fehler beim Hochladen.";
-
-        return;
+        throw error;
 
       }
 
     }
 
 
-    input.value = "";
+    imageUpload.value =
+      "";
+
 
     await loadImages();
 
+
+    setStatus(
+      imageStatus,
+      "Bilder erfolgreich hochgeladen ✓",
+      "success"
+    );
+
+
+  } catch (error) {
+
+    showError(
+      imageError,
+      error,
+      "Fehler beim Hochladen der Bilder."
+    );
+
+
+    setStatus(
+      imageStatus,
+      "Fehler beim Hochladen.",
+      "error"
+    );
+
+  } finally {
+
+    uploadButton.disabled =
+      false;
+
+  }
+
+}
+
+
+/* =========================================================
+   VERBINDUNGSTEST
+========================================================= */
+
+async function testConnection() {
+
+  if (!supabaseClient) {
+
+    connectionStatus.innerText =
+      "⚠️ Supabase-Schlüssel fehlt.";
+
+    return false;
+
   }
 
 
-  /* ========================================================
-     START
-     ======================================================== */
+  try {
 
-  async function start() {
+    const {
+      error
+    } =
+      await supabaseClient
+        .from("website_content")
+        .select("id")
+        .eq("id", CONTENT_ID)
+        .limit(1);
 
-    setupCanvas();
 
-    renderCalendar();
+    if (error) {
 
-    await Promise.all([
+      console.error(
+        "Verbindungstest:",
+        error
+      );
 
-      loadCalendarEvents(),
 
-      loadText(),
+      if (
+        error.message &&
+        error.message
+          .toLowerCase()
+          .includes(
+            "invalid api key"
+          )
+      ) {
 
-      loadDrawing(),
+        connectionStatus.innerText =
+          "❌ Ungültiger Supabase API-Key.";
 
-      loadImages()
+      } else {
 
-    ]);
+        connectionStatus.innerText =
+          "⚠️ Supabase erreichbar, aber Zugriff wird blockiert.";
+
+      }
+
+
+      return false;
+
+    }
+
+
+    connectionStatus.innerText =
+      "🟢 Mit Supabase verbunden";
+
+
+    return true;
+
+
+  } catch (error) {
+
+    console.error(
+      error
+    );
+
+
+    connectionStatus.innerText =
+      "❌ Verbindung zu Supabase fehlgeschlagen.";
+
+
+    return false;
+
+  }
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+async function start() {
+
+  prepareCanvas();
+
+
+  if (!supabaseClient) {
+
+    setStatus(
+      textStatus,
+      "Supabase-Schlüssel fehlt.",
+      "error"
+    );
+
+    setStatus(
+      drawingStatus,
+      "Supabase-Schlüssel fehlt.",
+      "error"
+    );
+
+    setStatus(
+      imageStatus,
+      "Supabase-Schlüssel fehlt.",
+      "error"
+    );
+
+    return;
 
   }
 
 
-  start();
+  await testConnection();
+
+
+  await Promise.all([
+    loadText(),
+    loadDrawing(),
+    loadImages()
+  ]);
+
+}
+
+
+start();
 
 </script>
 
