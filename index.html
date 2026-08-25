@@ -11,14 +11,9 @@
       box-sizing: border-box;
     }
 
-    @font-face {
-      font-family: "CochinLocal";
-      src: local("Cochin");
-    }
-
     body {
       margin: 0;
-      font-family: "CochinLocal", Cochin, Georgia, "Times New Roman", serif;
+      font-family: Cochin, Georgia, "Times New Roman", serif;
       background: #f8dce8;
       color: #111;
     }
@@ -36,7 +31,7 @@
     header p {
       margin-top: 10px;
       color: #666;
-      font-size: 18px;
+      font-size: 19px;
     }
 
     main {
@@ -51,7 +46,7 @@
       border-radius: 26px;
       padding: 28px;
       margin-top: 25px;
-      box-shadow: 0 6px 25px rgba(0,0,0,.08);
+      box-shadow: 0 6px 25px rgba(0,0,0,0.08);
     }
 
     .card h2 {
@@ -59,163 +54,78 @@
       font-size: 32px;
     }
 
-    /* =========================
-       KALENDER
-    ========================= */
+    /* =====================================================
+       NACHRICHTEN
+    ===================================================== */
 
-    .calendar-controls {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-
-    .calendar-controls button {
-      width: 45px;
-      height: 45px;
-      padding: 0;
-      border-radius: 50%;
-    }
-
-    #calendarTitle {
-      margin: 0;
-      text-align: center;
-      font-size: 28px;
-    }
-
-    .calendar-weekdays,
-    .calendar-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 7px;
-    }
-
-    .calendar-weekdays div {
-      text-align: center;
-      font-weight: bold;
-      padding: 8px 2px;
-      color: #777;
-    }
-
-    .calendar-day {
-      min-height: 75px;
-      background: #fff;
-      border: 2px solid #ead3dc;
-      border-radius: 13px;
-      padding: 7px;
-      cursor: pointer;
-      position: relative;
-      transition: .15s;
-    }
-
-    .calendar-day:hover {
-      border-color: #d979a0;
-      transform: translateY(-1px);
-    }
-
-    .calendar-day.empty {
-      background: transparent;
-      border: none;
-      cursor: default;
-    }
-
-    .calendar-day.today {
-      border-color: #e98ab0;
-      background: #fff1f6;
-    }
-
-    .day-number {
-      font-weight: bold;
-      font-size: 17px;
-    }
-
-    .event-dot {
-      margin-top: 7px;
-      background: #e98ab0;
-      color: white;
-      border-radius: 8px;
-      padding: 3px 5px;
-      font-size: 12px;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-
-    .year-select {
-      width: 120px;
-      padding: 10px;
-      border-radius: 12px;
-      border: 2px solid #e4b7c9;
-      background: white;
-      font-family: inherit;
-      font-size: 16px;
-    }
-
-    .event-form {
-      margin-top: 20px;
-      padding: 18px;
-      background: #f9edf2;
-      border-radius: 18px;
-      display: none;
-    }
-
-    .event-form.show {
-      display: block;
-    }
-
-    .selected-date {
-      font-weight: bold;
-      margin-bottom: 12px;
-    }
-
-    .event-input {
+    textarea {
       width: 100%;
-      padding: 13px;
-      border-radius: 12px;
-      border: 2px solid #e4b7c9;
-      font-family: inherit;
-      font-size: 17px;
-      background: white;
-    }
+      min-height: 330px;
+      resize: vertical;
 
-    .event-list {
-      margin-top: 15px;
-    }
+      border: 3px solid #e4b7c9;
+      border-radius: 20px;
 
-    .event-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      background: white;
-      border: 1px solid #ead3dc;
-      border-radius: 12px;
-      padding: 10px 12px;
-      margin-top: 8px;
-    }
+      padding: 22px;
 
-    .delete-event {
-      background: #eee1e7;
+      background: #fffdf5;
       color: #111;
-      padding: 7px 10px;
-      font-size: 13px;
+
+      font-family: Cochin, Georgia, "Times New Roman", serif;
+      font-size: 22px;
+      line-height: 1.6;
+
+      outline: none;
     }
 
-    /* =========================
+    textarea:focus {
+      border-color: #d979a0;
+    }
+
+    /* =====================================================
+       KUNSTWERKE
+    ===================================================== */
+
+    canvas {
+      width: 100%;
+      height: 420px;
+
+      display: block;
+
+      background: #fffdf5;
+
+      border: 3px solid #e4b7c9;
+      border-radius: 20px;
+
+      touch-action: none;
+    }
+
+    /* =====================================================
        BUTTONS
-    ========================= */
+    ===================================================== */
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
 
     button {
       border: none;
       border-radius: 14px;
+
       padding: 13px 20px;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 16px;
+
+      font-family: Cochin, Georgia, "Times New Roman", serif;
+      font-size: 17px;
+
       cursor: pointer;
+
       background: #e98ab0;
       color: white;
-      transition: .2s;
+
+      transition: 0.2s;
     }
 
     button:hover {
@@ -223,7 +133,7 @@
     }
 
     button:disabled {
-      opacity: .55;
+      opacity: 0.55;
       cursor: not-allowed;
     }
 
@@ -236,61 +146,45 @@
       background: #e1d0d8;
     }
 
-    .buttons {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 14px;
+    /* =====================================================
+       STATUS
+    ===================================================== */
+
+    .status {
+      margin-top: 12px;
+
+      font-family: Cochin, Georgia, "Times New Roman", serif;
+      font-size: 15px;
+
+      color: #777;
+
+      min-height: 20px;
     }
 
-    /* =========================
-       NACHRICHTEN
-    ========================= */
-
-    textarea {
-      width: 100%;
-      min-height: 330px;
-      resize: vertical;
-      border: 3px solid #e4b7c9;
-      border-radius: 20px;
-      padding: 22px;
-      background: #fffdf5;
-      color: #111;
-      font-family: "CochinLocal", Cochin, Georgia, serif;
-      font-size: 22px;
-      line-height: 1.6;
-      outline: none;
+    .status.success {
+      color: #27834b;
     }
 
-    textarea:focus {
-      border-color: #d979a0;
+    .status.error {
+      color: #c0392b;
     }
 
-    /* =========================
-       KUNSTWERKE
-    ========================= */
-
-    canvas {
-      width: 100%;
-      height: 420px;
-      display: block;
-      background: #fffdf5;
-      border: 3px solid #e4b7c9;
-      border-radius: 20px;
-      touch-action: none;
-    }
-
-    /* =========================
-       BILDER
-    ========================= */
+    /* =====================================================
+       BILDERSHOW
+    ===================================================== */
 
     .slideshow {
       position: relative;
+
       width: 100%;
       height: 430px;
+
       background: #f4e8ed;
+
       border-radius: 20px;
+
       overflow: hidden;
+
       display: flex;
       align-items: center;
       justify-content: center;
@@ -299,7 +193,9 @@
     .slideshow img {
       width: 100%;
       height: 100%;
+
       object-fit: contain;
+
       display: none;
     }
 
@@ -309,16 +205,27 @@
 
     .arrow {
       position: absolute;
+
       top: 50%;
       transform: translateY(-50%);
+
       width: 50px;
       height: 50px;
+
       padding: 0;
+
       border-radius: 50%;
-      background: rgba(255,255,255,.88);
+
+      background: rgba(255,255,255,0.88);
       color: #111;
+
       font-size: 30px;
+
       z-index: 5;
+    }
+
+    .arrow:hover {
+      background: white;
     }
 
     .arrow.left {
@@ -332,62 +239,259 @@
     #noImages {
       color: #777;
       text-align: center;
+      font-size: 17px;
       padding: 20px;
     }
 
     .upload-area {
       margin-top: 16px;
+
       display: flex;
+
       gap: 10px;
+
       flex-wrap: wrap;
+
       align-items: center;
     }
 
-    /* =========================
-       STATUS
-    ========================= */
+    input[type="file"] {
+      max-width: 100%;
 
-    .status {
-      margin-top: 12px;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 14px;
+      font-family: Cochin, Georgia, "Times New Roman", serif;
+    }
+
+    /* =====================================================
+       KALENDER
+    ===================================================== */
+
+    .calendar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .calendar-header button {
+      width: 45px;
+      height: 45px;
+      padding: 0;
+      font-size: 25px;
+      border-radius: 50%;
+    }
+
+    .calendar-year {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .calendar-year select {
+      border: 2px solid #e4b7c9;
+      border-radius: 12px;
+      padding: 10px 15px;
+      background: #fffdf5;
+      font-family: Cochin, Georgia, "Times New Roman", serif;
+      font-size: 20px;
+      outline: none;
+    }
+
+    .calendar-month {
+      text-align: center;
+      font-size: 27px;
+      margin-bottom: 15px;
+    }
+
+    .weekdays,
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+    }
+
+    .weekday {
+      text-align: center;
+      font-weight: bold;
+      padding: 8px 2px;
+      font-size: 15px;
+    }
+
+    .day {
+      min-height: 70px;
+
+      border: 2px solid #ead0da;
+      border-radius: 12px;
+
+      background: #fffdf5;
+
+      padding: 7px;
+
+      cursor: pointer;
+
+      position: relative;
+
+      transition: 0.15s;
+    }
+
+    .day:hover {
+      border-color: #d979a0;
+      transform: translateY(-1px);
+    }
+
+    .day.empty {
+      background: transparent;
+      border: none;
+      cursor: default;
+    }
+
+    .day.today {
+      border-color: #d979a0;
+      box-shadow: inset 0 0 0 2px #f1c3d5;
+    }
+
+    .day-number {
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    .event-dot {
+      margin-top: 5px;
+      padding: 3px 5px;
+
+      border-radius: 7px;
+
+      background: #f1bfd3;
+
+      font-size: 12px;
+
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .calendar-info {
+      margin-top: 15px;
       color: #777;
-      min-height: 20px;
+      font-size: 14px;
     }
 
-    .success {
-      color: #27834b;
+    .event-panel {
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 2px solid #ead0da;
     }
 
-    .error {
-      color: #c0392b;
+    .selected-date {
+      font-size: 21px;
+      margin-bottom: 12px;
     }
+
+    .event-input {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .event-input input {
+      flex: 1;
+      min-width: 180px;
+
+      border: 2px solid #e4b7c9;
+      border-radius: 12px;
+
+      padding: 13px;
+
+      background: #fffdf5;
+
+      font-family: Cochin, Georgia, "Times New Roman", serif;
+      font-size: 17px;
+
+      outline: none;
+    }
+
+    .event-list {
+      margin-top: 15px;
+    }
+
+    .event-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+
+      background: #f8e7ee;
+
+      border-radius: 12px;
+
+      padding: 10px 12px;
+
+      margin-top: 8px;
+    }
+
+    .event-item span {
+      word-break: break-word;
+    }
+
+    .delete-event {
+      padding: 7px 10px;
+      font-size: 14px;
+      background: #eee1e7;
+      color: #111;
+      flex-shrink: 0;
+    }
+
+    .delete-event:hover {
+      background: #e1d0d8;
+    }
+
+    /* =====================================================
+       FEHLER
+    ===================================================== */
 
     .error-box {
       display: none;
+
       background: #fde2e2;
+
       border: 1px solid #e5a4a4;
+
       border-radius: 16px;
+
       padding: 15px;
+
       margin-top: 15px;
+
       color: #8b1e1e;
-      font-family: Arial, Helvetica, sans-serif;
+
       white-space: pre-wrap;
       word-break: break-word;
     }
 
     .connection {
       text-align: center;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 13px;
+
+      font-size: 14px;
+
       color: #777;
+
       margin-top: 25px;
     }
+
+    /* =====================================================
+       MOBILE
+    ===================================================== */
 
     @media (max-width: 600px) {
 
       header h1 {
         font-size: 34px;
+      }
+
+      header p {
+        font-size: 17px;
       }
 
       .card {
@@ -412,26 +516,41 @@
         height: 300px;
       }
 
-      .calendar-day {
-        min-height: 55px;
-        padding: 5px;
-      }
-
-      .event-dot {
-        font-size: 10px;
-      }
-
       button {
         width: 100%;
       }
 
-      .calendar-controls button {
+      .arrow {
         width: 45px;
-        flex-shrink: 0;
+        height: 45px;
+        width: 45px;
       }
 
-      .year-select {
-        width: 100px;
+      .weekdays,
+      .calendar-grid {
+        gap: 3px;
+      }
+
+      .day {
+        min-height: 55px;
+        padding: 4px;
+        border-radius: 8px;
+      }
+
+      .day-number {
+        font-size: 14px;
+      }
+
+      .event-dot {
+        font-size: 9px;
+      }
+
+      .weekday {
+        font-size: 11px;
+      }
+
+      .calendar-year select {
+        width: 100%;
       }
     }
   </style>
@@ -444,51 +563,58 @@
   <p>Unser kleines Tagebuch</p>
 </header>
 
+
 <main>
 
-  <!-- =========================
+  <!-- =====================================================
        KALENDER
-  ========================= -->
+  ===================================================== -->
 
   <section class="card">
 
-    <h2>📅 Unser Kalender</h2>
+    <h2>📅 Kalender</h2>
 
-    <div class="calendar-controls">
+    <div class="calendar-header">
 
       <button
         id="previousMonth"
         type="button"
+        aria-label="Vorheriger Monat"
       >
         ‹
       </button>
 
-      <select
-        id="yearSelect"
-        class="year-select"
-      ></select>
+      <div class="calendar-year">
+
+        <select id="yearSelect"></select>
+
+      </div>
 
       <button
         id="nextMonth"
         type="button"
+        aria-label="Nächster Monat"
       >
         ›
       </button>
 
     </div>
 
-    <h3
-      id="calendarTitle"
-    ></h3>
+    <div
+      id="calendarMonth"
+      class="calendar-month"
+    ></div>
 
-    <div class="calendar-weekdays">
-      <div>Mo</div>
-      <div>Di</div>
-      <div>Mi</div>
-      <div>Do</div>
-      <div>Fr</div>
-      <div>Sa</div>
-      <div>So</div>
+    <div class="weekdays">
+
+      <div class="weekday">Mo</div>
+      <div class="weekday">Di</div>
+      <div class="weekday">Mi</div>
+      <div class="weekday">Do</div>
+      <div class="weekday">Fr</div>
+      <div class="weekday">Sa</div>
+      <div class="weekday">So</div>
+
     </div>
 
     <div
@@ -497,8 +623,16 @@
     ></div>
 
     <div
-      id="eventForm"
-      class="event-form"
+      id="calendarInfo"
+      class="calendar-info"
+    >
+      Tippe auf einen Tag, um einen Termin einzutragen.
+    </div>
+
+    <div
+      id="eventPanel"
+      class="event-panel"
+      style="display:none;"
     >
 
       <div
@@ -506,29 +640,20 @@
         class="selected-date"
       ></div>
 
-      <input
-        id="eventInput"
-        class="event-input"
-        type="text"
-        maxlength="200"
-        placeholder="Termin eintragen..."
-      >
+      <div class="event-input">
 
-      <div class="buttons">
+        <input
+          id="eventInput"
+          type="text"
+          maxlength="200"
+          placeholder="Termin eintragen..."
+        >
 
         <button
-          id="saveEvent"
+          id="addEventButton"
           type="button"
         >
-          💾 Termin speichern
-        </button>
-
-        <button
-          id="closeEvent"
-          class="secondary"
-          type="button"
-        >
-          Abbrechen
+          + Termin speichern
         </button>
 
       </div>
@@ -536,11 +661,6 @@
       <div
         id="eventList"
         class="event-list"
-      ></div>
-
-      <div
-        id="calendarError"
-        class="error-box"
       ></div>
 
     </div>
@@ -552,12 +672,17 @@
       Kalender wird geladen...
     </div>
 
+    <div
+      id="calendarError"
+      class="error-box"
+    ></div>
+
   </section>
 
 
-  <!-- =========================
+  <!-- =====================================================
        NACHRICHTEN
-  ========================= -->
+  ===================================================== -->
 
   <section class="card">
 
@@ -584,17 +709,15 @@
   </section>
 
 
-  <!-- =========================
+  <!-- =====================================================
        KUNSTWERKE
-  ========================= -->
+  ===================================================== -->
 
   <section class="card">
 
     <h2>🎨 Kunstwerke</h2>
 
-    <canvas
-      id="drawingCanvas"
-    ></canvas>
+    <canvas id="drawingCanvas"></canvas>
 
     <div class="buttons">
 
@@ -630,9 +753,9 @@
   </section>
 
 
-  <!-- =========================
+  <!-- =====================================================
        UNSERE MOMENTE
-  ========================= -->
+  ===================================================== -->
 
   <section class="card">
 
@@ -651,6 +774,7 @@
         id="previousButton"
         class="arrow left"
         type="button"
+        aria-label="Vorheriges Bild"
       >
         ‹
       </button>
@@ -659,6 +783,7 @@
         id="nextButton"
         class="arrow right"
         type="button"
+        aria-label="Nächstes Bild"
       >
         ›
       </button>
@@ -708,7 +833,12 @@
 </main>
 
 
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 
 <script>
 
@@ -716,25 +846,22 @@
 
 
 /* =========================================================
-   SUPABASE
+   SUPABASE KONFIGURATION
+
+   DEIN API KEY BLEIBT HIER.
 ========================================================= */
 
 const SUPABASE_URL =
   "https://cqgrtybenbanfppoiuba.supabase.co";
 
 
-/*
- * HIER DEINEN AKTUELLEN PUBLISHABLE KEY EINSETZEN.
- *
- * Beispiel:
- *
- * const SUPABASE_PUBLISHABLE_KEY =
- *   "sb_publishable_...";
- */
-
 const SUPABASE_PUBLISHABLE_KEY =
-  "DEIN_PUBLISHABLE_KEY";
+  "sb_publishable_oxqVUkLdxj40fLZ8zCfjtw_wFSftxDw";
 
+
+/* =========================================================
+   EINSTELLUNGEN
+========================================================= */
 
 const CONTENT_ID = 1;
 
@@ -742,14 +869,22 @@ const BUCKET =
   "daily-diary-images";
 
 
-let supabaseClient = null;
+const FIRST_YEAR = 2026;
+
+const LAST_YEAR = 2030;
+
+
+/* =========================================================
+   SUPABASE CLIENT
+========================================================= */
+
+let supabaseClient =
+  null;
 
 
 if (
   window.supabase &&
-  SUPABASE_PUBLISHABLE_KEY &&
-  SUPABASE_PUBLISHABLE_KEY !==
-    "DEIN_PUBLISHABLE_KEY"
+  window.supabase.createClient
 ) {
 
   supabaseClient =
@@ -765,132 +900,75 @@ if (
    ELEMENTE
 ========================================================= */
 
-const calendarGrid =
-  document.getElementById(
-    "calendarGrid"
-  );
-
-const calendarTitle =
-  document.getElementById(
-    "calendarTitle"
-  );
-
-const yearSelect =
-  document.getElementById(
-    "yearSelect"
-  );
-
-const calendarStatus =
-  document.getElementById(
-    "calendarStatus"
-  );
-
-const eventForm =
-  document.getElementById(
-    "eventForm"
-  );
-
-const selectedDateElement =
-  document.getElementById(
-    "selectedDate"
-  );
-
-const eventInput =
-  document.getElementById(
-    "eventInput"
-  );
-
-const eventList =
-  document.getElementById(
-    "eventList"
-  );
-
-const calendarError =
-  document.getElementById(
-    "calendarError"
-  );
-
-
 const textEditor =
-  document.getElementById(
-    "textEditor"
-  );
+  document.getElementById("textEditor");
 
 const textStatus =
-  document.getElementById(
-    "textStatus"
-  );
+  document.getElementById("textStatus");
 
 const textError =
-  document.getElementById(
-    "textError"
-  );
+  document.getElementById("textError");
 
 
 const canvas =
-  document.getElementById(
-    "drawingCanvas"
-  );
+  document.getElementById("drawingCanvas");
 
 const ctx =
   canvas.getContext("2d");
 
 const drawingStatus =
-  document.getElementById(
-    "drawingStatus"
-  );
+  document.getElementById("drawingStatus");
 
 const drawingError =
-  document.getElementById(
-    "drawingError"
-  );
+  document.getElementById("drawingError");
 
 
 const slideshow =
-  document.getElementById(
-    "slideshow"
-  );
+  document.getElementById("slideshow");
 
 const noImages =
-  document.getElementById(
-    "noImages"
-  );
+  document.getElementById("noImages");
 
 const imageStatus =
-  document.getElementById(
-    "imageStatus"
-  );
+  document.getElementById("imageStatus");
 
 const imageError =
-  document.getElementById(
-    "imageError"
-  );
+  document.getElementById("imageError");
 
 const imageUpload =
-  document.getElementById(
-    "imageUpload"
-  );
+  document.getElementById("imageUpload");
 
+const uploadButton =
+  document.getElementById("uploadButton");
 
-const connectionStatus =
-  document.getElementById(
-    "connectionStatus"
-  );
+const saveDrawingButton =
+  document.getElementById("saveDrawingButton");
+
+const clearDrawingButton =
+  document.getElementById("clearDrawingButton");
+
+const previousButton =
+  document.getElementById("previousButton");
+
+const nextButton =
+  document.getElementById("nextButton");
 
 
 /* =========================================================
    HILFSFUNKTIONEN
 ========================================================= */
 
-function errorText(error) {
+function setStatus(
+  element,
+  text,
+  type = ""
+) {
 
-  if (!error)
-    return "Unbekannter Fehler.";
+  element.innerText =
+    text;
 
-  if (error.message)
-    return error.message;
-
-  return String(error);
+  element.className =
+    "status " + type;
 
 }
 
@@ -903,9 +981,32 @@ function showError(
 
   console.error(error);
 
+  let message =
+    fallback ||
+    "Unbekannter Fehler.";
+
+  if (error) {
+
+    if (
+      typeof error === "string"
+    ) {
+
+      message =
+        error;
+
+    } else if (
+      error.message
+    ) {
+
+      message =
+        error.message;
+
+    }
+
+  }
+
   element.innerText =
-    errorText(error) ||
-    fallback;
+    message;
 
   element.style.display =
     "block";
@@ -925,8 +1026,245 @@ function hideError(element) {
 
 
 /* =========================================================
+   NACHRICHTEN LADEN
+========================================================= */
+
+async function loadText() {
+
+  if (!supabaseClient) {
+
+    setStatus(
+      textStatus,
+      "Supabase konnte nicht verbunden werden.",
+      "error"
+    );
+
+    return;
+
+  }
+
+  hideError(textError);
+
+  setStatus(
+    textStatus,
+    "Nachrichten werden geladen...",
+    ""
+  );
+
+
+  try {
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from("website_content")
+        .select(
+          "id,text_content"
+        )
+        .eq(
+          "id",
+          CONTENT_ID
+        )
+        .maybeSingle();
+
+
+    if (error)
+      throw error;
+
+
+    textEditor.value =
+      data
+        ? (
+            data.text_content ||
+            ""
+          )
+        : "";
+
+
+    setStatus(
+      textStatus,
+      "Nachrichten geladen ✓",
+      "success"
+    );
+
+
+  } catch (error) {
+
+    showError(
+      textError,
+      error,
+      "Nachrichten konnten nicht geladen werden."
+    );
+
+    setStatus(
+      textStatus,
+      "Fehler beim Laden.",
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   NACHRICHTEN SPEICHERN
+========================================================= */
+
+let textSaveTimer =
+  null;
+
+
+textEditor.addEventListener(
+  "input",
+  function() {
+
+    setStatus(
+      textStatus,
+      "Speichern...",
+      ""
+    );
+
+    clearTimeout(
+      textSaveTimer
+    );
+
+    textSaveTimer =
+      setTimeout(
+        saveText,
+        700
+      );
+
+  }
+);
+
+
+async function saveText() {
+
+  if (!supabaseClient)
+    return;
+
+
+  hideError(textError);
+
+
+  try {
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from("website_content")
+        .update({
+          text_content:
+            textEditor.value
+        })
+        .eq(
+          "id",
+          CONTENT_ID
+        )
+        .select("id");
+
+
+    if (error)
+      throw error;
+
+
+    if (
+      !data ||
+      data.length === 0
+    ) {
+
+      throw new Error(
+        "Der Text wurde nicht gespeichert. Prüfe die RLS-Policy."
+      );
+
+    }
+
+
+    setStatus(
+      textStatus,
+      "Gespeichert ✓",
+      "success"
+    );
+
+
+  } catch (error) {
+
+    showError(
+      textError,
+      error,
+      "Fehler beim Speichern."
+    );
+
+    setStatus(
+      textStatus,
+      "Fehler beim Speichern.",
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
    KALENDER
 ========================================================= */
+
+const yearSelect =
+  document.getElementById(
+    "yearSelect"
+  );
+
+const calendarMonth =
+  document.getElementById(
+    "calendarMonth"
+  );
+
+const calendarGrid =
+  document.getElementById(
+    "calendarGrid"
+  );
+
+const calendarStatus =
+  document.getElementById(
+    "calendarStatus"
+  );
+
+const calendarError =
+  document.getElementById(
+    "calendarError"
+  );
+
+const eventPanel =
+  document.getElementById(
+    "eventPanel"
+  );
+
+const selectedDateElement =
+  document.getElementById(
+    "selectedDate"
+  );
+
+const eventInput =
+  document.getElementById(
+    "eventInput"
+  );
+
+const eventList =
+  document.getElementById(
+    "eventList"
+  );
+
+const addEventButton =
+  document.getElementById(
+    "addEventButton"
+  );
+
 
 const monthNames = [
   "Januar",
@@ -944,16 +1282,31 @@ const monthNames = [
 ];
 
 
-let currentDate =
-  new Date();
-
+let currentYear =
+  new Date().getFullYear();
 
 let currentMonth =
-  currentDate.getMonth();
+  new Date().getMonth();
 
 
-let currentYear =
-  currentDate.getFullYear();
+if (
+  currentYear < FIRST_YEAR
+) {
+
+  currentYear =
+    FIRST_YEAR;
+
+}
+
+
+if (
+  currentYear > LAST_YEAR
+) {
+
+  currentYear =
+    LAST_YEAR;
+
+}
 
 
 let selectedDate =
@@ -964,84 +1317,47 @@ let calendarEvents =
   [];
 
 
-/*
- * Wir zeigen die Jahre ab 2024
- * bis 2030 an.
- *
- * Falls wir später über 2030 hinausgehen,
- * wird das aktuelle Jahr ebenfalls berücksichtigt.
- */
+/* Jahre 2026 bis 2030 */
 
-function createYearOptions() {
-
-  yearSelect.innerHTML =
-    "";
-
-  const startYear =
-    Math.min(
-      2024,
-      currentYear
-    );
-
-  const endYear =
-    Math.max(
-      2030,
-      currentYear
-    );
-
-
-  for (
-    let year = startYear;
-    year <= endYear;
-    year++
-  ) {
-
-    const option =
-      document.createElement(
-        "option"
-      );
-
-    option.value =
-      year;
-
-    option.textContent =
-      year;
-
-    yearSelect.appendChild(
-      option
-    );
-
-  }
-
-
-  yearSelect.value =
-    currentYear;
-
-}
-
-
-function dateKey(
-  year,
-  month,
-  day
+for (
+  let year = FIRST_YEAR;
+  year <= LAST_YEAR;
+  year++
 ) {
 
-  return (
-    year +
-    "-" +
-    String(month + 1)
-      .padStart(2, "0") +
-    "-" +
-    String(day)
-      .padStart(2, "0")
+  const option =
+    document.createElement(
+      "option"
+    );
+
+  option.value =
+    year;
+
+  option.textContent =
+    year;
+
+  yearSelect.appendChild(
+    option
   );
 
 }
 
 
+yearSelect.value =
+  currentYear;
+
+
+/* =========================================================
+   KALENDER RENDERN
+========================================================= */
+
 function renderCalendar() {
 
-  calendarTitle.innerText =
+  yearSelect.value =
+    currentYear;
+
+
+  calendarMonth.innerText =
     monthNames[currentMonth] +
     " " +
     currentYear;
@@ -1059,7 +1375,15 @@ function renderCalendar() {
     );
 
 
-  let weekday =
+  const lastDay =
+    new Date(
+      currentYear,
+      currentMonth + 1,
+      0
+    );
+
+
+  let startDay =
     firstDay.getDay();
 
 
@@ -1067,27 +1391,19 @@ function renderCalendar() {
    * JavaScript:
    * Sonntag = 0
    *
-   * Für unseren Kalender:
+   * Kalender:
    * Montag = 0
    */
 
-  weekday =
-    weekday === 0
+  startDay =
+    startDay === 0
       ? 6
-      : weekday - 1;
-
-
-  const daysInMonth =
-    new Date(
-      currentYear,
-      currentMonth + 1,
-      0
-    ).getDate();
+      : startDay - 1;
 
 
   for (
     let i = 0;
-    i < weekday;
+    i < startDay;
     i++
   ) {
 
@@ -1097,7 +1413,7 @@ function renderCalendar() {
       );
 
     empty.className =
-      "calendar-day empty";
+      "day empty";
 
     calendarGrid.appendChild(
       empty
@@ -1108,7 +1424,7 @@ function renderCalendar() {
 
   for (
     let day = 1;
-    day <= daysInMonth;
+    day <= lastDay.getDate();
     day++
   ) {
 
@@ -1117,30 +1433,24 @@ function renderCalendar() {
         "div"
       );
 
-
     cell.className =
-      "calendar-day";
+      "day";
 
 
-    const key =
-      dateKey(
+    const date =
+      new Date(
         currentYear,
         currentMonth,
         day
       );
 
 
-    const today =
-      new Date();
+    const dateString =
+      formatDate(date);
 
 
     if (
-      today.getFullYear() ===
-        currentYear &&
-      today.getMonth() ===
-        currentMonth &&
-      today.getDate() ===
-        day
+      isToday(date)
     ) {
 
       cell.classList.add(
@@ -1161,34 +1471,36 @@ function renderCalendar() {
     number.innerText =
       day;
 
+
     cell.appendChild(
       number
     );
 
 
-    const events =
+    const dayEvents =
       calendarEvents.filter(
         event =>
-          event.event_date === key
+          event.event_date ===
+          dateString
       );
 
 
-    events.forEach(
-      event => {
+    dayEvents.forEach(
+      function(event) {
 
-        const dot =
+        const eventElement =
           document.createElement(
             "div"
           );
 
-        dot.className =
+        eventElement.className =
           "event-dot";
 
-        dot.innerText =
+        eventElement.innerText =
           event.title;
 
         cell.appendChild(
-          dot
+          eventElement
         );
 
       }
@@ -1199,7 +1511,9 @@ function renderCalendar() {
       "click",
       function() {
 
-        openEventForm(key);
+        selectDate(
+          dateString
+        );
 
       }
     );
@@ -1214,29 +1528,170 @@ function renderCalendar() {
 }
 
 
-function openEventForm(
-  key
-) {
+function formatDate(date) {
 
-  selectedDate =
-    key;
+  const year =
+    date.getFullYear();
+
+  const month =
+    String(
+      date.getMonth() + 1
+    ).padStart(
+      2,
+      "0"
+    );
+
+  const day =
+    String(
+      date.getDate()
+    ).padStart(
+      2,
+      "0"
+    );
+
+  return (
+    year +
+    "-" +
+    month +
+    "-" +
+    day
+  );
+
+}
 
 
-  eventForm.classList.add(
-    "show"
+function isToday(date) {
+
+  const today =
+    new Date();
+
+  return (
+    date.getFullYear() ===
+      today.getFullYear() &&
+
+    date.getMonth() ===
+      today.getMonth() &&
+
+    date.getDate() ===
+      today.getDate()
+  );
+
+}
+
+
+/* =========================================================
+   KALENDER EVENTS LADEN
+========================================================= */
+
+async function loadCalendarEvents() {
+
+  if (!supabaseClient) {
+
+    setStatus(
+      calendarStatus,
+      "Supabase ist nicht verbunden.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  hideError(
+    calendarError
   );
 
 
-  selectedDateElement.innerText =
-    "Termin für " +
-    formatDate(key);
+  setStatus(
+    calendarStatus,
+    "Termine werden geladen...",
+    ""
+  );
 
 
-  eventInput.value =
-    "";
+  try {
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from(
+          "calendar_events"
+        )
+        .select(
+          "id,event_date,title,created_at"
+        )
+        .order(
+          "event_date",
+          {
+            ascending: true
+          }
+        );
 
 
-  renderEventList();
+    if (error)
+      throw error;
+
+
+    calendarEvents =
+      data || [];
+
+
+    renderCalendar();
+
+
+    if (selectedDate) {
+
+      renderEventPanel();
+
+    }
+
+
+    setStatus(
+      calendarStatus,
+      calendarEvents.length +
+      " Termin(e) gespeichert ✓",
+      "success"
+    );
+
+
+  } catch (error) {
+
+    showError(
+      calendarError,
+      error,
+      "Termine konnten nicht geladen werden."
+    );
+
+
+    setStatus(
+      calendarStatus,
+      "Fehler beim Laden der Termine.",
+      "error"
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   TAG AUSWÄHLEN
+========================================================= */
+
+function selectDate(dateString) {
+
+  selectedDate =
+    dateString;
+
+
+  eventPanel.style.display =
+    "block";
+
+
+  renderEventPanel();
 
 
   eventInput.focus();
@@ -1244,33 +1699,33 @@ function openEventForm(
 }
 
 
-function formatDate(
-  key
-) {
-
-  const parts =
-    key.split("-");
-
-
-  return (
-    parts[2] +
-    "." +
-    parts[1] +
-    "." +
-    parts[0]
-  );
-
-}
-
-
-function renderEventList() {
-
-  eventList.innerHTML =
-    "";
-
+function renderEventPanel() {
 
   if (!selectedDate)
     return;
+
+
+  const date =
+    new Date(
+      selectedDate +
+      "T00:00:00"
+    );
+
+
+  selectedDateElement.innerText =
+    date.toLocaleDateString(
+      "de-DE",
+      {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+      }
+    );
+
+
+  eventList.innerHTML =
+    "";
 
 
   const events =
@@ -1288,11 +1743,11 @@ function renderEventList() {
         "div"
       );
 
-    empty.innerText =
-      "Noch kein Termin an diesem Tag.";
-
     empty.style.color =
       "#777";
+
+    empty.innerText =
+      "Noch kein Termin an diesem Tag.";
 
     eventList.appendChild(
       empty
@@ -1304,7 +1759,7 @@ function renderEventList() {
 
 
   events.forEach(
-    event => {
+    function(event) {
 
       const item =
         document.createElement(
@@ -1315,12 +1770,12 @@ function renderEventList() {
         "event-item";
 
 
-      const title =
+      const text =
         document.createElement(
           "span"
         );
 
-      title.innerText =
+      text.innerText =
         event.title;
 
 
@@ -1349,12 +1804,13 @@ function renderEventList() {
 
 
       item.appendChild(
-        title
+        text
       );
 
       item.appendChild(
         deleteButton
       );
+
 
       eventList.appendChild(
         item
@@ -1366,80 +1822,48 @@ function renderEventList() {
 }
 
 
-async function loadEvents() {
+/* =========================================================
+   TERMIN HINZUFÜGEN
+========================================================= */
 
-  if (!supabaseClient) {
+addEventButton.addEventListener(
+  "click",
+  addEvent
+);
 
-    calendarStatus.innerText =
-      "Supabase ist nicht eingerichtet.";
 
-    return;
+eventInput.addEventListener(
+  "keydown",
+  function(event) {
+
+    if (
+      event.key ===
+      "Enter"
+    ) {
+
+      addEvent();
+
+    }
 
   }
+);
 
 
-  hideError(
-    calendarError
-  );
+async function addEvent() {
+
+  if (!supabaseClient)
+    return;
 
 
-  calendarStatus.innerText =
-    "Termine werden geladen...";
+  if (!selectedDate) {
 
-
-  try {
-
-    const {
-      data,
-      error
-    } =
-      await supabaseClient
-        .from("diary_events")
-        .select("*")
-        .order(
-          "event_date",
-          {
-            ascending: true
-          }
-        );
-
-
-    if (error)
-      throw error;
-
-
-    calendarEvents =
-      data || [];
-
-
-    renderCalendar();
-
-
-    calendarStatus.innerText =
-      "Kalender geladen ✓";
-
-
-  } catch (error) {
-
-    showError(
-      calendarError,
-      error,
-      "Termine konnten nicht geladen werden."
+    alert(
+      "Bitte zuerst einen Tag auswählen."
     );
 
-
-    calendarStatus.innerText =
-      "Fehler beim Laden der Termine.";
+    return;
 
   }
-
-}
-
-
-async function saveEvent() {
-
-  if (!selectedDate)
-    return;
 
 
   const title =
@@ -1457,19 +1881,14 @@ async function saveEvent() {
   }
 
 
-  if (!supabaseClient) {
-
-    alert(
-      "Supabase ist nicht eingerichtet."
-    );
-
-    return;
-
-  }
+  addEventButton.disabled =
+    true;
 
 
-  hideError(
-    calendarError
+  setStatus(
+    calendarStatus,
+    "Termin wird gespeichert...",
+    ""
   );
 
 
@@ -1480,7 +1899,9 @@ async function saveEvent() {
       error
     } =
       await supabaseClient
-        .from("diary_events")
+        .from(
+          "calendar_events"
+        )
         .insert({
           event_date:
             selectedDate,
@@ -1488,30 +1909,38 @@ async function saveEvent() {
           title:
             title
         })
-        .select()
-        .single();
+        .select(
+          "id,event_date,title,created_at"
+        );
 
 
     if (error)
       throw error;
 
 
-    calendarEvents.push(
-      data
-    );
+    if (data) {
 
+      calendarEvents.push(
+        ...data
+      );
 
-    renderCalendar();
-
-    renderEventList();
+    }
 
 
     eventInput.value =
       "";
 
 
-    calendarStatus.innerText =
-      "Termin gespeichert ✓";
+    renderCalendar();
+
+    renderEventPanel();
+
+
+    setStatus(
+      calendarStatus,
+      "Termin gespeichert ✓",
+      "success"
+    );
 
 
   } catch (error) {
@@ -1522,14 +1951,28 @@ async function saveEvent() {
       "Termin konnte nicht gespeichert werden."
     );
 
+
+    setStatus(
+      calendarStatus,
+      "Fehler beim Speichern.",
+      "error"
+    );
+
+  } finally {
+
+    addEventButton.disabled =
+      false;
+
   }
 
 }
 
 
-async function deleteEvent(
-  id
-) {
+/* =========================================================
+   TERMIN LÖSCHEN
+========================================================= */
+
+async function deleteEvent(id) {
 
   if (!supabaseClient)
     return;
@@ -1541,7 +1984,9 @@ async function deleteEvent(
       error
     } =
       await supabaseClient
-        .from("diary_events")
+        .from(
+          "calendar_events"
+        )
         .delete()
         .eq(
           "id",
@@ -1562,11 +2007,14 @@ async function deleteEvent(
 
     renderCalendar();
 
-    renderEventList();
+    renderEventPanel();
 
 
-    calendarStatus.innerText =
-      "Termin gelöscht ✓";
+    setStatus(
+      calendarStatus,
+      "Termin gelöscht ✓",
+      "success"
+    );
 
 
   } catch (error) {
@@ -1582,6 +2030,10 @@ async function deleteEvent(
 }
 
 
+/* =========================================================
+   MONAT WECHSELN
+========================================================= */
+
 document.getElementById(
   "previousMonth"
 ).addEventListener(
@@ -1590,19 +2042,38 @@ document.getElementById(
 
     currentMonth--;
 
+
     if (currentMonth < 0) {
 
-      currentMonth = 11;
+      currentMonth =
+        11;
+
       currentYear--;
 
     }
 
 
-    yearSelect.value =
-      currentYear;
+    if (
+      currentYear < FIRST_YEAR
+    ) {
+
+      currentYear =
+        FIRST_YEAR;
+
+      currentMonth =
+        0;
+
+    }
 
 
-    renderCalendar();
+    selectedDate =
+      null;
+
+    eventPanel.style.display =
+      "none";
+
+
+    loadCalendarEvents();
 
   }
 );
@@ -1616,23 +2087,46 @@ document.getElementById(
 
     currentMonth++;
 
+
     if (currentMonth > 11) {
 
-      currentMonth = 0;
+      currentMonth =
+        0;
+
       currentYear++;
 
     }
 
 
-    yearSelect.value =
-      currentYear;
+    if (
+      currentYear > LAST_YEAR
+    ) {
+
+      currentYear =
+        LAST_YEAR;
+
+      currentMonth =
+        11;
+
+    }
 
 
-    renderCalendar();
+    selectedDate =
+      null;
+
+    eventPanel.style.display =
+      "none";
+
+
+    loadCalendarEvents();
 
   }
 );
 
+
+/* =========================================================
+   JAHR WECHSELN
+========================================================= */
 
 yearSelect.addEventListener(
   "change",
@@ -1643,217 +2137,61 @@ yearSelect.addEventListener(
         yearSelect.value
       );
 
-    renderCalendar();
-
-  }
-);
-
-
-document.getElementById(
-  "saveEvent"
-).addEventListener(
-  "click",
-  saveEvent
-);
-
-
-document.getElementById(
-  "closeEvent"
-).addEventListener(
-  "click",
-  function() {
-
-    eventForm.classList.remove(
-      "show"
-    );
 
     selectedDate =
       null;
 
-  }
-);
+    eventPanel.style.display =
+      "none";
 
 
-/* =========================================================
-   NACHRICHTEN
-========================================================= */
-
-let textSaveTimer;
-
-
-async function loadText() {
-
-  if (!supabaseClient)
-    return;
-
-
-  hideError(
-    textError
-  );
-
-
-  try {
-
-    const {
-      data,
-      error
-    } =
-      await supabaseClient
-        .from("website_content")
-        .select(
-          "text_content"
-        )
-        .eq(
-          "id",
-          CONTENT_ID
-        )
-        .maybeSingle();
-
-
-    if (error)
-      throw error;
-
-
-    textEditor.value =
-      data?.text_content || "";
-
-
-    textStatus.innerText =
-      "Nachrichten geladen ✓";
-
-
-  } catch (error) {
-
-    showError(
-      textError,
-      error,
-      "Nachrichten konnten nicht geladen werden."
-    );
-
-
-    textStatus.innerText =
-      "Fehler beim Laden.";
-
-  }
-
-}
-
-
-textEditor.addEventListener(
-  "input",
-  function() {
-
-    textStatus.innerText =
-      "Speichern...";
-
-
-    clearTimeout(
-      textSaveTimer
-    );
-
-
-    textSaveTimer =
-      setTimeout(
-        saveText,
-        800
-      );
+    loadCalendarEvents();
 
   }
 );
 
 
-async function saveText() {
-
-  if (!supabaseClient)
-    return;
-
-
-  try {
-
-    const {
-      data,
-      error
-    } =
-      await supabaseClient
-        .from("website_content")
-        .update({
-          text_content:
-            textEditor.value
-        })
-        .eq(
-          "id",
-          CONTENT_ID
-        )
-        .select();
-
-
-    if (error)
-      throw error;
-
-
-    if (
-      !data ||
-      data.length === 0
-    ) {
-
-      throw new Error(
-        "Keine Zeile wurde geändert. Prüfe die RLS-UPDATE-Policy."
-      );
-
-    }
-
-
-    textStatus.innerText =
-      "Gespeichert ✓";
-
-
-  } catch (error) {
-
-    showError(
-      textError,
-      error,
-      "Nachrichten konnten nicht gespeichert werden."
-    );
-
-
-    textStatus.innerText =
-      "Fehler beim Speichern.";
-
-  }
-
-}
-
-
 /* =========================================================
-   KUNSTWERKE / CANVAS
+   CANVAS
 ========================================================= */
 
-let drawing = false;
+let drawing =
+  false;
 
-let drawingChanged = false;
-
-
-function resizeCanvas() {
-
-  const rect =
-    canvas.getBoundingClientRect();
+let drawingDirty =
+  false;
 
 
-  const oldImage =
-    canvas.width > 0
-      ? canvas.toDataURL()
-      : null;
+function prepareCanvas() {
+
+  const width =
+    canvas.clientWidth;
+
+  const height =
+    canvas.clientHeight;
 
 
   const dpr =
-    window.devicePixelRatio || 1;
+    window.devicePixelRatio ||
+    1;
 
 
   canvas.width =
-    rect.width * dpr;
+    Math.max(
+      1,
+      Math.floor(
+        width * dpr
+      )
+    );
+
 
   canvas.height =
-    rect.height * dpr;
+    Math.max(
+      1,
+      Math.floor(
+        height * dpr
+      )
+    );
 
 
   ctx.setTransform(
@@ -1873,40 +2211,45 @@ function resizeCanvas() {
   ctx.fillRect(
     0,
     0,
-    rect.width,
-    rect.height
+    width,
+    height
   );
-
-
-  if (oldImage) {
-
-    const img =
-      new Image();
-
-
-    img.onload =
-      function() {
-
-        ctx.drawImage(
-          img,
-          0,
-          0,
-          rect.width,
-          rect.height
-        );
-
-      };
-
-
-    img.src =
-      oldImage;
-
-  }
 
 }
 
 
-function canvasPosition(
+function clearCanvas() {
+
+  const width =
+    canvas.clientWidth;
+
+  const height =
+    canvas.clientHeight;
+
+
+  ctx.clearRect(
+    0,
+    0,
+    width,
+    height
+  );
+
+
+  ctx.fillStyle =
+    "#fffdf5";
+
+
+  ctx.fillRect(
+    0,
+    0,
+    width,
+    height
+  );
+
+}
+
+
+function getCanvasPosition(
   event
 ) {
 
@@ -1938,24 +2281,30 @@ canvas.addEventListener(
     drawing =
       true;
 
-    drawingChanged =
+    drawingDirty =
       true;
 
 
-    canvas.setPointerCapture(
-      event.pointerId
-    );
+    try {
+
+      canvas.setPointerCapture(
+        event.pointerId
+      );
+
+    } catch {}
 
 
-    const p =
-      canvasPosition(event);
+    const pos =
+      getCanvasPosition(
+        event
+      );
 
 
     ctx.beginPath();
 
     ctx.moveTo(
-      p.x,
-      p.y
+      pos.x,
+      pos.y
     );
 
   }
@@ -1973,8 +2322,10 @@ canvas.addEventListener(
     event.preventDefault();
 
 
-    const p =
-      canvasPosition(event);
+    const pos =
+      getCanvasPosition(
+        event
+      );
 
 
     ctx.lineWidth =
@@ -1991,8 +2342,8 @@ canvas.addEventListener(
 
 
     ctx.lineTo(
-      p.x,
-      p.y
+      pos.x,
+      pos.y
     );
 
     ctx.stroke();
@@ -2003,33 +2354,77 @@ canvas.addEventListener(
 
 canvas.addEventListener(
   "pointerup",
-  async function() {
+  finishDrawing
+);
 
-    if (!drawing)
-      return;
 
+canvas.addEventListener(
+  "pointercancel",
+  function() {
 
     drawing =
       false;
-
-
-    if (drawingChanged) {
-
-      drawingChanged =
-        false;
-
-      await saveDrawing();
-
-    }
 
   }
 );
 
 
+async function finishDrawing() {
+
+  if (!drawing)
+    return;
+
+
+  drawing =
+    false;
+
+
+  if (drawingDirty) {
+
+    drawingDirty =
+      false;
+
+    await saveDrawing();
+
+  }
+
+}
+
+
+window.addEventListener(
+  "resize",
+  function() {
+
+    /*
+     * Nicht automatisch löschen.
+     * Die gespeicherte Zeichnung wird bei
+     * einem Neuladen erneut geladen.
+     */
+
+  }
+);
+
+
+/* =========================================================
+   ZEICHNUNG LADEN
+========================================================= */
+
 async function loadDrawing() {
 
   if (!supabaseClient)
     return;
+
+
+  hideError(
+    drawingError
+  );
+
+
+  setStatus(
+    drawingStatus,
+    "Zeichnung wird geladen...",
+    ""
+  );
 
 
   try {
@@ -2039,7 +2434,9 @@ async function loadDrawing() {
       error
     } =
       await supabaseClient
-        .from("website_content")
+        .from(
+          "website_content"
+        )
         .select(
           "drawing_data"
         )
@@ -2054,10 +2451,54 @@ async function loadDrawing() {
       throw error;
 
 
+    clearCanvas();
+
+
     if (
       data &&
       data.drawing_data
     ) {
+
+      await loadImageIntoCanvas(
+        data.drawing_data
+      );
+
+    }
+
+
+    setStatus(
+      drawingStatus,
+      "Zeichnung geladen ✓",
+      "success"
+    );
+
+
+  } catch (error) {
+
+    showError(
+      drawingError,
+      error,
+      "Zeichnung konnte nicht geladen werden."
+    );
+
+
+    setStatus(
+      drawingStatus,
+      "Fehler beim Laden.",
+      "error"
+    );
+
+  }
+
+}
+
+
+function loadImageIntoCanvas(
+  source
+) {
+
+  return new Promise(
+    function(resolve, reject) {
 
       const img =
         new Image();
@@ -2074,40 +2515,53 @@ async function loadDrawing() {
             canvas.clientHeight
           );
 
+
+          resolve();
+
+        };
+
+
+      img.onerror =
+        function() {
+
+          reject(
+            new Error(
+              "Die gespeicherte Zeichnung konnte nicht geöffnet werden."
+            )
+          );
+
         };
 
 
       img.src =
-        data.drawing_data;
+        source;
 
     }
-
-
-    drawingStatus.innerText =
-      "Kunstwerk geladen ✓";
-
-
-  } catch (error) {
-
-    showError(
-      drawingError,
-      error,
-      "Kunstwerk konnte nicht geladen werden."
-    );
-
-
-    drawingStatus.innerText =
-      "Fehler beim Laden.";
-
-  }
+  );
 
 }
 
+
+/* =========================================================
+   ZEICHNUNG SPEICHERN
+========================================================= */
 
 async function saveDrawing() {
 
   if (!supabaseClient)
     return;
+
+
+  hideError(
+    drawingError
+  );
+
+
+  setStatus(
+    drawingStatus,
+    "Zeichnung wird gespeichert...",
+    ""
+  );
 
 
   try {
@@ -2123,7 +2577,9 @@ async function saveDrawing() {
       error
     } =
       await supabaseClient
-        .from("website_content")
+        .from(
+          "website_content"
+        )
         .update({
           drawing_data:
             image
@@ -2132,7 +2588,7 @@ async function saveDrawing() {
           "id",
           CONTENT_ID
         )
-        .select();
+        .select("id");
 
 
     if (error)
@@ -2145,14 +2601,17 @@ async function saveDrawing() {
     ) {
 
       throw new Error(
-        "Das Kunstwerk wurde nicht gespeichert. Prüfe die RLS-UPDATE-Policy."
+        "Die Zeichnung wurde nicht gespeichert. Prüfe die RLS-Policy."
       );
 
     }
 
 
-    drawingStatus.innerText =
-      "Kunstwerk gespeichert ✓";
+    setStatus(
+      drawingStatus,
+      "Zeichnung gespeichert ✓",
+      "success"
+    );
 
 
   } catch (error) {
@@ -2160,51 +2619,26 @@ async function saveDrawing() {
     showError(
       drawingError,
       error,
-      "Kunstwerk konnte nicht gespeichert werden."
+      "Fehler beim Speichern der Zeichnung."
     );
 
 
-    drawingStatus.innerText =
-      "Fehler beim Speichern.";
+    setStatus(
+      drawingStatus,
+      "Fehler beim Speichern.",
+      "error"
+    );
 
   }
 
 }
 
 
-document.getElementById(
-  "saveDrawingButton"
-).addEventListener(
-  "click",
-  saveDrawing
-);
-
-
-document.getElementById(
-  "clearDrawingButton"
-).addEventListener(
+clearDrawingButton.addEventListener(
   "click",
   async function() {
 
-    ctx.clearRect(
-      0,
-      0,
-      canvas.clientWidth,
-      canvas.clientHeight
-    );
-
-
-    ctx.fillStyle =
-      "#fffdf5";
-
-
-    ctx.fillRect(
-      0,
-      0,
-      canvas.clientWidth,
-      canvas.clientHeight
-    );
-
+    clearCanvas();
 
     await saveDrawing();
 
@@ -2212,14 +2646,26 @@ document.getElementById(
 );
 
 
+saveDrawingButton.addEventListener(
+  "click",
+  saveDrawing
+);
+
+
 /* =========================================================
-   UNSERE MOMENTE
+   BILDER
 ========================================================= */
 
-let images = [];
+let images =
+  [];
 
-let currentImage = 0;
+let currentImage =
+  0;
 
+
+/* =========================================================
+   BILDER LADEN
+========================================================= */
 
 async function loadImages() {
 
@@ -2229,6 +2675,13 @@ async function loadImages() {
 
   hideError(
     imageError
+  );
+
+
+  setStatus(
+    imageStatus,
+    "Bilder werden geladen...",
+    ""
   );
 
 
@@ -2246,12 +2699,15 @@ async function loadImages() {
           {
             limit: 100,
             offset: 0,
+
             sortBy: {
               column:
                 "created_at",
+
               order:
                 "desc"
             }
+
           }
         );
 
@@ -2261,11 +2717,13 @@ async function loadImages() {
 
 
     images =
-      (data || [])
-        .filter(
-          file =>
-            file.name
-        );
+      (
+        data || []
+      ).filter(
+        file =>
+          file &&
+          file.name
+      );
 
 
     currentImage =
@@ -2275,9 +2733,12 @@ async function loadImages() {
     displayImages();
 
 
-    imageStatus.innerText =
+    setStatus(
+      imageStatus,
       images.length +
-      " Bild(er) vorhanden ✓";
+      " Bild(er) vorhanden ✓",
+      "success"
+    );
 
 
   } catch (error) {
@@ -2289,13 +2750,20 @@ async function loadImages() {
     );
 
 
-    imageStatus.innerText =
-      "Fehler beim Laden.";
+    setStatus(
+      imageStatus,
+      "Fehler beim Laden.",
+      "error"
+    );
 
   }
 
 }
 
+
+/* =========================================================
+   BILDER ANZEIGEN
+========================================================= */
 
 function displayImages() {
 
@@ -2328,15 +2796,20 @@ function displayImages() {
   images.forEach(
     function(file, index) {
 
-      const {
-        data
-      } =
+      const result =
         supabaseClient
           .storage
           .from(BUCKET)
           .getPublicUrl(
             file.name
           );
+
+
+      if (
+        !result ||
+        !result.data
+      )
+        return;
 
 
       const img =
@@ -2346,7 +2819,7 @@ function displayImages() {
 
 
       img.src =
-        data.publicUrl;
+        result.data.publicUrl;
 
 
       img.alt =
@@ -2367,9 +2840,7 @@ function displayImages() {
 
       slideshow.insertBefore(
         img,
-        document.getElementById(
-          "previousButton"
-        )
+        previousButton
       );
 
     }
@@ -2378,9 +2849,11 @@ function displayImages() {
 }
 
 
-document.getElementById(
-  "nextButton"
-).addEventListener(
+/* =========================================================
+   BILD WECHSELN
+========================================================= */
+
+nextButton.addEventListener(
   "click",
   function() {
 
@@ -2403,9 +2876,7 @@ document.getElementById(
 );
 
 
-document.getElementById(
-  "previousButton"
-).addEventListener(
+previousButton.addEventListener(
   "click",
   function() {
 
@@ -2430,95 +2901,222 @@ document.getElementById(
 );
 
 
-document.getElementById(
-  "uploadButton"
-).addEventListener(
+/* =========================================================
+   BILDER HOCHLADEN
+========================================================= */
+
+uploadButton.addEventListener(
   "click",
-  async function() {
-
-    const files =
-      Array.from(
-        imageUpload.files || []
-      );
+  uploadImages
+);
 
 
-    if (
-      files.length === 0
+async function uploadImages() {
+
+  if (!supabaseClient)
+    return;
+
+
+  const files =
+    Array.from(
+      imageUpload.files || []
+    );
+
+
+  if (
+    files.length === 0
+  ) {
+
+    alert(
+      "Bitte zuerst ein Bild auswählen."
+    );
+
+    return;
+
+  }
+
+
+  uploadButton.disabled =
+    true;
+
+
+  try {
+
+    for (
+      let i = 0;
+      i < files.length;
+      i++
     ) {
 
-      alert(
-        "Bitte zuerst ein Bild auswählen."
+      const file =
+        files[i];
+
+
+      const safeName =
+        file.name.replace(
+          /[^a-zA-Z0-9._-]/g,
+          "_"
+        );
+
+
+      const fileName =
+        Date.now() +
+        "-" +
+        Math.random()
+          .toString(36)
+          .substring(
+            2,
+            10
+          ) +
+        "-" +
+        safeName;
+
+
+      setStatus(
+        imageStatus,
+        "Bild " +
+        (i + 1) +
+        " von " +
+        files.length +
+        " wird hochgeladen...",
+        ""
       );
+
+
+      const {
+        error
+      } =
+        await supabaseClient
+          .storage
+          .from(BUCKET)
+          .upload(
+            fileName,
+            file,
+            {
+              cacheControl:
+                "3600",
+
+              upsert:
+                false
+            }
+          );
+
+
+      if (error)
+        throw error;
+
+    }
+
+
+    imageUpload.value =
+      "";
+
+
+    await loadImages();
+
+
+    setStatus(
+      imageStatus,
+      "Bilder erfolgreich hochgeladen ✓",
+      "success"
+    );
+
+
+  } catch (error) {
+
+    showError(
+      imageError,
+      error,
+      "Fehler beim Hochladen der Bilder."
+    );
+
+
+    setStatus(
+      imageStatus,
+      "Fehler beim Hochladen.",
+      "error"
+    );
+
+
+  } finally {
+
+    uploadButton.disabled =
+      false;
+
+  }
+
+}
+
+
+/* =========================================================
+   VERBINDUNG TESTEN
+========================================================= */
+
+async function testConnection() {
+
+  if (!supabaseClient) {
+
+    document.getElementById(
+      "connectionStatus"
+    ).innerText =
+      "❌ Supabase konnte nicht verbunden werden.";
+
+    return;
+
+  }
+
+
+  try {
+
+    const {
+      error
+    } =
+      await supabaseClient
+        .from(
+          "website_content"
+        )
+        .select("id")
+        .eq(
+          "id",
+          CONTENT_ID
+        )
+        .limit(1);
+
+
+    if (error) {
+
+      console.error(error);
+
+
+      document.getElementById(
+        "connectionStatus"
+      ).innerText =
+        "⚠️ Supabase erreichbar, aber Zugriff wird blockiert.";
 
       return;
 
     }
 
 
-    try {
-
-      for (
-        const file of files
-      ) {
-
-        const safeName =
-          file.name.replace(
-            /[^a-zA-Z0-9._-]/g,
-            "_"
-          );
+    document.getElementById(
+      "connectionStatus"
+    ).innerText =
+      "🟢 Mit Supabase verbunden";
 
 
-        const fileName =
-          Date.now() +
-          "-" +
-          Math.random()
-            .toString(36)
-            .substring(2, 10) +
-          "-" +
-          safeName;
+  } catch (error) {
+
+    console.error(error);
 
 
-        const {
-          error
-        } =
-          await supabaseClient
-            .storage
-            .from(BUCKET)
-            .upload(
-              fileName,
-              file
-            );
-
-
-        if (error)
-          throw error;
-
-      }
-
-
-      imageUpload.value =
-        "";
-
-
-      await loadImages();
-
-
-      imageStatus.innerText =
-        "Bilder erfolgreich gespeichert ✓";
-
-
-    } catch (error) {
-
-      showError(
-        imageError,
-        error,
-        "Bilder konnten nicht hochgeladen werden."
-      );
-
-    }
+    document.getElementById(
+      "connectionStatus"
+    ).innerText =
+      "❌ Verbindung zu Supabase fehlgeschlagen.";
 
   }
-);
+
+}
 
 
 /* =========================================================
@@ -2527,44 +3125,50 @@ document.getElementById(
 
 async function start() {
 
-  createYearOptions();
+  prepareCanvas();
 
   renderCalendar();
-
-  resizeCanvas();
 
 
   if (!supabaseClient) {
 
-    connectionStatus.innerText =
-      "❌ Supabase Publishable Key fehlt.";
+    setStatus(
+      textStatus,
+      "Supabase konnte nicht geladen werden.",
+      "error"
+    );
 
-    textStatus.innerText =
-      "Supabase ist nicht eingerichtet.";
+    setStatus(
+      drawingStatus,
+      "Supabase konnte nicht geladen werden.",
+      "error"
+    );
 
-    drawingStatus.innerText =
-      "Supabase ist nicht eingerichtet.";
+    setStatus(
+      imageStatus,
+      "Supabase konnte nicht geladen werden.",
+      "error"
+    );
 
-    imageStatus.innerText =
-      "Supabase ist nicht eingerichtet.";
-
-    calendarStatus.innerText =
-      "Supabase ist nicht eingerichtet.";
+    setStatus(
+      calendarStatus,
+      "Supabase konnte nicht geladen werden.",
+      "error"
+    );
 
     return;
 
   }
 
 
-  connectionStatus.innerText =
-    "🟢 Supabase verbunden";
+  await testConnection();
 
 
   await Promise.all([
-    loadEvents(),
     loadText(),
     loadDrawing(),
-    loadImages()
+    loadImages(),
+    loadCalendarEvents()
   ]);
 
 }
