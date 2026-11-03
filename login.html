@@ -1,0 +1,339 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anmelden | Our little world ♡</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f8dce8;
+  color: #21171c;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.card {
+  width: 100%;
+  max-width: 440px;
+  padding: 32px 25px;
+  border-radius: 28px;
+  background: #fffdf5;
+  text-align: center;
+  box-shadow: 0 8px 30px #00000012;
+}
+
+h1 {
+  font-size: 36px;
+  margin: 0 0 14px;
+}
+
+h2 {
+  font-size: 26px;
+}
+
+.subtitle {
+  color: #806a76;
+  font-size: 17px;
+  margin-bottom: 35px;
+}
+
+input {
+  display: block;
+  width: 100%;
+  padding: 16px;
+  margin: 14px 0;
+  border: 2px solid #e4b7c9;
+  border-radius: 15px;
+  background: white;
+  color: #21171c;
+  font-size: 16px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #c8759b;
+}
+
+button {
+  width: 100%;
+  padding: 16px;
+  margin-top: 14px;
+  background: #d07ba1;
+  border: 0;
+  border-radius: 15px;
+  color: white;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: .6;
+}
+
+.secondary {
+  background: #eee1e7;
+  color: #21171c;
+}
+
+#status {
+  margin-top: 20px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.error {
+  color: #b73535;
+}
+
+.success {
+  color: #27834b;
+}
+
+[hidden] {
+  display: none !important;
+}
+</style>
+</head>
+
+<body>
+
+<main class="card">
+
+  <h1>Our little world ♡</h1>
+  <p class="subtitle">Unser kleines Tagebuch</p>
+
+  <section id="loginArea">
+    <h2>Willkommen zurück ♡</h2>
+
+    <form id="loginForm">
+      <input
+        id="email"
+        type="email"
+        placeholder="E-Mail-Adresse"
+        autocomplete="email"
+        required
+      >
+
+      <input
+        id="password"
+        type="password"
+        placeholder="Passwort"
+        autocomplete="current-password"
+        required
+      >
+
+      <button id="loginButton" type="submit">
+        Anmelden ♡
+      </button>
+    </form>
+
+    <p>
+      <a href="reset-password.html">
+        Passwort vergessen?
+      </a>
+    </p>
+  </section>
+
+  <section id="welcomeArea" hidden>
+    <h2 id="greeting"></h2>
+    <p>Du bist erfolgreich angemeldet.</p>
+    <p>Dein persönlicher Bereich wird vorbereitet. ♡</p>
+
+    <button
+      id="logoutButton"
+      class="secondary"
+      type="button"
+    >
+      Abmelden
+    </button>
+  </section>
+
+  <p id="status" role="status"></p>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+"use strict";
+
+const SUPABASE_URL =
+  "https://cqgrtybenbanfppoiuba.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_oxqVUkLdxj40fLZ8zCfjtw_wFSftxDw";
+
+const loginArea =
+  document.getElementById("loginArea");
+
+const welcomeArea =
+  document.getElementById("welcomeArea");
+
+const loginForm =
+  document.getElementById("loginForm");
+
+const statusElement =
+  document.getElementById("status");
+
+const loginButton =
+  document.getElementById("loginButton");
+
+const greeting =
+  document.getElementById("greeting");
+
+let client = null;
+
+function setStatus(message, type = "") {
+  statusElement.textContent = message;
+  statusElement.className = type;
+}
+
+function showLogin() {
+  loginArea.hidden = false;
+  welcomeArea.hidden = true;
+}
+
+function showWelcome(name) {
+  loginArea.hidden = true;
+  welcomeArea.hidden = false;
+  greeting.textContent =
+    "Schön, dass du da bist, " + name + " ♡";
+}
+
+async function checkMembership(user) {
+  const { data, error } = await client
+    .from("dd_members")
+    .select("*")
+    .eq("user_id", user.id)
+    .maybeSingle();
+
+  if (error) {
+    throw error;
+  }
+
+  if (!data) {
+    await client.auth.signOut();
+    showLogin();
+    setStatus(
+      "Dein Konto hat noch keinen Zugang zu DailyDiary.",
+      "error"
+    );
+    return false;
+  }
+
+  showWelcome(data.display_name || "du");
+  setStatus("Anmeldung erfolgreich ♡", "success");
+  return true;
+}
+
+async function initialize() {
+  if (!window.supabase?.createClient) {
+    setStatus(
+      "Supabase konnte nicht geladen werden.",
+      "error"
+    );
+    return;
+  }
+
+  client = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+  setStatus("Anmeldung wird geprüft...");
+
+  try {
+    const { data, error } =
+      await client.auth.getUser();
+
+    if (error || !data.user) {
+      showLogin();
+      setStatus("");
+      return;
+    }
+
+    await checkMembership(data.user);
+  } catch (error) {
+    showLogin();
+    setStatus(
+      "Anmeldung konnte nicht geprüft werden: " +
+      error.message,
+      "error"
+    );
+  }
+}
+
+loginForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  if (!client) {
+    setStatus("Supabase ist nicht verfügbar.", "error");
+    return;
+  }
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  const password =
+    document.getElementById("password").value;
+
+  loginButton.disabled = true;
+  setStatus("Du wirst angemeldet...");
+
+  try {
+    const { data, error } =
+      await client.auth.signInWithPassword({
+        email,
+        password
+      });
+
+    if (error) throw error;
+
+    if (!data.user) {
+      throw new Error("Keine Benutzerdaten erhalten.");
+    }
+
+    await checkMembership(data.user);
+
+    document.getElementById("password").value = "";
+  } catch (error) {
+    setStatus(
+      "Anmeldung fehlgeschlagen: " + error.message,
+      "error"
+    );
+  } finally {
+    loginButton.disabled = false;
+  }
+});
+
+document.getElementById("logoutButton")
+  .addEventListener("click", async () => {
+    if (!client) return;
+
+    const { error } = await client.auth.signOut();
+
+    if (error) {
+      setStatus(error.message, "error");
+      return;
+    }
+
+    showLogin();
+    setStatus("Du wurdest abgemeldet.");
+  });
+
+initialize();
+</script>
+
+</body>
+</html>
