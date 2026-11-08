@@ -605,7 +605,7 @@ $("eventForm").addEventListener("submit", async e => {
 
   const payload = {
     title: $("title").value.trim(),
-    notes: $("notes").value.trim() || null,
+    notes: $("notes").value.trim(),
     starts_at: start.toISOString(),
     ends_at: end ? end.toISOString() : null,
     all_day: allDay,
