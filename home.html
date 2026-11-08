@@ -1,0 +1,548 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Our little world ♡</title>
+
+<style>
+/* =========================
+   GRUNDDESIGN
+========================= */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 25px 15px 60px;
+  background: #f8dce8;
+  color: #352630;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* =========================
+   HAUPTBEREICH
+========================= */
+
+.container {
+  width: 100%;
+  max-width: 650px;
+  margin: 20px auto;
+  padding: 30px 22px 35px;
+
+  background: #fffdf5;
+  border-radius: 28px;
+
+  box-shadow: 0 6px 25px rgba(0,0,0,0.04);
+}
+
+/* =========================
+   ÜBERSCHRIFT
+========================= */
+
+header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+h1 {
+  font-size: clamp(32px, 7vw, 44px);
+  margin: 10px 0 14px;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #9c8993;
+  margin: 0;
+}
+
+/* =========================
+   BEGRÜSSUNG
+========================= */
+
+.welcome {
+  text-align: center;
+  margin-bottom: 34px;
+}
+
+.welcome h2 {
+  font-size: clamp(23px, 5vw, 30px);
+  line-height: 1.4;
+  margin: 0 0 12px;
+  font-weight: normal;
+}
+
+.welcome p {
+  color: #9c8993;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* =========================
+   FIXIERTES RASTER
+========================= */
+
+.grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 12px;
+  margin-top: 25px;
+}
+
+/* =========================
+   DEZENTE KACHELN
+========================= */
+
+.tile {
+  aspect-ratio: 1 / 1;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 10px;
+
+  background: #fdf9fa;
+  border: 1px solid #efdee6;
+  border-radius: 17px;
+
+  padding: 12px;
+
+  color: #67535e;
+  text-decoration: none;
+  text-align: center;
+
+  font-family: Georgia, serif;
+  font-size: 15px;
+
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+
+a.tile:hover,
+a.tile:focus-visible {
+  background: #f8eef2;
+  border-color: #dcb6c8;
+}
+
+.tile-icon {
+  display: block;
+  font-size: 26px;
+  line-height: 1.2;
+  filter: saturate(0.65);
+}
+
+.tile-title {
+  display: block;
+  font-size: 15px;
+}
+
+.tile-soon {
+  cursor: default;
+}
+
+/* =========================
+   FRAGE DES TAGES
+========================= */
+
+.daily-question {
+  margin-top: 23px;
+  padding: 25px 18px;
+
+  background: #fdf9fa;
+  border: 1px solid #efdee6;
+  border-radius: 17px;
+
+  text-align: center;
+}
+
+.daily-question h3 {
+  margin: 0 0 13px;
+  font-size: 20px;
+  font-weight: normal;
+  color: #67535e;
+}
+
+.daily-question p {
+  margin: 0;
+  color: #9c8993;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* =========================
+   ABMELDEN
+========================= */
+
+.logout {
+  display: block;
+  width: 100%;
+
+  margin-top: 32px;
+  padding: 14px;
+
+  border: 1px solid #efdee6;
+  border-radius: 15px;
+
+  background: #fdf9fa;
+  color: #806975;
+
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+
+  cursor: pointer;
+}
+
+.logout:hover {
+  background: #f8eef2;
+}
+
+/* =========================
+   STATUS
+========================= */
+
+#loading {
+  max-width: 650px;
+  margin: 90px auto;
+  text-align: center;
+  color: #67535e;
+  line-height: 1.6;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 400px) {
+
+  .container {
+    padding: 27px 16px 30px;
+  }
+
+  .grid {
+    gap: 10px;
+  }
+
+  .tile {
+    border-radius: 15px;
+    padding: 10px;
+  }
+
+  .tile-title {
+    font-size: 14px;
+  }
+
+  .tile-icon {
+    font-size: 24px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="loading">
+  Deine Startseite wird geladen ♡
+</div>
+
+<main id="app" class="container" hidden>
+
+  <!-- ÜBERSCHRIFT -->
+
+  <header>
+    <h1>Our little world ♡</h1>
+
+    <p class="subtitle">
+      Unser kleines Tagebuch
+    </p>
+  </header>
+
+
+  <!-- PERSÖNLICHE BEGRÜSSUNG -->
+
+  <section class="welcome">
+
+    <h2>
+      Schön, dass du da bist,<br>
+      <span id="userName"></span> ♡
+    </h2>
+
+    <p>
+      Ein kleiner Ort für unsere
+      gemeinsamen Momente.
+    </p>
+
+  </section>
+
+
+  <!-- FUNKTIONSRASTER -->
+
+  <section class="grid"
+           aria-label="Unsere Bereiche">
+
+    <!-- KALENDER -->
+
+    <div class="tile tile-soon"
+         aria-label="Kalender in Vorbereitung">
+      <span class="tile-icon">📅</span>
+      <span class="tile-title">Kalender</span>
+    </div>
+
+
+    <!-- BILDER -->
+
+    <a class="tile"
+       href="gallery-test.html">
+
+      <span class="tile-icon">🖼️</span>
+      <span class="tile-title">
+        Unsere Bilder
+      </span>
+
+    </a>
+
+
+    <!-- ERINNERUNGEN -->
+
+    <div class="tile tile-soon"
+         aria-label="Erinnerungen in Vorbereitung">
+      <span class="tile-icon">♡</span>
+      <span class="tile-title">
+        Erinnerungen
+      </span>
+    </div>
+
+
+    <!-- COUNTDOWNS -->
+
+    <div class="tile tile-soon"
+         aria-label="Countdowns in Vorbereitung">
+      <span class="tile-icon">⏳</span>
+      <span class="tile-title">
+        Countdowns
+      </span>
+    </div>
+
+
+    <!-- AUFGABEN -->
+
+    <div class="tile tile-soon"
+         aria-label="Aufgaben in Vorbereitung">
+      <span class="tile-icon">✓</span>
+      <span class="tile-title">
+        Aufgaben
+      </span>
+    </div>
+
+
+    <!-- REISEN -->
+
+    <div class="tile tile-soon"
+         aria-label="Reisen in Vorbereitung">
+      <span class="tile-icon">✈</span>
+      <span class="tile-title">
+        Reisen
+      </span>
+    </div>
+
+  </section>
+
+
+  <!-- FRAGE DES TAGES -->
+
+  <section class="daily-question">
+
+    <h3>💌 Frage des Tages</h3>
+
+    <p>
+      Hier erscheint bald eure
+      gemeinsame tägliche Frage ♡
+    </p>
+
+  </section>
+
+
+  <!-- ABMELDEN -->
+
+  <button
+    id="logoutButton"
+    class="logout"
+    type="button"
+  >
+    Abmelden
+  </button>
+
+</main>
+
+
+<!-- =========================
+     SUPABASE
+========================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+
+"use strict";
+
+/* SUPABASE KONFIGURATION */
+
+const SUPABASE_URL =
+  "https://cqgrtybenbanfppoiuba.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_oxqVUkLdxj40fLZ8zCfjtw_wFSftxDw";
+
+
+const loading =
+  document.getElementById("loading");
+
+const app =
+  document.getElementById("app");
+
+const userName =
+  document.getElementById("userName");
+
+const logoutButton =
+  document.getElementById("logoutButton");
+
+let client = null;
+
+
+/* =========================
+   ANMELDUNG PRÜFEN
+========================= */
+
+async function start() {
+
+  if (!window.supabase?.createClient) {
+    loading.textContent =
+      "Supabase konnte nicht geladen werden.";
+    return;
+  }
+
+  client = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+  try {
+
+    const { data, error } =
+      await client.auth.getUser();
+
+    if (error || !data.user) {
+
+      window.location.replace("login.html");
+      return;
+
+    }
+
+    const result =
+      await client
+        .from("dd_members")
+        .select("display_name")
+        .eq("user_id", data.user.id)
+        .maybeSingle();
+
+    if (result.error) {
+      throw result.error;
+    }
+
+    if (!result.data) {
+
+      loading.textContent =
+        "Dieses Konto hat keinen Zugang zu DailyDiary.";
+
+      return;
+
+    }
+
+    userName.textContent =
+      result.data.display_name || "du";
+
+    loading.hidden = true;
+    app.hidden = false;
+
+  } catch (error) {
+
+    console.error(error);
+
+    loading.textContent =
+      "Verbindung fehlgeschlagen. Bitte versuche es erneut.";
+
+  }
+
+}
+
+
+/* =========================
+   ABMELDEN
+========================= */
+
+logoutButton.addEventListener(
+  "click",
+  async function() {
+
+    if (!client) return;
+
+    logoutButton.disabled = true;
+    logoutButton.textContent =
+      "Abmeldung läuft...";
+
+    try {
+
+      const { error } =
+        await client.auth.signOut();
+
+      if (error) {
+        throw error;
+      }
+
+      window.location.replace("login.html");
+
+    } catch (error) {
+
+      console.error(error);
+
+      logoutButton.disabled = false;
+      logoutButton.textContent =
+        "Abmelden";
+
+      alert(
+        "Abmelden fehlgeschlagen. Bitte erneut versuchen."
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================
+   WEBSITE STARTEN
+========================= */
+
+start();
+
+</script>
+
+</body>
+</html>
