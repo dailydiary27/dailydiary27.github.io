@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Unsere Bilder ♡</title>
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #f8dce8;
+  color: #21171c;
+  font-family: Georgia, serif;
+  padding: 30px 16px;
+}
+
+.card {
+  background: #fffdf5;
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 25px;
+  border-radius: 25px;
+  text-align: center;
+}
+
+h1 { font-size: 34px; }
+h2 { font-size: 25px; }
+
+#status {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+}
+
+#gallery {
+  display: grid;
+  gap: 16px;
+}
+
+#gallery img {
+  width: 100%;
+  max-height: 500px;
+  object-fit: contain;
+  border-radius: 16px;
+  background: #f4e8ed;
+}
+
+a { color: #af527e; }
+[hidden] { display: none !important; }
+</style>
+</head>
+
+<body>
+
+<main class="card">
+  <h1>Our little world ♡</h1>
+  <p>Unser kleines Tagebuch</p>
+
+  <h2>🖼️ Unsere Bilder</h2>
+
+  <p id="status">Verbindung wird geprüft...</p>
+
+  <p id="loginInfo" hidden>
+    <a href="login.html">Zur Anmeldung ♡</a>
+  </p>
+
+  <div id="gallery"></div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+"use strict";
+
+const client = window.supabase.createClient(
+  "https://cqgrtybenbanfppoiuba.supabase.co",
+  "sb_publishable_oxqVUkLdxj40fLZ8zCfjtw_wFSftxDw"
+);
+
+const bucket = "daily-diary-images";
+const statusBox = document.getElementById("status");
+const gallery = document.getElementById("gallery");
+const loginInfo = document.getElementById("loginInfo");
+
+const imageUrls = [];
+
+function status(message) {
+  statusBox.textContent = message;
+}
+
+async function start() {
+  try {
+    const auth = await client.auth.getUser();
+    const user = auth.data?.user;
+
+    if (!user) {
+      status("Bitte melde dich zuerst an.");
+      loginInfo.hidden = false;
+      return;
+    }
+
+    const member = await client
+      .from("dd_members")
+      .select("user_id")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    if (member.error) throw member.error;
+
+    if (!member.data) {
+      status("Dieses Konto hat keinen Zugang.");
+      return;
+    }
+
+    status("Private Bilder werden geladen...");
+
+    const result = await client.storage
+      .from(bucket)
+      .list("", {
+        limit: 50,
+        sortBy: {
+          column: "created_at",
+          order: "desc"
+        }
+      });
+
+    if (result.error) throw result.error;
+
+    const files = (result.data || [])
+      .filter(file =>
+        file.name &&
+        file.id !== null &&
+        /\.(png|jpg|jpeg|webp|gif|heic|avif)$/i
+          .test(file.name)
+      );
+
+    if (files.length === 0) {
+      status("Noch keine Bilder gefunden.");
+      return;
+    }
+
+    let loaded = 0;
+
+    for (const file of files) {
+      const download = await client.storage
+        .from(bucket)
+        .download(file.name);
+
+      if (download.error) {
+        console.error(download.error);
+        continue;
+      }
+
+      const url = URL.createObjectURL(download.data);
+      imageUrls.push(url);
+
+      const img = document.createElement("img");
+      img.src = url;
+      img.alt = "Unser privates Foto";
+      img.loading = "lazy";
+
+      gallery.appendChild(img);
+      loaded++;
+    }
+
+    status(
+      loaded + " private(s) Bild(er) geladen ♡"
+    );
+
+  } catch (error) {
+    console.error(error);
+    status("Fehler: " + error.message);
+  }
+}
+
+window.addEventListener("pagehide", () => {
+  imageUrls.forEach(url => URL.revokeObjectURL(url));
+});
+
+start();
+</script>
+</body>
+</html>
