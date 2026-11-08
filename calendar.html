@@ -1,0 +1,733 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unser Kalender ♡</title>
+<style>
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  padding: 20px 14px 60px;
+  background: #f8dce8;
+  color: #352630;
+  font-family: Georgia, serif;
+}
+
+main {
+  max-width: 670px;
+  margin: auto;
+}
+
+.card {
+  background: #fffdf5;
+  padding: 23px 18px;
+  margin-top: 18px;
+  border-radius: 24px;
+}
+
+header {
+  text-align: center;
+  padding: 14px;
+}
+
+h1 {
+  font-size: clamp(30px, 7vw, 44px);
+  margin: 10px 0;
+}
+
+h2 {
+  font-size: 25px;
+  font-weight: normal;
+}
+
+.subtitle {
+  color: #9c8993;
+}
+
+.back {
+  color: #956b81;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.month-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.month-nav h2 {
+  margin: 0;
+  text-align: center;
+  font-size: 23px;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.nav-button {
+  background: #fdf9fa;
+  border: 1px solid #efdee6;
+  border-radius: 13px;
+  padding: 10px 16px;
+  font-size: 21px;
+  color: #67535e;
+}
+
+.weekdays,
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 5px;
+}
+
+.weekdays {
+  margin-top: 22px;
+  margin-bottom: 9px;
+}
+
+.weekdays span {
+  font: 12px Arial, sans-serif;
+  text-align: center;
+  color: #9c8993;
+}
+
+.day {
+  min-height: 62px;
+  border: 1px solid #efdee6;
+  border-radius: 12px;
+  background: #fdf9fa;
+  color: #67535e;
+  font-size: 16px;
+  position: relative;
+}
+
+.day.other {
+  opacity: .36;
+}
+
+.day.today {
+  border-color: #bd829e;
+}
+
+.day.selected {
+  background: #f5e6ed;
+  border-color: #c88dab;
+}
+
+.dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #c183a2;
+  bottom: 9px;
+  left: calc(50% - 3px);
+}
+
+.event {
+  border: 1px solid #efdee6;
+  border-radius: 15px;
+  background: #fdf9fa;
+  padding: 15px;
+  margin: 12px 0;
+}
+
+.event strong {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.event p {
+  color: #846f7c;
+  font-size: 14px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.event-actions {
+  display: flex;
+  gap: 9px;
+}
+
+.event-actions button {
+  flex: 1;
+  background: #f5e6ed;
+  border: 1px solid #efdee6;
+  border-radius: 12px;
+  padding: 10px;
+  color: #67535e;
+}
+
+label {
+  display: block;
+  margin: 16px 0 6px;
+  color: #67535e;
+  font-size: 15px;
+}
+
+input, textarea, select {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #e7ceda;
+  border-radius: 13px;
+  background: #fff;
+  color: #352630;
+  font-size: 16px;
+}
+
+textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.checkbox-row input {
+  width: auto;
+}
+
+.checkbox-row label {
+  margin: 0;
+}
+
+.primary {
+  width: 100%;
+  background: #cf8daa;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  padding: 15px;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.secondary {
+  width: 100%;
+  background: #f5e6ed;
+  color: #67535e;
+  border: 0;
+  border-radius: 14px;
+  padding: 13px;
+  margin-top: 10px;
+}
+
+button:disabled {
+  opacity: .6;
+}
+
+#status {
+  text-align: center;
+  line-height: 1.5;
+  font: 14px Arial, sans-serif;
+  color: #806975;
+}
+
+@media(max-width: 400px) {
+  .card { padding: 19px 12px; }
+  .day { min-height: 53px; }
+  .month-nav h2 { font-size: 20px; }
+}
+</style>
+</head>
+
+<body>
+<main>
+  <header>
+    <a class="back" href="home.html">
+      ‹ Zurück zur Startseite
+    </a>
+    <h1>Our little world ♡</h1>
+    <p class="subtitle">Unser gemeinsamer Kalender</p>
+  </header>
+
+  <p id="status">Kalender wird geladen...</p>
+
+  <div id="app" hidden>
+    <section class="card">
+      <div class="month-nav">
+        <button class="nav-button" id="prev">‹</button>
+        <h2 id="monthTitle"></h2>
+        <button class="nav-button" id="next">›</button>
+      </div>
+
+      <div class="weekdays">
+        <span>Mo</span><span>Di</span>
+        <span>Mi</span><span>Do</span>
+        <span>Fr</span><span>Sa</span>
+        <span>So</span>
+      </div>
+
+      <div class="calendar-grid" id="calendar"></div>
+    </section>
+
+    <section class="card">
+      <h2 id="selectedTitle"></h2>
+      <div id="events"></div>
+    </section>
+
+    <section class="card">
+      <h2 id="formTitle">♡ Neuer Termin</h2>
+
+      <form id="eventForm">
+        <label for="title">Titel</label>
+        <input id="title" type="text"
+          maxlength="200" required
+          placeholder="Unser nächstes Date ♡">
+
+        <label for="eventDate">Datum</label>
+        <input id="eventDate" type="date" required>
+
+        <div class="checkbox-row">
+          <input id="allDay" type="checkbox">
+          <label for="allDay">Ganztägig</label>
+        </div>
+
+        <div id="timeFields">
+          <label for="startTime">Beginn</label>
+          <input id="startTime" type="time"
+            value="18:00" required>
+
+          <label for="endTime">Ende (optional)</label>
+          <input id="endTime" type="time">
+        </div>
+
+        <label for="eventType">Art des Termins</label>
+        <select id="eventType">
+          <option value="other">Sonstiges</option>
+          <option value="date">Date-Night</option>
+          <option value="birthday">Geburtstag</option>
+          <option value="anniversary">Jahrestag</option>
+          <option value="trip">Reise</option>
+          <option value="reservation">Reservierung</option>
+        </select>
+
+        <label for="visibility">Sichtbarkeit</label>
+        <select id="visibility">
+          <option value="private">Privat</option>
+          <option value="shared">Gemeinsam</option>
+        </select>
+
+        <label for="notes">Notizen</label>
+        <textarea id="notes"
+          placeholder="Weitere Informationen..."></textarea>
+
+        <button id="saveButton" class="primary"
+          type="submit">Termin speichern ♡</button>
+
+        <button id="cancelEdit" class="secondary"
+          type="button" hidden>
+          Bearbeitung abbrechen
+        </button>
+      </form>
+    </section>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+"use strict";
+
+const client = window.supabase.createClient(
+  "https://cqgrtybenbanfppoiuba.supabase.co",
+  "sb_publishable_oxqVUkLdxj40fLZ8zCfjtw_wFSftxDw"
+);
+
+const $ = id => document.getElementById(id);
+
+let user = null;
+let events = [];
+let editingId = null;
+let month = new Date().getMonth();
+let year = new Date().getFullYear();
+
+function dateKey(date) {
+  return [
+    date.getFullYear(),
+    String(date.getMonth() + 1).padStart(2, "0"),
+    String(date.getDate()).padStart(2, "0")
+  ].join("-");
+}
+
+let selected = dateKey(new Date());
+
+function setStatus(message) {
+  $("status").textContent = message;
+}
+
+function dateLabel(key) {
+  const [y, m, d] = key.split("-").map(Number);
+  return new Date(y, m - 1, d)
+    .toLocaleDateString("de-DE", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    });
+}
+
+function belongsToDate(event, key) {
+  return dateKey(new Date(event.starts_at)) === key;
+}
+
+async function loadEvents() {
+  setStatus("Termine werden geladen...");
+
+  const from = new Date(year, month, 1);
+  const until = new Date(year, month + 1, 1);
+
+  const { data, error } = await client
+    .from("dd_calendar_events")
+    .select("id,owner_id,title,notes,starts_at,ends_at,all_day,event_type,visibility")
+    .gte("starts_at", from.toISOString())
+    .lt("starts_at", until.toISOString())
+    .order("starts_at");
+
+  if (error) {
+    setStatus("Fehler beim Laden: " + error.message);
+    return;
+  }
+
+  events = data || [];
+  setStatus("");
+  render();
+}
+
+function render() {
+  const title = new Date(year, month, 1)
+    .toLocaleDateString("de-DE", {
+      month: "long", year: "numeric"
+    });
+
+  $("monthTitle").textContent = title;
+  $("selectedTitle").textContent = dateLabel(selected);
+  $("calendar").replaceChildren();
+
+  const first = new Date(year, month, 1);
+  const offset = (first.getDay() + 6) % 7;
+
+  for (let i = 0; i < 42; i++) {
+    const date = new Date(year, month, i - offset + 1);
+    const key = dateKey(date);
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "day";
+    button.textContent = String(date.getDate());
+    button.setAttribute("aria-label", dateLabel(key));
+
+    if (date.getMonth() !== month)
+      button.classList.add("other");
+
+    if (key === dateKey(new Date()))
+      button.classList.add("today");
+
+    if (key === selected)
+      button.classList.add("selected");
+
+    if (events.some(e => belongsToDate(e, key))) {
+      const dot = document.createElement("span");
+      dot.className = "dot";
+      button.appendChild(dot);
+    }
+
+    button.addEventListener("click", async () => {
+      selected = key;
+      $("eventDate").value = key;
+
+      if (date.getMonth() !== month ||
+          date.getFullYear() !== year) {
+        month = date.getMonth();
+        year = date.getFullYear();
+        await loadEvents();
+      } else {
+        render();
+      }
+    });
+
+    $("calendar").appendChild(button);
+  }
+
+  renderEventList();
+}
+
+function renderEventList() {
+  const container = $("events");
+  container.replaceChildren();
+
+  const selectedEvents =
+    events.filter(e => belongsToDate(e, selected));
+
+  if (!selectedEvents.length) {
+    const empty = document.createElement("p");
+    empty.textContent = "Noch keine Termine an diesem Tag.";
+    empty.style.color = "#9c8993";
+    container.appendChild(empty);
+    return;
+  }
+
+  selectedEvents.forEach(event => {
+    const card = document.createElement("div");
+    card.className = "event";
+
+    const heading = document.createElement("strong");
+    heading.textContent = event.title;
+    card.appendChild(heading);
+
+    const info = document.createElement("p");
+    const time = event.all_day
+      ? "Ganztägig"
+      : new Date(event.starts_at)
+          .toLocaleTimeString("de-DE", {
+            hour: "2-digit",
+            minute: "2-digit"
+          });
+
+    info.textContent =
+      time + " · " +
+      (event.visibility === "shared"
+        ? "Gemeinsam"
+        : "Privat");
+
+    card.appendChild(info);
+
+    if (event.notes) {
+      const notes = document.createElement("p");
+      notes.textContent = event.notes;
+      card.appendChild(notes);
+    }
+
+    if (event.owner_id === user.id) {
+      const actions = document.createElement("div");
+      actions.className = "event-actions";
+
+      const edit = document.createElement("button");
+      edit.textContent = "Bearbeiten";
+      edit.onclick = () => editEvent(event);
+
+      const remove = document.createElement("button");
+      remove.textContent = "Löschen";
+      remove.onclick = () => deleteEvent(event);
+
+      actions.append(edit, remove);
+      card.appendChild(actions);
+    }
+
+    container.appendChild(card);
+  });
+}
+
+function toggleTimeFields() {
+  const allDay = $("allDay").checked;
+  $("timeFields").hidden = allDay;
+  $("startTime").required = !allDay;
+}
+
+$("allDay").addEventListener("change", toggleTimeFields);
+
+function resetForm() {
+  editingId = null;
+  $("eventForm").reset();
+  $("eventDate").value = selected;
+  $("formTitle").textContent = "♡ Neuer Termin";
+  $("saveButton").textContent = "Termin speichern ♡";
+  $("cancelEdit").hidden = true;
+  toggleTimeFields();
+}
+
+function editEvent(event) {
+  if (event.owner_id !== user.id) return;
+
+  editingId = event.id;
+  $("title").value = event.title;
+  $("eventDate").value = dateKey(new Date(event.starts_at));
+  $("allDay").checked = event.all_day;
+  $("eventType").value = event.event_type || "other";
+  $("visibility").value = event.visibility;
+  $("notes").value = event.notes || "";
+
+  const start = new Date(event.starts_at);
+  $("startTime").value =
+    String(start.getHours()).padStart(2, "0") + ":" +
+    String(start.getMinutes()).padStart(2, "0");
+
+  $("endTime").value = event.ends_at
+    ? new Date(event.ends_at).toLocaleTimeString("de-DE", {
+        hour: "2-digit",
+        minute: "2-digit"
+      })
+    : "";
+
+  $("formTitle").textContent = "♡ Termin bearbeiten";
+  $("saveButton").textContent = "Änderungen speichern";
+  $("cancelEdit").hidden = false;
+
+  toggleTimeFields();
+  $("eventForm").scrollIntoView({ behavior: "smooth" });
+}
+
+$("cancelEdit").onclick = resetForm;
+
+$("eventForm").addEventListener("submit", async e => {
+  e.preventDefault();
+
+  const date = $("eventDate").value;
+  const allDay = $("allDay").checked;
+
+  const start = new Date(
+    date + "T" + (allDay ? "12:00" : $("startTime").value)
+  );
+
+  const end = (!allDay && $("endTime").value)
+    ? new Date(date + "T" + $("endTime").value)
+    : null;
+
+  if (Number.isNaN(start.getTime()) ||
+      (end && (Number.isNaN(end.getTime()) ||
+               end < start))) {
+    setStatus("Bitte prüfe die Uhrzeiten.");
+    return;
+  }
+
+  const payload = {
+    title: $("title").value.trim(),
+    notes: $("notes").value.trim() || null,
+    starts_at: start.toISOString(),
+    ends_at: end ? end.toISOString() : null,
+    all_day: allDay,
+    event_type: $("eventType").value,
+    visibility: $("visibility").value
+  };
+
+  if (!payload.title) return;
+
+  $("saveButton").disabled = true;
+  setStatus("Termin wird gespeichert...");
+
+  try {
+    let query;
+
+    if (editingId) {
+      query = client
+        .from("dd_calendar_events")
+        .update(payload)
+        .eq("id", editingId)
+        .eq("owner_id", user.id);
+    } else {
+      query = client
+        .from("dd_calendar_events")
+        .insert({
+          ...payload,
+          owner_id: user.id
+        });
+    }
+
+    const { data, error } = await query.select("id");
+
+    if (error) throw error;
+    if (!data?.length)
+      throw new Error("Keine Speicherberechtigung oder kein Datensatz gefunden.");
+
+    selected = date;
+    const [y, m] = date.split("-").map(Number);
+    year = y;
+    month = m - 1;
+
+    resetForm();
+    await loadEvents();
+    if (!$("status").textContent)
+      setStatus("Termin gespeichert ♡");
+
+  } catch (error) {
+    setStatus("Fehler: " + error.message);
+  } finally {
+    $("saveButton").disabled = false;
+  }
+});
+
+async function deleteEvent(event) {
+  if (event.owner_id !== user.id) return;
+  if (!confirm("Diesen Termin wirklich löschen?")) return;
+
+  const { data, error } = await client
+    .from("dd_calendar_events")
+    .delete()
+    .eq("id", event.id)
+    .eq("owner_id", user.id)
+    .select("id");
+
+  if (error || !data?.length) {
+    setStatus("Löschen fehlgeschlagen: " +
+      (error?.message || "Keine Berechtigung."));
+    return;
+  }
+
+  if (editingId === event.id) resetForm();
+  await loadEvents();
+  if (!$("status").textContent)
+    setStatus("Termin gelöscht.");
+}
+
+async function changeMonth(delta) {
+  const date = new Date(year, month + delta, 1);
+  year = date.getFullYear();
+  month = date.getMonth();
+
+  selected = dateKey(date);
+  resetForm();
+  await loadEvents();
+}
+
+$("prev").onclick = () => changeMonth(-1);
+$("next").onclick = () => changeMonth(1);
+
+async function startApp() {
+  try {
+    const auth = await client.auth.getUser();
+    if (auth.error || !auth.data.user) {
+      location.replace("login.html");
+      return;
+    }
+
+    user = auth.data.user;
+
+    const member = await client
+      .from("dd_members")
+      .select("user_id")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    if (member.error) throw member.error;
+
+    if (!member.data) {
+      setStatus("Dieses Konto hat keinen Zugang.");
+      return;
+    }
+
+    $("app").hidden = false;
+    resetForm();
+    await loadEvents();
+
+  } catch (error) {
+    setStatus("Verbindungsfehler: " + error.message);
+  }
+}
+
+startApp();
+</script>
+</body>
+</html>
