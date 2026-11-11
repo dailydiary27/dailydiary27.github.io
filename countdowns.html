@@ -5,255 +5,62 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Unsere Countdowns ♡ | DailyDiary</title>
-
 <style>
-:root {
-  --pink:#f8dce8;
-  --cream:#fffdf5;
-  --ink:#352831;
-  --muted:#967f8b;
-  --line:#ecdce4;
-  --accent:#c17f9f;
-}
-
-* { box-sizing:border-box; }
-[hidden] { display:none!important; }
-
-body {
-  margin:0;
-  background:var(--pink);
-  color:var(--ink);
-  font-family:Georgia,"Times New Roman",serif;
-}
-
-main {
-  max-width:740px;
-  margin:auto;
-  padding:30px 18px 70px;
-}
-
-a.back {
-  color:#956f83;
-  text-decoration:none;
-  display:inline-block;
-  margin-bottom:25px;
-}
-
-header {
-  text-align:center;
-  margin-bottom:27px;
-}
-
-h1 {
-  font-size:clamp(2rem,8vw,3.5rem);
-  margin:0 0 12px;
-}
-
-header p { color:var(--muted); margin:0; }
-
-.panel {
-  background:var(--cream);
-  border-radius:28px;
-  padding:24px;
-  margin:18px 0;
-}
-
-h2 { font-size:1.5rem; margin:0 0 17px; }
-
-.filters {
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-bottom:18px;
-}
-
-.filter {
-  border:1px solid var(--line);
-  background:#fdf9fa;
-  color:#715d69;
-  border-radius:24px;
-  padding:10px 13px;
-  font:inherit;
-  cursor:pointer;
-}
-
-.filter.active {
-  background:#f3e3eb;
-  border-color:var(--accent);
-}
-
-.grid {
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:12px;
-}
-
-.countdown {
-  background:#fdf9fa;
-  border:1px solid var(--line);
-  border-radius:20px;
-  padding:20px 12px;
-  text-align:center;
-  min-width:0;
-}
-
-.countdown .emoji { font-size:27px; }
-
-.countdown h3 {
-  font-size:1.05rem;
-  margin:12px 0 9px;
-  overflow-wrap:anywhere;
-}
-
-.countdown-value {
-  color:#ab7190;
-  font-size:1.18rem;
-  font-weight:bold;
-  line-height:1.5;
-}
-
-.small {
-  font-size:.86rem;
-  color:var(--muted);
-  line-height:1.6;
-}
-
-.note {
-  white-space:pre-wrap;
-  overflow-wrap:anywhere;
-  margin:9px 0;
-}
-
-.actions {
-  display:flex;
-  justify-content:center;
-  gap:8px;
-  margin-top:14px;
-}
-
-.actions button {
-  background:#f1e3ea;
-  color:#745c6b;
-  border:1px solid var(--line);
-  border-radius:10px;
-  padding:9px;
-  font:inherit;
-  cursor:pointer;
-}
-
-form {
-  display:grid;
-  gap:13px;
-}
-
-label {
-  display:block;
-  color:#715b68;
-  margin-bottom:6px;
-  font-size:.95rem;
-}
-
-input, textarea, select {
-  width:100%;
-  padding:13px;
-  border:1px solid var(--line);
-  border-radius:13px;
-  background:#fdf9fa;
-  color:var(--ink);
-  font:inherit;
-  font-size:16px;
-}
-
-textarea {
-  resize:vertical;
-  min-height:80px;
-}
-
-.two {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
-
-.check {
-  display:flex;
-  align-items:center;
-  gap:11px;
-  margin:5px 0;
-}
-
-.check input {
-  width:20px;
-  height:20px;
-  accent-color:var(--accent);
-}
-
-.check label { margin:0; }
-
-.btn {
-  padding:14px 18px;
-  border:0;
-  border-radius:13px;
-  font:inherit;
-  cursor:pointer;
-}
-
-.primary {
-  background:var(--accent);
-  color:white;
-}
-
-.secondary {
-  background:#efe2e9;
-  color:#55434e;
-}
-
-.btn:disabled { opacity:.6; }
-
-.buttons {
-  display:flex;
-  flex-wrap:wrap;
-  gap:9px;
-}
-
-#status {
-  color:#866577;
-  min-height:24px;
-  margin:15px 0;
-}
-
-#status.error { color:#af3e54; }
-
-.empty {
-  color:var(--muted);
-  text-align:center;
-  padding:18px 0;
-}
-
-@media(max-width:410px) {
-  .panel { padding:19px 15px; }
-  .two { grid-template-columns:1fr; }
-  .grid { gap:9px; }
-  .countdown { padding:16px 8px; }
+:root{--pink:#f8dce8;--cream:#fffdf5;--ink:#352831;--muted:#967f8b;--line:#ecdce4;--accent:#c17f9f}
+*{box-sizing:border-box} [hidden]{display:none!important}
+body{margin:0;background:var(--pink);color:var(--ink);font-family:Georgia,"Times New Roman",serif}
+main{max-width:740px;margin:auto;padding:30px 18px 70px}
+a.back{color:#956f83;text-decoration:none;display:inline-block;margin-bottom:25px}
+header{text-align:center;margin-bottom:27px}
+h1{font-size:clamp(2rem,8vw,3.5rem);margin:0 0 12px}
+header p{color:var(--muted);margin:0}
+.panel{background:var(--cream);border-radius:28px;padding:24px;margin:18px 0}
+h2{font-size:1.5rem;margin:0 0 17px}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.filter{border:1px solid var(--line);background:#fdf9fa;color:#715d69;border-radius:24px;padding:10px 13px;font:inherit;cursor:pointer}
+.filter.active{background:#f3e3eb;border-color:var(--accent)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.countdown{background:#fdf9fa;border:1px solid var(--line);border-radius:20px;padding:20px 12px;text-align:center;min-width:0}
+.countdown .emoji{font-size:27px}
+.countdown h3{font-size:1.05rem;margin:12px 0 9px;overflow-wrap:anywhere}
+.countdown-value{color:#ab7190;font-size:1.18rem;font-weight:bold;line-height:1.5}
+.small{font-size:.86rem;color:var(--muted);line-height:1.6}
+.note{white-space:pre-wrap;overflow-wrap:anywhere;margin:9px 0}
+.actions{display:flex;justify-content:center;gap:8px;margin-top:14px}
+.actions button{background:#f1e3ea;color:#745c6b;border:1px solid var(--line);border-radius:10px;padding:9px;font:inherit;cursor:pointer}
+form{display:grid;gap:13px}
+label{display:block;color:#715b68;margin-bottom:6px;font-size:.95rem}
+input,textarea,select{width:100%;padding:13px;border:1px solid var(--line);border-radius:13px;background:#fdf9fa;color:var(--ink);font:inherit;font-size:16px}
+textarea{resize:vertical;min-height:80px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.check{display:flex;align-items:center;gap:11px;margin:5px 0}
+.check input{width:20px;height:20px;accent-color:var(--accent)}
+.check label{margin:0}
+.btn{padding:14px 18px;border:0;border-radius:13px;font:inherit;cursor:pointer}
+.primary{background:var(--accent);color:white}
+.secondary{background:#efe2e9;color:#55434e}
+.btn:disabled{opacity:.6}
+.buttons{display:flex;flex-wrap:wrap;gap:9px}
+#status{color:#866577;min-height:24px;margin:15px 0}
+#status.error{color:#af3e54}
+.empty{color:var(--muted);text-align:center;padding:18px 0}
+@media(max-width:410px){
+  .panel{padding:19px 15px}
+  .two{grid-template-columns:1fr}
+  .grid{gap:9px}
+  .countdown{padding:16px 8px}
 }
 </style>
 </head>
-
 <body>
 <main>
-
-<a class="back" href="home.html">
-  ‹ Zurück zur Startseite
-</a>
-
+<a class="back" href="home.html">‹ Zurück zur Startseite</a>
 <header>
   <h1>Unsere Countdowns ♡</h1>
   <p>Vorfreude auf unsere besonderen Momente</p>
 </header>
 
-<p id="status" role="status" aria-live="polite">
-  Anmeldung wird geprüft …
-</p>
+<p id="status" role="status" aria-live="polite">Anmeldung wird geprüft …</p>
 
 <section id="login" class="panel" hidden>
   <h2>Bitte zuerst anmelden ♡</h2>
@@ -261,7 +68,6 @@ textarea {
 </section>
 
 <div id="app" hidden>
-
   <section class="panel">
     <h2>Unsere besonderen Tage</h2>
     <div id="filters" class="filters"></div>
@@ -270,19 +76,11 @@ textarea {
 
   <section class="panel">
     <h2 id="formHeading">Neuer Countdown ♡</h2>
-
     <form id="form">
-
       <div>
         <label for="title">Name des Ereignisses *</label>
-        <input
-          id="title"
-          maxlength="200"
-          required
-          placeholder="Unser Jahrestag ♡"
-        >
+        <input id="title" maxlength="200" required placeholder="Unser Jahrestag ♡">
       </div>
-
       <div class="two">
         <div>
           <label for="category">Kategorie</label>
@@ -292,12 +90,9 @@ textarea {
             <option value="trip">✈️ Urlaub / Reise</option>
             <option value="date_night">🌹 Date-Night</option>
             <option value="holiday">🎄 Feiertag</option>
-            <option value="special" selected>
-              ☆ Besonderes Ereignis
-            </option>
+            <option value="special" selected>☆ Besonderes Ereignis</option>
           </select>
         </div>
-
         <div>
           <label for="visibility">Sichtbarkeit</label>
           <select id="visibility">
@@ -306,271 +101,147 @@ textarea {
           </select>
         </div>
       </div>
-
       <div class="two">
         <div>
           <label for="targetDate">Datum *</label>
           <input id="targetDate" type="date" required>
         </div>
-
         <div>
           <label for="targetTime">Uhrzeit (optional)</label>
           <input id="targetTime" type="time">
         </div>
       </div>
-
       <div class="check">
         <input id="repeatYearly" type="checkbox">
-        <label for="repeatYearly">
-          Jedes Jahr wiederholen
-        </label>
+        <label for="repeatYearly">Jedes Jahr wiederholen</label>
       </div>
-
       <div>
         <label for="notes">Notizen (optional)</label>
-        <textarea
-          id="notes"
-          placeholder="Eine kleine Erinnerung …"
-        ></textarea>
+        <textarea id="notes" placeholder="Eine kleine Erinnerung …"></textarea>
       </div>
-
       <div class="buttons">
-        <button
-          class="btn primary"
-          id="save"
-          type="submit"
-        >
-          Countdown speichern ♡
-        </button>
-
-        <button
-          class="btn secondary"
-          id="cancel"
-          type="button"
-          hidden
-        >
-          Abbrechen
-        </button>
+        <button class="btn primary" id="save" type="submit">Countdown speichern ♡</button>
+        <button class="btn secondary" id="cancel" type="button" hidden>Abbrechen</button>
       </div>
-
     </form>
   </section>
-
 </div>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
 "use strict";
 
-/* ===============================
-   SUPABASE
-================================ */
-
-const URL =
-  "https://cqgrtybenbanfppoiuba.supabase.co";
-
-const KEY =
-  "sb_publishable_oxqVUkLdxj40fLZ8zCfjtw_wFSftxDw";
+const SUPABASE_URL = "https://cqgrtybenbanfppoiuba.supabase.co";
+const KEY = "sb_publishable_oxqVUkLdxj40fLZ8zCfjtw_wFSftxDw";
 
 const $ = id => document.getElementById(id);
 
 const types = [
-  ["all", "♡", "Alle"],
-  ["anniversary", "♡", "Jahrestage"],
-  ["birthday", "🎂", "Geburtstage"],
-  ["trip", "✈️", "Reisen"],
-  ["date_night", "🌹", "Dates"],
-  ["holiday", "🎄", "Feiertage"],
-  ["special", "☆", "Besonderes"]
+  ["all","♡","Alle"],
+  ["anniversary","♡","Jahrestage"],
+  ["birthday","🎂","Geburtstage"],
+  ["trip","✈️","Reisen"],
+  ["date_night","🌹","Dates"],
+  ["holiday","🎄","Feiertage"],
+  ["special","☆","Besonderes"]
 ];
 
 const typeNames = Object.fromEntries(
-  types.map(([id, emoji, name]) => [
-    id,
-    { emoji, name }
-  ])
+  types.map(([id,emoji,name])=>[id,{emoji,name}])
 );
 
-let client;
-let user;
-let records = [];
-let selectedType = "all";
-let editingId = null;
+let client, user, records = [], selectedType = "all", editingId = null;
 
-/* ===============================
-   HILFSFUNKTIONEN
-================================ */
-
-function status(message, error = false) {
-  $("status").textContent = message;
-  $("status").className = error ? "error" : "";
+function status(message,error=false){
+  $("status").textContent=message;
+  $("status").className=error?"error":"";
 }
 
-function localKey(date) {
+function localKey(date){
   return [
     date.getFullYear(),
-    String(date.getMonth() + 1).padStart(2, "0"),
-    String(date.getDate()).padStart(2, "0")
+    String(date.getMonth()+1).padStart(2,"0"),
+    String(date.getDate()).padStart(2,"0")
   ].join("-");
 }
 
-/* ===============================
-   NÄCHSTES DATUM BERECHNEN
-================================ */
+function nextDate(item){
+  const [y,m,d] = item.target_date.split("-").map(Number);
+  const parts = (item.target_time||"00:00").split(":").map(Number);
+  const hours=parts[0]||0,minutes=parts[1]||0;
 
-function nextDate(item) {
-  const [y, m, d] =
-    item.target_date.split("-").map(Number);
-
-  const parts =
-    (item.target_time || "00:00")
-      .split(":")
-      .map(Number);
-
-  const hours = parts[0] || 0;
-  const minutes = parts[1] || 0;
-
-  function make(year) {
-    const date =
-      new Date(year, m - 1, d, hours, minutes);
-
-    return (
-      date.getFullYear() === year &&
-      date.getMonth() === m - 1 &&
-      date.getDate() === d
-    ) ? date : null;
+  function make(year){
+    const date=new Date(year,m-1,d,hours,minutes);
+    return date.getFullYear()===year &&
+      date.getMonth()===m-1 &&
+      date.getDate()===d ? date : null;
   }
 
-  if (!item.repeat_yearly) {
-    return make(y);
-  }
+  if(!item.repeat_yearly) return make(y);
 
-  const now = new Date();
+  const now=new Date();
 
-  for (
-    let year = Math.max(now.getFullYear(), y);
-    year < Math.max(now.getFullYear(), y) + 12;
-    year++
-  ) {
-    const date = make(year);
+  for(let year=now.getFullYear();year<now.getFullYear()+12;year++){
+    const date=make(year);
+    if(!date) continue;
 
-    if (!date) continue;
-
-    if (
-      item.target_time
-        ? date.getTime() >= now.getTime()
-        : localKey(date) >= localKey(now)
-    ) {
-      return date;
-    }
+    if(item.target_time
+      ? date.getTime()>=now.getTime()
+      : localKey(date)>=localKey(now)) return date;
   }
 
   return null;
 }
 
-/* ===============================
-   VERBLEIBENDE ZEIT
-================================ */
+function displayRemaining(item){
+  const date=nextDate(item);
+  if(!date) return "Kein nächster Termin";
 
-function displayRemaining(item) {
-  const date = nextDate(item);
+  if(!item.target_time){
+    const now=new Date();
+    const start=Date.UTC(now.getFullYear(),now.getMonth(),now.getDate());
+    const end=Date.UTC(date.getFullYear(),date.getMonth(),date.getDate());
+    const days=Math.round((end-start)/86400000);
 
-  if (!date) {
-    return "Kein nächster Termin";
+    return days>0
+      ? days+" Tage"
+      : days===0
+        ? "Heute ♡"
+        : "Vor "+Math.abs(days)+" Tagen";
   }
 
-  if (!item.target_time) {
-    const now = new Date();
+  let minutes=Math.floor((date.getTime()-Date.now())/60000);
+  if(minutes<0) return "Schon vorbei ♡";
 
-    const start = Date.UTC(
-      now.getFullYear(),
-      now.getMonth(),
-      now.getDate()
-    );
+  const days=Math.floor(minutes/1440);
+  minutes%=1440;
+  const hours=Math.floor(minutes/60);
+  minutes%=60;
 
-    const end = Date.UTC(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate()
-    );
-
-    const days =
-      Math.round((end - start) / 86400000);
-
-    if (days > 0) {
-      return days + " Tage";
-    }
-
-    if (days === 0) {
-      return "Heute ♡";
-    }
-
-    return "Vor " + Math.abs(days) + " Tagen";
-  }
-
-  let minutes = Math.floor(
-    (date.getTime() - Date.now()) / 60000
-  );
-
-  if (minutes < 0) {
-    return "Schon vorbei ♡";
-  }
-
-  const days = Math.floor(minutes / 1440);
-  minutes %= 1440;
-
-  const hours = Math.floor(minutes / 60);
-  minutes %= 60;
-
-  return (
-    days + " Tage · " +
-    hours + " Std · " +
-    minutes + " Min"
-  );
+  return days+" Tage · "+hours+" Std · "+minutes+" Min";
 }
 
-function updateCounters() {
-  document
-    .querySelectorAll(".countdown-value")
-    .forEach(node => {
-      const item = records.find(
-        row => row.id === node.dataset.id
-      );
-
-      if (item) {
-        node.textContent = displayRemaining(item);
-      }
-    });
+function updateCounters(){
+  document.querySelectorAll(".countdown-value").forEach(node=>{
+    const item=records.find(row=>row.id===node.dataset.id);
+    if(item) node.textContent=displayRemaining(item);
+  });
 }
 
-/* ===============================
-   KATEGORIE-FILTER
-================================ */
-
-function renderFilters() {
-  const holder = $("filters");
+function renderFilters(){
+  const holder=$("filters");
   holder.replaceChildren();
 
-  for (const [id, emoji, name] of types) {
-    const button =
-      document.createElement("button");
+  for(const [id,emoji,name] of types){
+    const button=document.createElement("button");
+    button.type="button";
+    button.className="filter"+(selectedType===id?" active":"");
+    button.textContent=emoji+" "+name;
+    button.setAttribute("aria-pressed",String(selectedType===id));
 
-    button.type = "button";
-    button.className =
-      "filter" +
-      (selectedType === id ? " active" : "");
-
-    button.textContent = emoji + " " + name;
-
-    button.setAttribute(
-      "aria-pressed",
-      String(selectedType === id)
-    );
-
-    button.onclick = () => {
-      selectedType = id;
+    button.onclick=()=>{
+      selectedType=id;
       renderFilters();
       renderCards();
     };
@@ -579,135 +250,84 @@ function renderFilters() {
   }
 }
 
-function actionButton(label, handler) {
-  const button =
-    document.createElement("button");
-
-  button.type = "button";
-  button.textContent = label;
-  button.onclick = handler;
-
+function actionButton(label,handler){
+  const button=document.createElement("button");
+  button.type="button";
+  button.textContent=label;
+  button.onclick=handler;
   return button;
 }
 
-/* ===============================
-   COUNTDOWN-KACHELN ANZEIGEN
-================================ */
-
-function renderCards() {
-  const holder = $("countdowns");
+function renderCards(){
+  const holder=$("countdowns");
   holder.replaceChildren();
 
-  const visible = records.filter(
-    item =>
-      selectedType === "all" ||
-      item.category === selectedType
+  const visible=records.filter(
+    item=>selectedType==="all"||item.category===selectedType
   );
 
   visible.sort(
-    (a, b) =>
-      (nextDate(a)?.getTime() ?? Infinity) -
-      (nextDate(b)?.getTime() ?? Infinity)
+    (a,b)=>(nextDate(a)?.getTime()??Infinity)-
+      (nextDate(b)?.getTime()??Infinity)
   );
 
-  if (!visible.length) {
-    const empty =
-      document.createElement("p");
-
-    empty.className = "empty";
-    empty.textContent =
-      "Noch keine Countdowns vorhanden ♡";
-
-    empty.style.gridColumn = "1/-1";
-
+  if(!visible.length){
+    const empty=document.createElement("p");
+    empty.className="empty";
+    empty.textContent="Noch keine Countdowns vorhanden ♡";
+    empty.style.gridColumn="1/-1";
     holder.append(empty);
     return;
   }
 
-  for (const item of visible) {
-    const card =
-      document.createElement("article");
+  for(const item of visible){
+    const card=document.createElement("article");
+    card.className="countdown";
 
-    card.className = "countdown";
+    const emoji=document.createElement("div");
+    emoji.className="emoji";
+    emoji.textContent=typeNames[item.category]?.emoji||"☆";
 
-    const emoji =
-      document.createElement("div");
+    const heading=document.createElement("h3");
+    heading.textContent=item.title;
 
-    emoji.className = "emoji";
-    emoji.textContent =
-      typeNames[item.category]?.emoji || "☆";
+    const counter=document.createElement("div");
+    counter.className="countdown-value";
+    counter.dataset.id=item.id;
+    counter.textContent=displayRemaining(item);
 
-    const heading =
-      document.createElement("h3");
+    const sub=document.createElement("div");
+    sub.className="small";
 
-    heading.textContent = item.title;
+    const when=new Date(
+      item.target_date+"T12:00:00"
+    ).toLocaleDateString("de-DE",{
+      day:"numeric",
+      month:"long",
+      year:"numeric"
+    });
 
-    const counter =
-      document.createElement("div");
+    sub.textContent=when+
+      (item.target_time?" · "+item.target_time.slice(0,5)+" Uhr":"")+
+      (item.repeat_yearly?" · jährlich":"")+
+      (item.visibility==="private"?" · privat":" · gemeinsam");
 
-    counter.className = "countdown-value";
-    counter.dataset.id = item.id;
-    counter.textContent = displayRemaining(item);
+    card.append(emoji,heading,counter,sub);
 
-    const sub =
-      document.createElement("div");
-
-    sub.className = "small";
-
-    const when =
-      new Date(item.target_date + "T12:00:00")
-        .toLocaleDateString("de-DE", {
-          day: "numeric",
-          month: "long",
-          year: "numeric"
-        });
-
-    sub.textContent =
-      when +
-      (item.target_time
-        ? " · " +
-          item.target_time.slice(0, 5) +
-          " Uhr"
-        : "") +
-      (item.repeat_yearly
-        ? " · jährlich"
-        : "") +
-      (item.visibility === "private"
-        ? " · privat"
-        : " · gemeinsam");
-
-    card.append(
-      emoji,
-      heading,
-      counter,
-      sub
-    );
-
-    if (item.notes) {
-      const notes =
-        document.createElement("p");
-
-      notes.className = "small note";
-      notes.textContent = item.notes;
-
+    if(item.notes){
+      const notes=document.createElement("p");
+      notes.className="small note";
+      notes.textContent=item.notes;
       card.append(notes);
     }
 
-    if (item.owner_id === user.id) {
-      const actions =
-        document.createElement("div");
-
-      actions.className = "actions";
+    if(item.owner_id===user.id){
+      const actions=document.createElement("div");
+      actions.className="actions";
 
       actions.append(
-        actionButton(
-          "Bearbeiten",
-          () => startEdit(item)
-        ),
-        actionButton(
-          "Löschen",
-          () => remove(item)
-        )
+        actionButton("Bearbeiten",()=>startEdit(item)),
+        actionButton("Löschen",()=>remove(item))
       );
 
       card.append(actions);
@@ -717,277 +337,160 @@ function renderCards() {
   }
 }
 
-/* ===============================
-   COUNTDOWNS LADEN
-================================ */
+async function load(){
+  const {data,error}=await client.from("dd_countdowns")
+    .select("id,owner_id,title,notes,category,target_date,target_time,repeat_yearly,visibility")
+    .order("target_date",{ascending:true});
 
-async function load() {
-  const { data, error } = await client
-    .from("dd_countdowns")
-    .select(
-      "id,owner_id,title,notes,category," +
-      "target_date,target_time," +
-      "repeat_yearly,visibility"
-    )
-    .order("target_date", {
-      ascending: true
-    });
-
-  if (error) {
-    status(
-      "Laden fehlgeschlagen: " + error.message,
-      true
-    );
+  if(error){
+    status("Laden fehlgeschlagen: "+error.message,true);
     return;
   }
 
-  records = data || [];
+  records=data||[];
   renderCards();
 }
 
-/* ===============================
-   FORMULAR
-================================ */
-
-function resetForm() {
-  editingId = null;
-
+function resetForm(){
+  editingId=null;
   $("form").reset();
-
-  $("formHeading").textContent =
-    "Neuer Countdown ♡";
-
-  $("save").textContent =
-    "Countdown speichern ♡";
-
-  $("cancel").hidden = true;
+  $("formHeading").textContent="Neuer Countdown ♡";
+  $("save").textContent="Countdown speichern ♡";
+  $("cancel").hidden=true;
 }
 
-function startEdit(item) {
-  if (item.owner_id !== user.id) return;
+function startEdit(item){
+  if(item.owner_id!==user.id) return;
 
-  editingId = item.id;
+  editingId=item.id;
+  $("title").value=item.title;
+  $("notes").value=item.notes||"";
+  $("category").value=item.category;
+  $("visibility").value=item.visibility;
+  $("targetDate").value=item.target_date;
+  $("targetTime").value=item.target_time?.slice(0,5)||"";
+  $("repeatYearly").checked=item.repeat_yearly;
 
-  $("title").value = item.title;
-  $("notes").value = item.notes || "";
-  $("category").value = item.category;
-  $("visibility").value = item.visibility;
-  $("targetDate").value = item.target_date;
+  $("formHeading").textContent="Countdown bearbeiten ♡";
+  $("save").textContent="Änderungen speichern";
+  $("cancel").hidden=false;
 
-  $("targetTime").value =
-    item.target_time?.slice(0, 5) || "";
-
-  $("repeatYearly").checked =
-    item.repeat_yearly;
-
-  $("formHeading").textContent =
-    "Countdown bearbeiten ♡";
-
-  $("save").textContent =
-    "Änderungen speichern";
-
-  $("cancel").hidden = false;
-
-  $("form").scrollIntoView({
-    behavior: "smooth"
-  });
+  $("form").scrollIntoView({behavior:"smooth"});
 }
 
-$("cancel").onclick = resetForm;
+$("cancel").onclick=resetForm;
 
-/* ===============================
-   COUNTDOWN SPEICHERN
-================================ */
+$("form").addEventListener("submit",async event=>{
+  event.preventDefault();
 
-$("form").addEventListener(
-  "submit",
-  async event => {
-    event.preventDefault();
+  const payload={
+    title:$("title").value.trim(),
+    notes:$("notes").value.trim(),
+    category:$("category").value,
+    target_date:$("targetDate").value,
+    target_time:$("targetTime").value||null,
+    repeat_yearly:$("repeatYearly").checked,
+    visibility:$("visibility").value
+  };
 
-    const payload = {
-      title: $("title").value.trim(),
-      notes: $("notes").value.trim(),
-      category: $("category").value,
-      target_date: $("targetDate").value,
-      target_time:
-        $("targetTime").value || null,
-      repeat_yearly:
-        $("repeatYearly").checked,
-      visibility: $("visibility").value
-    };
+  if(!payload.title||!payload.target_date) return;
 
-    if (
-      !payload.title ||
-      !payload.target_date
-    ) {
-      return;
+  $("save").disabled=true;
+  status("Countdown wird gespeichert …");
+
+  try{
+    const query=editingId
+      ? client.from("dd_countdowns")
+          .update(payload)
+          .eq("id",editingId)
+          .eq("owner_id",user.id)
+      : client.from("dd_countdowns").insert(payload);
+
+    const {data,error}=await query.select("id");
+
+    if(error) throw error;
+    if(!data?.length){
+      throw new Error("Keine Schreibberechtigung oder kein Datensatz gefunden.");
     }
 
-    $("save").disabled = true;
+    resetForm();
+    await load();
 
-    status("Countdown wird gespeichert …");
-
-    try {
-      const query = editingId
-        ? client
-            .from("dd_countdowns")
-            .update(payload)
-            .eq("id", editingId)
-            .eq("owner_id", user.id)
-        : client
-            .from("dd_countdowns")
-            .insert(payload);
-
-      const { data, error } =
-        await query.select("id");
-
-      if (error) throw error;
-
-      if (!data?.length) {
-        throw new Error(
-          "Keine Schreibberechtigung " +
-          "oder kein Datensatz gefunden."
-        );
-      }
-
-      resetForm();
-      await load();
-
-      if (
-        !$("status").classList.contains("error")
-      ) {
-        status("Countdown gespeichert ♡");
-      }
-
-    } catch (error) {
-      status(
-        "Speichern fehlgeschlagen: " +
-        error.message,
-        true
-      );
-
-    } finally {
-      $("save").disabled = false;
+    if(!$("status").classList.contains("error")){
+      status("Countdown gespeichert ♡");
     }
+  }catch(error){
+    status("Speichern fehlgeschlagen: "+error.message,true);
+  }finally{
+    $("save").disabled=false;
   }
-);
+});
 
-/* ===============================
-   COUNTDOWN LÖSCHEN
-================================ */
+async function remove(item){
+  if(item.owner_id!==user.id||
+    !confirm("Diesen Countdown wirklich löschen?")) return;
 
-async function remove(item) {
-  if (
-    item.owner_id !== user.id ||
-    !confirm(
-      "Diesen Countdown wirklich löschen?"
-    )
-  ) {
-    return;
-  }
-
-  const { data, error } = await client
-    .from("dd_countdowns")
+  const {data,error}=await client.from("dd_countdowns")
     .delete()
-    .eq("id", item.id)
-    .eq("owner_id", user.id)
+    .eq("id",item.id)
+    .eq("owner_id",user.id)
     .select("id");
 
-  if (error || !data?.length) {
+  if(error||!data?.length){
     status(
-      "Löschen fehlgeschlagen: " +
-      (error?.message || "Keine Berechtigung"),
+      "Löschen fehlgeschlagen: "+(error?.message||"Keine Berechtigung"),
       true
     );
     return;
   }
 
-  if (editingId === item.id) {
-    resetForm();
-  }
-
+  if(editingId===item.id) resetForm();
   await load();
 
-  if (
-    !$("status").classList.contains("error")
-  ) {
+  if(!$("status").classList.contains("error")){
     status("Countdown gelöscht ♡");
   }
 }
 
-/* ===============================
-   ANMELDUNG UND START
-================================ */
-
-async function init() {
-  if (!window.supabase) {
-    status(
-      "Supabase konnte nicht geladen werden.",
-      true
-    );
+async function init(){
+  if(!window.supabase){
+    status("Supabase konnte nicht geladen werden.",true);
     return;
   }
 
-  client = window.supabase.createClient(
-    URL,
-    KEY
-  );
+  client=window.supabase.createClient(SUPABASE_URL,KEY);
 
-  const auth =
-    await client.auth.getUser();
+  const auth=await client.auth.getUser();
 
-  if (
-    auth.error ||
-    !auth.data.user
-  ) {
-    $("login").hidden = false;
+  if(auth.error||!auth.data.user){
+    $("login").hidden=false;
     status("Bitte melde dich zuerst an.");
     return;
   }
 
-  user = auth.data.user;
+  user=auth.data.user;
 
-  const member = await client
-    .from("dd_members")
+  const member=await client.from("dd_members")
     .select("user_id")
-    .eq("user_id", user.id)
+    .eq("user_id",user.id)
     .maybeSingle();
 
-  if (
-    member.error ||
-    !member.data
-  ) {
-    status(
-      "Kein freigeschaltetes Mitgliedskonto.",
-      true
-    );
+  if(member.error||!member.data){
+    status("Kein freigeschaltetes Mitgliedskonto.",true);
     return;
   }
 
-  $("app").hidden = false;
-
+  $("app").hidden=false;
   renderFilters();
-
-  status(
-    "Willkommen bei euren Countdowns ♡"
-  );
+  status("Willkommen bei euren Countdowns ♡");
 
   await load();
-
-  setInterval(
-    updateCounters,
-    30000
-  );
+  setInterval(updateCounters,30000);
 }
 
-init().catch(
-  error => status(
-    "Verbindungsfehler: " +
-    error.message,
-    true
-  )
-);
-
+init().catch(error=>{
+  status("Verbindungsfehler: "+error.message,true);
+});
 </script>
 </body>
 </html>
