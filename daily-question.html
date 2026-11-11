@@ -1,0 +1,815 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Frage des Tages ♡ | DailyDiary</title>
+<style>
+:root {
+  --pink:#f8dce8;
+  --cream:#fffdf5;
+  --ink:#352831;
+  --muted:#967f8b;
+  --line:#ecdce4;
+  --accent:#c17f9f;
+}
+* {box-sizing:border-box}
+[hidden] {display:none!important}
+body {
+  margin:0;
+  background:var(--pink);
+  color:var(--ink);
+  font-family:Georgia,"Times New Roman",serif;
+}
+main {
+  max-width:740px;
+  margin:auto;
+  padding:28px 18px 70px;
+}
+.back {
+  display:inline-block;
+  margin:8px 0 25px;
+  color:#956f83;
+  text-decoration:none;
+}
+header {text-align:center;margin-bottom:27px}
+h1 {
+  font-size:clamp(2rem,8vw,3.4rem);
+  margin:0 0 12px;
+}
+header p {color:var(--muted);margin:0}
+.panel {
+  background:var(--cream);
+  border-radius:28px;
+  padding:24px;
+  margin:18px 0;
+}
+h2 {font-size:1.5rem;margin:0 0 15px}
+.eyebrow {
+  color:#a37d90;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-size:.77rem;
+  text-align:center;
+}
+.question {
+  font-size:clamp(1.35rem,5vw,1.8rem);
+  line-height:1.45;
+  text-align:center;
+  margin:17px 0;
+  overflow-wrap:anywhere;
+}
+.subtle {
+  text-align:center;
+  color:var(--muted);
+  font-size:.92rem;
+  line-height:1.5;
+}
+.answer {
+  border:1px solid var(--line);
+  background:#fdf9fa;
+  border-radius:17px;
+  padding:17px;
+  margin:12px 0;
+}
+.answer h3 {font-size:1.06rem;margin:0 0 10px}
+.answer p {
+  white-space:pre-wrap;
+  overflow-wrap:anywhere;
+  line-height:1.55;
+  margin:0;
+}
+.empty {color:var(--muted);font-style:italic}
+label {
+  display:block;
+  color:#715b68;
+  margin:12px 0 7px;
+}
+input,textarea,select {
+  width:100%;
+  padding:13px;
+  border:1px solid var(--line);
+  border-radius:13px;
+  background:#fdf9fa;
+  color:var(--ink);
+  font:inherit;
+  font-size:16px;
+}
+textarea {resize:vertical;min-height:120px}
+.btn {
+  border:0;
+  border-radius:13px;
+  padding:13px 17px;
+  font:inherit;
+  cursor:pointer;
+}
+.primary {background:var(--accent);color:white}
+.secondary {background:#efe2e9;color:#55434e}
+.btn:disabled {opacity:.55}
+#status {
+  color:#866577;
+  min-height:23px;
+  margin:16px 0;
+}
+#status.error {color:#a93a52}
+.history {display:grid;gap:10px}
+.history-item {
+  display:block;
+  width:100%;
+  text-align:left;
+  border:1px solid var(--line);
+  background:#fdf9fa;
+  border-radius:15px;
+  padding:13px 15px;
+  font:inherit;
+  color:var(--ink);
+  cursor:pointer;
+}
+.history-item strong {
+  display:block;
+  margin-bottom:6px;
+  font-size:1rem;
+}
+.history-item span {
+  color:var(--muted);
+  font-size:.88rem;
+}
+.category-row {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.hint {color:var(--muted);font-size:.91rem}
+.custom-item {
+  border:1px solid var(--line);
+  background:#fdf9fa;
+  border-radius:13px;
+  padding:12px;
+  margin-top:9px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.custom-item span {flex:1;overflow-wrap:anywhere}
+.custom-item button {
+  border:1px solid var(--line);
+  border-radius:9px;
+  background:#f1e3ea;
+  padding:8px;
+  color:#765f6b;
+  font:inherit;
+}
+@media(max-width:430px) {
+  .panel {padding:19px 16px}
+  .category-row {grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<main>
+<a class="back" href="home.html">‹ Zurück zur Startseite</a>
+
+<header>
+  <h1>Frage des Tages ♡</h1>
+  <p>Jeden Tag ein bisschen mehr voneinander erfahren</p>
+</header>
+
+<p id="status" role="status" aria-live="polite">
+  Anmeldung wird geprüft …
+</p>
+
+<section id="login" class="panel" hidden>
+  <h2>Bitte zuerst anmelden ♡</h2>
+  <a class="back" href="login.html">Zur Anmeldung</a>
+</section>
+
+<div id="app" hidden>
+  <section class="panel">
+    <p class="eyebrow">💌 Unsere heutige Frage</p>
+    <p id="todayLabel" class="subtle"></p>
+    <h2 id="dailyQuestion" class="question">
+      Frage wird geladen …
+    </h2>
+    <p id="dailyCategory" class="subtle"></p>
+
+    <form id="answerForm">
+      <label for="answerText">♡ Meine Antwort</label>
+      <textarea id="answerText" maxlength="2500" required
+        placeholder="Was möchtest du dazu sagen? …"></textarea>
+      <p class="hint">
+        Deine Antwort ist für euch beide sichtbar
+        und kann später geändert werden.
+      </p>
+      <button id="saveAnswer" class="btn primary" type="submit">
+        Antwort speichern ♡
+      </button>
+    </form>
+
+    <div class="answer">
+      <h3>♡ Meine gespeicherte Antwort</h3>
+      <p id="myAnswer" class="empty">
+        Noch keine Antwort gespeichert.
+      </p>
+    </div>
+
+    <div class="answer">
+      <h3>♡ Antwort der anderen Person</h3>
+      <div id="partnerAnswers">
+        <p class="empty">Noch keine Antwort vorhanden.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Unsere früheren Fragen ♡</h2>
+    <p class="hint">
+      Hier könnt ihr eure vergangenen Antworten wieder ansehen.
+    </p>
+    <div id="history" class="history"></div>
+    <div id="historyDetails" class="answer" hidden></div>
+  </section>
+
+  <section class="panel">
+    <h2>Eigene Frage hinzufügen ♡</h2>
+    <form id="customForm">
+      <label for="customQuestion">Was möchtest du fragen?</label>
+      <textarea id="customQuestion" maxlength="400"
+        minlength="5" required
+        placeholder="Zum Beispiel: Was sollten wir unbedingt gemeinsam erleben?"></textarea>
+
+      <label for="customCategory">Thema</label>
+      <select id="customCategory">
+        <option value="relationship">♡ Beziehung</option>
+        <option value="memories">📷 Erinnerungen</option>
+        <option value="personality">✦ Persönlichkeit</option>
+        <option value="future">✈ Zukunft & Träume</option>
+        <option value="fun">☺ Lustige Fragen</option>
+        <option value="everyday">☕ Alltag</option>
+      </select>
+
+      <p class="hint">
+        Eigene Fragen kommen in den Pool für zukünftige
+        Tagesfragen. Die heutige Frage bleibt unverändert.
+      </p>
+      <button id="saveCustom" class="btn primary" type="submit">
+        Frage hinzufügen ♡
+      </button>
+    </form>
+
+    <div id="ownQuestions"></div>
+  </section>
+</div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+"use strict";
+
+const SUPABASE_URL =
+  "https://cqgrtybenbanfppoiuba.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_oxqVUkLdxj40fLZ8zCfjtw_wFSftxDw";
+
+const $ = id => document.getElementById(id);
+
+const categoryNames = {
+  relationship:"Beziehung",
+  memories:"Erinnerungen",
+  personality:"Persönlichkeit",
+  future:"Zukunft & Träume",
+  fun:"Lustige Fragen",
+  everyday:"Alltag"
+};
+
+let client;
+let user;
+let today = "";
+let dayRecord = null;
+let myAnswerExists = false;
+
+function status(message,error=false) {
+  $("status").textContent = message;
+  $("status").className = error ? "error" : "";
+}
+
+function berlinDay() {
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone:"Europe/Berlin",
+    year:"numeric",
+    month:"2-digit",
+    day:"2-digit"
+  }).formatToParts(new Date());
+
+  const get = type =>
+    parts.find(p => p.type === type).value;
+
+  return `${get("year")}-${get("month")}-${get("day")}`;
+}
+
+function dateLabel(value) {
+  return new Date(value + "T12:00:00")
+    .toLocaleDateString("de-DE", {
+      day:"numeric",
+      month:"long",
+      year:"numeric"
+    });
+}
+
+function checked(result) {
+  if(result.error) throw result.error;
+  return result.data;
+}
+
+function makeP(text,css="") {
+  const p = document.createElement("p");
+  p.textContent = text;
+  if(css) p.className = css;
+  return p;
+}
+
+/* TAGESFRAGE LADEN ODER ERSTELLEN */
+
+async function ensureToday() {
+  today = berlinDay();
+
+  const old = checked(
+    await client.from("dd_question_days")
+      .select("question_date,question,category")
+      .eq("question_date",today)
+      .maybeSingle()
+  );
+
+  if(old) {
+    dayRecord = old;
+    return;
+  }
+
+  const pool = checked(
+    await client.from("dd_question_pool")
+      .select("question,category")
+      .order("question",{ascending:true})
+      .limit(500)
+  );
+
+  if(!pool?.length) {
+    throw new Error(
+      "Im Fragenpool sind noch keine Fragen vorhanden."
+    );
+  }
+
+  const dayNumber = Math.floor(
+    Date.parse(today + "T00:00:00Z") / 86400000
+  );
+
+  const chosen = pool[dayNumber % pool.length];
+
+  const inserted = await client
+    .from("dd_question_days")
+    .insert({
+      question_date:today,
+      question:chosen.question,
+      category:chosen.category
+    })
+    .select("question_date,question,category");
+
+  if(
+    inserted.error &&
+    inserted.error.code !== "23505"
+  ) {
+    throw inserted.error;
+  }
+
+  dayRecord = checked(
+    await client.from("dd_question_days")
+      .select("question_date,question,category")
+      .eq("question_date",today)
+      .single()
+  );
+}
+
+/* ANTWORTEN ANZEIGEN */
+
+async function showAnswers(date,container) {
+  const answers = checked(
+    await client.from("dd_question_answers")
+      .select("owner_id,answer_text")
+      .eq("question_date",date)
+  );
+
+  const mine = answers.find(
+    a => a.owner_id === user.id
+  );
+
+  const others = answers.filter(
+    a => a.owner_id !== user.id
+  );
+
+  if(date === today) {
+    myAnswerExists = Boolean(mine);
+
+    $("myAnswer").textContent =
+      mine?.answer_text ||
+      "Noch keine Antwort gespeichert.";
+
+    $("myAnswer").className =
+      mine ? "" : "empty";
+
+    $("answerText").value =
+      mine?.answer_text || "";
+
+    $("saveAnswer").textContent =
+      mine
+        ? "Antwort aktualisieren ♡"
+        : "Antwort speichern ♡";
+
+    const holder = $("partnerAnswers");
+    holder.replaceChildren();
+
+    if(!others.length) {
+      holder.append(
+        makeP("Noch keine Antwort vorhanden.","empty")
+      );
+    } else {
+      others.forEach(
+        a => holder.append(makeP(a.answer_text))
+      );
+    }
+
+  } else if(container) {
+    container.replaceChildren();
+
+    const heading = document.createElement("h3");
+    heading.textContent =
+      "Antworten vom " + dateLabel(date);
+
+    container.append(heading);
+    container.append(makeP("♡ Meine Antwort"));
+    container.append(
+      makeP(
+        mine?.answer_text || "Noch keine Antwort.",
+        mine ? "" : "empty"
+      )
+    );
+
+    container.append(
+      makeP("♡ Antwort der anderen Person")
+    );
+
+    if(!others.length) {
+      container.append(
+        makeP("Noch keine Antwort.","empty")
+      );
+    } else {
+      others.forEach(
+        a => container.append(makeP(a.answer_text))
+      );
+    }
+  }
+}
+
+/* VERGANGENE FRAGEN */
+
+async function loadHistory() {
+  const days = checked(
+    await client.from("dd_question_days")
+      .select("question_date,question,category")
+      .order("question_date",{ascending:false})
+      .limit(100)
+  );
+
+  const holder = $("history");
+  holder.replaceChildren();
+
+  const previous = (days || []).filter(
+    d => d.question_date !== today
+  );
+
+  if(!previous.length) {
+    holder.append(
+      makeP(
+        "Hier erscheinen eure vergangenen Tagesfragen ♡",
+        "empty"
+      )
+    );
+    return;
+  }
+
+  previous.forEach(day => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "history-item";
+
+    const title = document.createElement("strong");
+    title.textContent = dateLabel(day.question_date);
+
+    const desc = document.createElement("span");
+    desc.textContent = day.question;
+
+    btn.append(title,desc);
+
+    btn.onclick = async () => {
+      const panel = $("historyDetails");
+      panel.hidden = false;
+
+      try {
+        await showAnswers(day.question_date,panel);
+        panel.scrollIntoView({
+          behavior:"smooth",
+          block:"nearest"
+        });
+      } catch(error) {
+        status(
+          "Archiv konnte nicht geladen werden: " +
+          error.message,
+          true
+        );
+      }
+    };
+
+    holder.append(btn);
+  });
+}
+
+/* EIGENE FRAGEN VERWALTEN */
+
+async function loadOwnQuestions() {
+  const all = checked(
+    await client.from("dd_question_pool")
+      .select("id,question,owner_id")
+      .eq("owner_id",user.id)
+      .order("created_at",{ascending:false})
+  );
+
+  const holder = $("ownQuestions");
+  holder.replaceChildren();
+
+  if(!all?.length) return;
+
+  const title = document.createElement("h3");
+  title.textContent = "Deine hinzugefügten Fragen";
+  holder.append(title);
+
+  for(const q of all) {
+    const row = document.createElement("div");
+    row.className = "custom-item";
+
+    const name = document.createElement("span");
+    name.textContent = q.question;
+
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = "Löschen";
+
+    button.onclick = async () => {
+      if(!confirm(
+        "Eigene Frage aus dem Fragenpool entfernen?"
+      )) return;
+
+      button.disabled = true;
+
+      try {
+        const result = checked(
+          await client.from("dd_question_pool")
+            .delete()
+            .eq("id",q.id)
+            .eq("owner_id",user.id)
+            .select("id")
+        );
+
+        if(!result?.length) {
+          throw new Error(
+            "Die Frage konnte nicht entfernt werden."
+          );
+        }
+
+        status("Eigene Frage entfernt ♡");
+        await loadOwnQuestions();
+
+      } catch(error) {
+        status(
+          "Löschen fehlgeschlagen: " +
+          error.message,
+          true
+        );
+        button.disabled = false;
+      }
+    };
+
+    row.append(name,button);
+    holder.append(row);
+  }
+}
+
+/* HEUTIGE FRAGE LADEN */
+
+async function loadDay() {
+  await ensureToday();
+
+  $("todayLabel").textContent =
+    dateLabel(today);
+
+  $("dailyQuestion").textContent =
+    dayRecord.question;
+
+  $("dailyCategory").textContent =
+    "Thema: " +
+    (
+      categoryNames[dayRecord.category] ||
+      dayRecord.category
+    );
+
+  await showAnswers(today);
+  await loadHistory();
+}
+
+/* ANTWORT SPEICHERN */
+
+$("answerForm").addEventListener(
+  "submit",
+  async event => {
+    event.preventDefault();
+
+    const value = $("answerText").value.trim();
+    if(!value) return;
+
+    const button = $("saveAnswer");
+    button.disabled = true;
+
+    status("Deine Antwort wird gespeichert …");
+
+    try {
+      let result;
+
+      if(myAnswerExists) {
+        result = checked(
+          await client.from("dd_question_answers")
+            .update({answer_text:value})
+            .eq("question_date",today)
+            .eq("owner_id",user.id)
+            .select("id")
+        );
+      } else {
+        result = checked(
+          await client.from("dd_question_answers")
+            .insert({
+              question_date:today,
+              answer_text:value
+            })
+            .select("id")
+        );
+      }
+
+      if(!result?.length) {
+        throw new Error(
+          "Keine Schreibberechtigung oder kein Datensatz gefunden."
+        );
+      }
+
+      await showAnswers(today);
+      status("Antwort gespeichert ♡");
+
+    } catch(error) {
+      status(
+        "Speichern fehlgeschlagen: " +
+        error.message,
+        true
+      );
+
+    } finally {
+      button.disabled = false;
+    }
+  }
+);
+
+/* EIGENE FRAGE SPEICHERN */
+
+$("customForm").addEventListener(
+  "submit",
+  async event => {
+    event.preventDefault();
+
+    const question =
+      $("customQuestion").value.trim();
+
+    if(question.length < 5) return;
+
+    const button = $("saveCustom");
+    button.disabled = true;
+
+    status("Eigene Frage wird gespeichert …");
+
+    try {
+      const result = checked(
+        await client.from("dd_question_pool")
+          .insert({
+            question,
+            category:$("customCategory").value
+          })
+          .select("id")
+      );
+
+      if(!result?.length) {
+        throw new Error(
+          "Frage konnte nicht hinzugefügt werden."
+        );
+      }
+
+      $("customForm").reset();
+      await loadOwnQuestions();
+
+      status("Eigene Frage hinzugefügt ♡");
+
+    } catch(error) {
+      status(
+        error.code === "23505"
+          ? "Diese Frage gibt es bereits."
+          : "Speichern fehlgeschlagen: " +
+            error.message,
+        true
+      );
+
+    } finally {
+      button.disabled = false;
+    }
+  }
+);
+
+/* SUPABASE-ANMELDUNG UND START */
+
+async function init() {
+  if(!window.supabase) {
+    throw new Error(
+      "Supabase konnte nicht geladen werden."
+    );
+  }
+
+  client = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+  const auth = await client.auth.getUser();
+
+  if(auth.error) throw auth.error;
+
+  if(!auth.data.user) {
+    $("login").hidden = false;
+    status("Bitte melde dich zuerst an.");
+    return;
+  }
+
+  user = auth.data.user;
+
+  const member = await client
+    .from("dd_members")
+    .select("user_id")
+    .eq("user_id",user.id)
+    .maybeSingle();
+
+  if(member.error) throw member.error;
+
+  if(!member.data) {
+    status(
+      "Dein Konto ist noch nicht als Mitglied freigeschaltet.",
+      true
+    );
+    return;
+  }
+
+  $("app").hidden = false;
+
+  await loadDay();
+  await loadOwnQuestions();
+
+  status("Willkommen bei eurer Frage des Tages ♡");
+
+  setInterval(
+    async () => {
+      if(berlinDay() !== today) {
+        try {
+          await loadDay();
+          status("Eine neue Tagesfrage ist da ♡");
+        } catch(error) {
+          status(
+            "Aktualisierung fehlgeschlagen: " +
+            error.message,
+            true
+          );
+        }
+      }
+    },
+    60000
+  );
+}
+
+init().catch(
+  error => status(
+    "Verbindungsfehler: " + error.message,
+    true
+  )
+);
+</script>
+</body>
+</html>
