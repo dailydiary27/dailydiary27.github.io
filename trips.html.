@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Unsere Reisen ♡ | DailyDiary</title>
+<style>
+:root{--pink:#f8dce8;--cream:#fffdf5;--ink:#352831;--muted:#826d79;--accent:#91536f;--border:#e8d6e1;--soft:#faf6f8}
+*{box-sizing:border-box} [hidden]{display:none!important}
+body{margin:0;background:var(--pink);color:var(--ink);font-family:Cochin,Georgia,serif;font-size:17px}
+main{max-width:880px;margin:auto;padding:24px 16px 60px}
+a{color:var(--accent);overflow-wrap:anywhere} .back{text-decoration:none}
+header{text-align:center;padding:20px 0} h1{font-size:clamp(2rem,6vw,3.4rem);margin:12px 0} h2{font-size:1.55rem;margin:0 0 14px} h3{margin:0 0 8px}
+p{margin:8px 0;overflow-wrap:anywhere} .muted,small{color:var(--muted)}
+.card{background:var(--cream);border-radius:26px;padding:20px;margin:16px 0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px}
+.item{background:var(--soft);border:1px solid var(--border);border-radius:18px;padding:15px;min-width:0;overflow-wrap:anywhere}.item.active{border:2px solid var(--accent)}
+label{display:block;margin:12px 0 5px;color:var(--muted)}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--soft);border:1px solid var(--border);border-radius:12px;padding:12px;width:100%;min-width:0;max-width:100%}
+textarea{min-height:100px;resize:vertical} input[type=date]{min-height:48px}
+button{font:inherit;border:0;border-radius:12px;padding:11px 15px;background:#f0e5ec;color:var(--ink);cursor:pointer;max-width:100%;overflow-wrap:anywhere}
+button.primary{background:var(--accent);color:white}button:disabled{opacity:.55;cursor:default}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px} .error{color:#a43d4f}
+.big{font-size:1.35rem;color:var(--accent);font-weight:bold} .done{text-decoration:line-through;color:var(--muted)}
+.line{white-space:pre-wrap;overflow-wrap:anywhere} progress{width:100%;accent-color:var(--accent)}
+</style>
+</head>
+<body><main>
+<a class="back" href="home.html">‹ Zurück zur Startseite</a>
+<header><h1>Unsere Reisen ♡</h1><p class="muted">Gemeinsam die Welt entdecken</p></header>
+<p id="message" role="status" aria-live="polite">Verbindung wird hergestellt …</p>
+<div id="app" hidden>
+<section class="card">
+<h2>Unsere Abenteuer</h2>
+<div id="tripList" class="grid"></div>
+<div class="actions"><button id="newTrip" class="primary" type="button">+ Neue Reise ♡</button></div>
+</section>
+<section id="tripEditor" class="card" hidden>
+<h2 id="tripHeading">Neue Reise ♡</h2>
+<form id="tripForm">
+<label for="title">Name der Reise *</label><input id="title" required maxlength="200" placeholder="Unser Sommerurlaub">
+<label for="destination">Reiseziel</label><input id="destination" placeholder="Stadt oder Land">
+<div class="grid"><div><label for="start">Abreise</label><input id="start" type="date"></div><div><label for="end">Rückreise</label><input id="end" type="date"></div></div>
+<div class="grid"><div><label for="budget">Reisebudget</label><input id="budget" type="number" min="0" max="9999999999.99" step="0.01" value="0" required></div><div><label for="currency">Währung (z. B. EUR)</label><input id="currency" value="EUR" required maxlength="3" pattern="[A-Z]{3}"></div></div>
+<label for="status">Reisestatus</label><select id="status"><option value="idea">Reiseidee</option><option value="planning">In Planung</option><option value="booked">Gebucht</option><option value="ongoing">Unterwegs</option><option value="completed">Abgeschlossen</option></select>
+<label for="visibility">Sichtbarkeit</label><select id="visibility"><option value="shared">Gemeinsam</option><option value="private">Nur für mich</option></select>
+<label for="notes">Notizen</label><textarea id="notes" placeholder="Unsere Ideen und Wünsche …"></textarea>
+<div class="actions"><button class="primary" type="submit">Reise speichern ♡</button><button id="cancelTrip" type="button">Abbrechen</button></div>
+</form></section>
+<section id="details" hidden>
+<div class="card"><h2 id="selectedTitle"></h2><p id="selectedInfo" class="muted"></p><p id="selectedNotes" class="line"></p><div id="tripActions" class="actions"></div></div>
+<div class="card"><h2>Unser Reisebudget ♡</h2>
+<div class="grid"><div class="item"><small>Geplant</small><p id="budgetTotal" class="big"></p></div><div class="item"><small>Ausgegeben</small><p id="spent" class="big"></p></div><div class="item"><small>Übrig</small><p id="remaining" class="big"></p></div></div>
+<p class="muted">Nur Einträge unter „Ausgaben“ werden summiert. Alle Beträge gelten in der Währung der Reise.</p>
+</div>
+<div class="card"><h2>Unsere Packliste</h2><p id="packingInfo" class="muted"></p><progress id="packingProgress" value="0" max="1"></progress></div>
+<div class="card"><h2>Unsere Reiseplanung</h2>
+<label for="filter">Bereich anzeigen</label><select id="filter"><option value="all">Alle Bereiche</option><option value="hotel">Hotels &amp; Unterkünfte</option><option value="transport">Flüge &amp; Transport</option><option value="activity">Aktivitäten</option><option value="expense">Ausgaben</option><option value="packing">Packliste</option><option value="booking">Buchungen</option><option value="link">Links</option><option value="note">Notizen</option></select>
+<div id="entryList" class="grid" style="margin-top:14px"></div>
+</div>
+<div class="card" id="entryEditor"><h2 id="entryHeading">Neuer Reiseeintrag ♡</h2>
+<form id="entryForm">
+<label for="kind">Bereich</label><select id="kind"><option value="hotel">Hotels &amp; Unterkünfte</option><option value="transport">Flüge &amp; Transport</option><option value="activity">Aktivitäten</option><option value="expense">Ausgaben</option><option value="packing">Packliste</option><option value="booking">Buchungen</option><option value="link">Links</option><option value="note">Notizen</option></select>
+<label for="entryTitle">Name *</label><input id="entryTitle" required maxlength="200" placeholder="Hotel, Flug, Ausflug …">
+<label for="entryDetails">Beschreibung</label><textarea id="entryDetails" placeholder="Buchungsnummer, Uhrzeit, Adresse …"></textarea>
+<div class="grid"><div><label for="eventDate">Datum</label><input id="eventDate" type="date"></div><div><label for="amount">Betrag</label><input id="amount" type="number" min="0" max="9999999999.99" step="0.01"></div></div>
+<label for="url">Link (https://)</label><input id="url" type="url" placeholder="https://…">
+<div class="actions"><button class="primary" type="submit">Eintrag speichern ♡</button><button id="cancelEntry" type="button" hidden>Abbrechen</button></div>
+</form></div>
+</section></div></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+let client,user,trips=[],entries=[],selected=null,editTrip=null,editEntry=null,busy=false;
+const kinds={hotel:'🏨 Unterkunft',transport:'✈️ Transport',activity:'📍 Aktivität',expense:'💶 Ausgabe',packing:'🧳 Packliste',booking:'🎟️ Buchung',link:'🔗 Link',note:'♡ Notiz'};
+const statuses={idea:'Reiseidee',planning:'In Planung',booked:'Gebucht',ongoing:'Unterwegs',completed:'Abgeschlossen'};
+function message(text,error=false){$('message').textContent=text;$('message').classList.toggle('error',error);}
+function fail(error){if(error)throw error;}
+function node(tag,text='',cls=''){const el=document.createElement(tag);el.textContent=text;if(cls)el.className=cls;return el;}
+function btn(text,action,cls=''){const el=node('button',text,cls);el.type='button';el.addEventListener('click',()=>work(action));return el;}
+async function work(action){if(busy)return;busy=true;try{await action();}catch(e){message(e.message||String(e),true);}finally{busy=false;}}
+function date(v){return v?new Date(v+'T12:00:00').toLocaleDateString('de-DE'):'Offen';}
+function money(v,c){try{return new Intl.NumberFormat('de-DE',{style:'currency',currency:c}).format(Number(v));}catch{return Number(v).toFixed(2)+' '+c;}}
+function safeUrl(value){try{const u=new URL(value);return ['https:','http:'].includes(u.protocol)?u.href:null;}catch{return null;}}
+function resetEntry(){editEntry=null;$('entryForm').reset();$('entryHeading').textContent='Neuer Reiseeintrag ♡';$('cancelEntry').hidden=true;}
+function openTrip(t=null){editTrip=t;$('tripForm').reset();$('tripHeading').textContent=t?'Reise bearbeiten ♡':'Neue Reise ♡';
+if(t){$('title').value=t.title;$('destination').value=t.destination;$('start').value=t.starts_on||'';$('end').value=t.ends_on||'';$('budget').value=t.budget;$('currency').value=t.currency;$('status').value=t.status;$('visibility').value=t.visibility;$('notes').value=t.notes;}
+$('tripEditor').hidden=false;$('tripEditor').scrollIntoView({behavior:'smooth'});}
+function renderTrips(){const box=$('tripList');box.replaceChildren();if(!trips.length)box.append(node('p','Noch keine Reisen vorhanden ♡','muted'));
+for(const t of trips){const card=node('article','', 'item'+(selected?.id===t.id?' active':''));card.append(node('h3','✈️ '+t.title),node('p',t.destination||'Reiseziel noch offen'),node('p',date(t.starts_on)+' – '+date(t.ends_on),'muted'),node('p',statuses[t.status]+' · '+(t.visibility==='shared'?'Gemeinsam':'Privat'),'muted'),btn('Reise öffnen',()=>load(t.id)));box.append(card);}}
+function renderEntries(){const box=$('entryList');box.replaceChildren();const filter=$('filter').value;const list=entries.filter(e=>filter==='all'||e.kind===filter);
+if(!list.length)box.append(node('p','Noch keine Einträge in diesem Bereich ♡','muted'));
+for(const e of list){const card=node('article','','item');card.append(node('small',kinds[e.kind]||e.kind),node('h3',e.title,e.kind==='packing'&&e.is_done?'done':''));if(e.details)card.append(node('p',e.details,'line'));if(e.event_date)card.append(node('p',date(e.event_date),'muted'));if(e.amount!==null)card.append(node('p',money(e.amount,selected.currency),'big'));
+const url=safeUrl(e.url);if(url){const a=node('a','Link öffnen ↗');a.href=url;a.target='_blank';a.rel='noopener noreferrer';card.append(a);}
+const actions=node('div','','actions');if(e.kind==='packing'){const check=btn(e.is_done?'✓ Erledigt':'☐ Abhaken',async()=>{const {error}=await client.from('dd_trip_entries').update({is_done:!e.is_done}).eq('id',e.id).select('id').single();fail(error);await load(selected.id);});check.disabled=e.owner_id!==user.id;actions.append(check);}
+if(e.owner_id===user.id)actions.append(btn('Bearbeiten',()=>openEntry(e)),btn('Löschen',async()=>{if(!confirm('Diesen Eintrag löschen?'))return;const {error}=await client.from('dd_trip_entries').delete().eq('id',e.id).select('id').single();fail(error);resetEntry();await load(selected.id);message('Eintrag gelöscht.');}));card.append(actions);box.append(card);}}
+function renderDetails(){if(!selected){$('details').hidden=true;return;}$('details').hidden=false;$('selectedTitle').textContent=selected.title+' ♡';$('selectedInfo').textContent=(selected.destination||'Reiseziel offen')+' · '+date(selected.starts_on)+' – '+date(selected.ends_on);$('selectedNotes').textContent=selected.notes;
+$('tripActions').replaceChildren();if(selected.owner_id===user.id)$('tripActions').append(btn('Reise bearbeiten',()=>openTrip(selected)),btn('Reise löschen',async()=>{if(!confirm('Diese Reise und ALLE zugehörigen Einträge endgültig löschen?'))return;const {error}=await client.from('dd_trips').delete().eq('id',selected.id).select('id').single();fail(error);$('tripEditor').hidden=true;resetEntry();await load();message('Reise gelöscht.');}));
+const cents=v=>Math.round(Number(v||0)*100);const spent=entries.filter(e=>e.kind==='expense').reduce((sum,e)=>sum+cents(e.amount),0);$('budgetTotal').textContent=money(selected.budget,selected.currency);$('spent').textContent=money(spent/100,selected.currency);$('remaining').textContent=money((cents(selected.budget)-spent)/100,selected.currency);
+const packing=entries.filter(e=>e.kind==='packing');const done=packing.filter(e=>e.is_done).length;$('packingInfo').textContent=done+' von '+packing.length+' erledigt';$('packingProgress').max=packing.length||1;$('packingProgress').value=done;renderEntries();}
+async function load(id=selected?.id){const a=await client.from('dd_trips').select('*').order('created_at',{ascending:false});fail(a.error);const next=a.data.find(t=>t.id===id)||a.data[0]||null;let nextEntries=[];
+if(next){const b=await client.from('dd_trip_entries').select('*').eq('trip_id',next.id).order('event_date',{ascending:true,nullsFirst:false}).order('created_at');fail(b.error);nextEntries=b.data;}
+if(selected?.id!==next?.id){resetEntry();$('filter').value='all';$('tripEditor').hidden=true;editTrip=null;}trips=a.data;selected=next;entries=nextEntries;renderTrips();renderDetails();}
+function openEntry(e){editEntry=e;$('kind').value=e.kind;$('entryTitle').value=e.title;$('entryDetails').value=e.details;$('eventDate').value=e.event_date||'';$('amount').value=e.amount??'';$('url').value=e.url;$('entryHeading').textContent='Eintrag bearbeiten ♡';$('cancelEntry').hidden=false;$('entryEditor').scrollIntoView({behavior:'smooth'});}
+$('newTrip').onclick=()=>work(()=>openTrip());$('cancelTrip').onclick=()=>work(()=>{$('tripEditor').hidden=true;editTrip=null;});$('cancelEntry').onclick=()=>work(resetEntry);$('filter').onchange=()=>{if(selected)renderEntries();};
+$('tripForm').onsubmit=e=>{e.preventDefault();work(async()=>{const data={title:$('title').value.trim(),destination:$('destination').value.trim(),starts_on:$('start').value||null,ends_on:$('end').value||null,budget:$('budget').value||'0',currency:$('currency').value.toUpperCase(),status:$('status').value,visibility:$('visibility').value,notes:$('notes').value.trim()};if(!data.title)throw new Error('Bitte einen Reisenamen eingeben.');if(data.starts_on&&data.ends_on&&data.ends_on<data.starts_on)throw new Error('Die Rückreise darf nicht vor der Abreise liegen.');
+if(editTrip&&editTrip.currency!==data.currency&&!confirm('Die Währung ändern? Bestehende Beträge werden nicht umgerechnet.'))return;if(editTrip?.visibility==='shared'&&data.visibility==='private'&&!confirm('Die Reise samt Einträgen wird privat. Andere Mitglieder verlieren den Zugriff. Fortfahren?'))return;
+const q=editTrip?client.from('dd_trips').update(data).eq('id',editTrip.id):client.from('dd_trips').insert(data);const result=await q.select('id').single();fail(result.error);editTrip=null;$('tripEditor').hidden=true;await load(result.data.id);message('Reise gespeichert ♡');});};
+$('entryForm').onsubmit=e=>{e.preventDefault();work(async()=>{if(!selected)return;const raw=$('url').value.trim();if(raw&&!safeUrl(raw))throw new Error('Bitte einen gültigen HTTP- oder HTTPS-Link eingeben.');const kind=$('kind').value;const data={kind,title:$('entryTitle').value.trim(),details:$('entryDetails').value.trim(),event_date:$('eventDate').value||null,amount:$('amount').value||null,url:raw,is_done:kind==='packing'&&editEntry?.kind==='packing'?editEntry.is_done:false};if(!data.title)throw new Error('Bitte einen Namen eingeben.');if(kind==='expense'&&data.amount===null)throw new Error('Bitte einen Ausgabenbetrag eingeben.');
+const q=editEntry?client.from('dd_trip_entries').update(data).eq('id',editEntry.id):client.from('dd_trip_entries').insert({...data,trip_id:selected.id});const result=await q.select('id').single();fail(result.error);resetEntry();$('filter').value=kind;await load(selected.id);message('Reiseeintrag gespeichert ♡');});};
+work(async()=>{client=window.supabase.createClient('https://cqgrtybenbanfppoiuba.supabase.co','sb_publishable_oxqVUkLdxj40fLZ8zCfjtw_wFSftxDw');const session=await client.auth.getSession();fail(session.error);if(!session.data.session){location.replace('login.html');return;}const result=await client.auth.getUser();fail(result.error);user=result.data.user;if(!user){location.replace('login.html');return;}
+const member=await client.from('dd_members').select('user_id').eq('user_id',user.id).maybeSingle();fail(member.error);if(!member.data){await client.auth.signOut();throw new Error('Kein Zugriff: Dein Konto ist nicht freigeschaltet.');}await load();$('app').hidden=false;message('Willkommen bei euren Reisen ♡');});
+</script>
+</body>
+</html>
