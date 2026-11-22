@@ -244,7 +244,46 @@
       .fields { grid-template-columns: 1fr; }
       .btn.primary { flex: 1; }
     }
-  </style>
+  
+/* DIASHOW */
+
+#gallery img {
+  display: none;
+}
+
+#gallery img.active {
+  display: block;
+  width: 100%;
+  max-height: 550px;
+  object-fit: contain;
+  border-radius: 18px;
+}
+
+#slideControls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+  margin: 20px 0 10px;
+}
+
+#slideControls button {
+  width: 55px;
+  height: 55px;
+  border: 1px solid #e9d7e1;
+  border-radius: 50%;
+  background: #f1e5ed;
+  color: #94637f;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+#slideCounter {
+  font-family: Arial, sans-serif;
+  color: #927b89;
+  font-size: 15px;
+}
+</style>
 </head>
 
 <body>
