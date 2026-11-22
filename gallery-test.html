@@ -2,71 +2,401 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex">
-<title>Unsere Bilder ♡</title>
-<style>
-* { box-sizing: border-box; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Unsere Momente ♡ | DailyDiary</title>
+  <style>
+    :root {
+      --pink: #f8dce8;
+      --paper: #fffdf5;
+      --ink: #332930;
+      --muted: #927b89;
+      --border: #e9d7e1;
+      --accent: #94637f;
+      --soft: #f8f4f7;
+    }
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
 
-body {
-  margin: 0;
-  background: #f8dce8;
-  color: #21171c;
-  font-family: Georgia, serif;
-  padding: 30px 16px;
-}
+    body {
+      margin: 0;
+      padding: 20px 14px 70px;
+      background: var(--pink);
+      color: var(--ink);
+      font-family: Georgia, 'Times New Roman', serif;
+    }
 
-.card {
-  background: #fffdf5;
-  max-width: 700px;
-  margin: 20px auto;
-  padding: 25px;
-  border-radius: 25px;
-  text-align: center;
-}
+    main { max-width: 740px; margin: 0 auto; }
+    a { color: var(--accent); }
 
-h1 { font-size: 34px; }
-h2 { font-size: 25px; }
+    .back {
+      display: inline-block;
+      margin: 5px 0 16px;
+      text-decoration: none;
+    }
 
-#status {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-}
+    .card {
+      background: var(--paper);
+      border-radius: 26px;
+      padding: clamp(18px, 4vw, 30px);
+      margin-bottom: 18px;
+    }
 
-#gallery {
-  display: grid;
-  gap: 16px;
-}
+    header {
+      text-align: center;
+      padding: 10px 0 3px;
+    }
 
-#gallery img {
-  width: 100%;
-  max-height: 500px;
-  object-fit: contain;
-  border-radius: 16px;
-  background: #f4e8ed;
-}
+    h1 {
+      font-size: clamp(31px, 7vw, 44px);
+      margin: 0 0 9px;
+    }
 
-a { color: #af527e; }
-[hidden] { display: none !important; }
-</style>
+    header p {
+      color: var(--muted);
+      margin: 0 0 22px;
+      line-height: 1.55;
+    }
+
+    h2 {
+      font-size: 27px;
+      font-weight: normal;
+      margin: 0 0 16px;
+    }
+
+    h3 {
+      font-size: 21px;
+      margin: 0 0 10px;
+      overflow-wrap: anywhere;
+    }
+
+    #status {
+      font: 14px/1.5 Arial, sans-serif;
+      color: #806877;
+      min-height: 20px;
+      margin: 12px 0 0;
+    }
+
+    #status.error, .error { color: #a53c5a; }
+
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 8px 0 0;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      opacity: .55;
+      cursor: wait;
+    }
+
+    .tab {
+      border-radius: 14px;
+      padding: 13px 8px;
+      background: var(--soft);
+      border: 1px solid var(--border);
+      color: #685463;
+      font-size: clamp(16px, 4vw, 19px);
+    }
+
+    .tab[aria-selected="true"] {
+      background: #f1e5ed;
+      border-color: var(--accent);
+      color: #613b52;
+    }
+
+    .info {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    #gallery {
+      display: grid;
+      gap: 16px;
+    }
+
+    #gallery img {
+      width: 100%;
+      max-height: 500px;
+      object-fit: contain;
+      border-radius: 16px;
+      background: #f4e8ed;
+    }
+
+    #photoStatus, #messageStatus {
+      color: var(--muted);
+      font: 14px/1.6 Arial, sans-serif;
+      margin: 10px 0 18px;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 15px;
+      text-align: left;
+    }
+
+    label {
+      display: block;
+      color: #705865;
+      margin: 0 0 7px;
+    }
+
+    input, textarea, select {
+      display: block;
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 13px 14px;
+      background: var(--soft);
+      color: var(--ink);
+      font: 16px/1.45 Georgia, serif;
+    }
+
+    textarea {
+      min-height: 155px;
+      resize: vertical;
+    }
+
+    .fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      background: #efe4eb;
+      color: #593f50;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      padding: 12px 18px;
+    }
+
+    .btn.primary {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .hint {
+      margin: 0;
+      font: 13px/1.5 Arial, sans-serif;
+      color: var(--muted);
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 28px 0 22px;
+    }
+
+    .message {
+      text-align: left;
+      background: var(--soft);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      margin: 12px 0;
+    }
+
+    .message-meta {
+      font: 13px/1.6 Arial, sans-serif;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 4px 9px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      margin-left: 6px;
+    }
+
+    .message-body {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      line-height: 1.6;
+      margin: 10px 0 0;
+    }
+
+    .message-actions { margin-top: 15px; }
+
+    .empty {
+      text-align: center;
+      color: var(--muted);
+      padding: 15px 0;
+    }
+
+    @media(max-width: 420px) {
+      .fields { grid-template-columns: 1fr; }
+      .btn.primary { flex: 1; }
+    }
+  </style>
 </head>
 
 <body>
+<main>
+  <a class="back" href="home.html">
+    ‹ Zurück zur Startseite
+  </a>
 
-<main class="card">
-  <h1>Our little world ♡</h1>
-  <p>Unser kleines Tagebuch</p>
+  <div class="card">
+    <header>
+      <h1>Unsere Momente ♡</h1>
+      <p>Unsere Bilder und Worte – nur für uns.</p>
+    </header>
 
-  <h2>🖼️ Unsere Bilder</h2>
+    <p id="status" role="status" aria-live="polite">
+      Verbindung wird geprüft …
+    </p>
 
-  <p id="status">Verbindung wird geprüft...</p>
+    <p id="loginInfo" hidden>
+      <a href="login.html">Zur Anmeldung ♡</a>
+    </p>
 
-  <p id="loginInfo" hidden>
-    <a href="login.html">Zur Anmeldung ♡</a>
-  </p>
+    <div id="app" hidden>
+      <div class="tabs" role="tablist"
+           aria-label="Unsere Momente">
 
-  <div id="gallery"></div>
+        <button type="button"
+                id="photosTab"
+                class="tab"
+                role="tab"
+                aria-selected="true"
+                aria-controls="photosPanel">
+          🖼️ Bilder
+        </button>
+
+        <button type="button"
+                id="messagesTab"
+                class="tab"
+                role="tab"
+                aria-selected="false"
+                aria-controls="messagesPanel">
+          💌 Nachrichten
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <section id="photosPanel"
+           class="card"
+           role="tabpanel"
+           aria-labelledby="photosTab"
+           hidden>
+
+    <h2>Unsere Bilder ♡</h2>
+    <p class="info">Unsere privaten Erinnerungsfotos.</p>
+
+    <p id="photoStatus" role="status">
+      Bilder werden geladen …
+    </p>
+
+    <div id="gallery"></div>
+  </section>
+
+  <section id="messagesPanel"
+           class="card"
+           role="tabpanel"
+           aria-labelledby="messagesTab"
+           hidden>
+
+    <h2>Unsere Nachrichten ♡</h2>
+
+    <p class="info">
+      Kleine Botschaften und Briefe,
+      die wir immer wieder lesen können.
+    </p>
+
+    <form id="messageForm" class="form-grid">
+
+      <div>
+        <label for="messageTitle">
+          Überschrift (optional)
+        </label>
+        <input
+          id="messageTitle"
+          type="text"
+          maxlength="120"
+          placeholder="Ein Brief für dich ♡">
+      </div>
+
+      <div>
+        <label for="messageContent">
+          Deine Nachricht *
+        </label>
+        <textarea
+          id="messageContent"
+          maxlength="5000"
+          required
+          placeholder="Was möchtest du sagen? ♡"></textarea>
+      </div>
+
+      <div class="fields">
+        <div>
+          <label for="messageVisibility">
+            Sichtbarkeit
+          </label>
+
+          <select id="messageVisibility">
+            <option value="shared">
+              ♡ Gemeinsam – für euch beide
+            </option>
+            <option value="private">
+              🔒 Privat – nur für mich
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <p class="hint">
+        „Gemeinsam“ bedeutet: Beide freigeschalteten
+        DailyDiary-Mitglieder können die Nachricht lesen.
+        „Privat“ bedeutet: Nur du kannst sie lesen.
+      </p>
+
+      <div class="actions">
+        <button
+          type="submit"
+          class="btn primary"
+          id="saveMessage">
+          Nachricht speichern ♡
+        </button>
+
+        <button
+          type="button"
+          class="btn"
+          id="cancelEdit"
+          hidden>
+          Abbrechen
+        </button>
+      </div>
+    </form>
+
+    <p id="messageStatus"
+       role="status"
+       aria-live="polite"></p>
+
+    <hr class="divider">
+
+    <h2>Unsere Briefe & Nachrichten</h2>
+
+    <div id="messagesList"></div>
+
+  </section>
 </main>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -74,48 +404,98 @@ a { color: #af527e; }
 <script>
 "use strict";
 
-const client = window.supabase.createClient(
-  "https://cqgrtybenbanfppoiuba.supabase.co",
-  "sb_publishable_oxqVUkLdxj40fLZ8zCfjtw_wFSftxDw"
-);
+const SUPABASE_URL =
+  "https://cqgrtybenbanfppoiuba.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_oxqVUkLdxj40fLZ8zCfjtw_wFSftxDw";
 
 const bucket = "daily-diary-images";
-const statusBox = document.getElementById("status");
-const gallery = document.getElementById("gallery");
-const loginInfo = document.getElementById("loginInfo");
+
+const $ = id => document.getElementById(id);
+
+let client = null;
+let user = null;
+
+let photosLoaded = false;
+let messagesLoaded = false;
+
+let messages = [];
+let editingId = null;
 
 const imageUrls = [];
 
-function status(message) {
-  statusBox.textContent = message;
+function setStatus(message, isError = false) {
+  $("status").textContent = message;
+  $("status").classList.toggle("error", isError);
 }
 
-async function start() {
+function setMessageStatus(message, isError = false) {
+  $("messageStatus").textContent = message;
+  $("messageStatus").classList.toggle("error", isError);
+}
+
+function element(tag, value, className = "") {
+  const el = document.createElement(tag);
+
+  if (value !== undefined) {
+    el.textContent = value;
+  }
+
+  if (className) {
+    el.className = className;
+  }
+
+  return el;
+}
+
+function actionButton(value, handler) {
+  const el = element("button", value, "btn");
+  el.type = "button";
+  el.addEventListener("click", handler);
+  return el;
+}
+
+function showTab(tab) {
+  const photos = tab === "photos";
+
+  $("photosTab").setAttribute(
+    "aria-selected", String(photos)
+  );
+
+  $("messagesTab").setAttribute(
+    "aria-selected", String(!photos)
+  );
+
+  $("photosPanel").hidden = !photos;
+  $("messagesPanel").hidden = photos;
+
+  if (photos && !photosLoaded) {
+    void loadPhotos();
+  }
+
+  if (!photos && !messagesLoaded) {
+    void loadMessages();
+  }
+}
+
+$("photosTab").addEventListener(
+  "click", () => showTab("photos")
+);
+
+$("messagesTab").addEventListener(
+  "click", () => showTab("messages")
+);
+
+// PRIVATE BILDER
+
+async function loadPhotos() {
+  photosLoaded = true;
+
+  $("photoStatus").textContent =
+    "Private Bilder werden geladen …";
+
   try {
-    const auth = await client.auth.getUser();
-    const user = auth.data?.user;
-
-    if (!user) {
-      status("Bitte melde dich zuerst an.");
-      loginInfo.hidden = false;
-      return;
-    }
-
-    const member = await client
-      .from("dd_members")
-      .select("user_id")
-      .eq("user_id", user.id)
-      .maybeSingle();
-
-    if (member.error) throw member.error;
-
-    if (!member.data) {
-      status("Dieses Konto hat keinen Zugang.");
-      return;
-    }
-
-    status("Private Bilder werden geladen...");
-
     const result = await client.storage
       .from(bucket)
       .list("", {
@@ -126,18 +506,20 @@ async function start() {
         }
       });
 
-    if (result.error) throw result.error;
+    if (result.error) {
+      throw result.error;
+    }
 
-    const files = (result.data || [])
-      .filter(file =>
-        file.name &&
-        file.id !== null &&
-        /\.(png|jpg|jpeg|webp|gif|heic|avif)$/i
-          .test(file.name)
-      );
+    const files = (result.data || []).filter(file =>
+      file.name &&
+      file.id !== null &&
+      /\.(png|jpg|jpeg|webp|gif|heic|avif)$/i
+        .test(file.name)
+    );
 
     if (files.length === 0) {
-      status("Noch keine Bilder gefunden.");
+      $("photoStatus").textContent =
+        "Noch keine Bilder gefunden.";
       return;
     }
 
@@ -149,7 +531,10 @@ async function start() {
         .download(file.name);
 
       if (download.error) {
-        console.error(download.error);
+        console.error(
+          "Bild konnte nicht geladen werden:",
+          download.error
+        );
         continue;
       }
 
@@ -161,25 +546,402 @@ async function start() {
       img.alt = "Unser privates Foto";
       img.loading = "lazy";
 
-      gallery.appendChild(img);
+      $("gallery").appendChild(img);
+
       loaded++;
     }
 
-    status(
-      loaded + " private(s) Bild(er) geladen ♡"
-    );
+    $("photoStatus").textContent =
+      loaded + " private(s) Bild(er) geladen ♡";
 
   } catch (error) {
     console.error(error);
-    status("Fehler: " + error.message);
+
+    $("photoStatus").textContent =
+      "Fehler beim Laden der Bilder: " +
+      error.message;
+
+    photosLoaded = false;
   }
 }
 
-window.addEventListener("pagehide", () => {
-  imageUrls.forEach(url => URL.revokeObjectURL(url));
-});
+// NACHRICHTEN
+
+function resetForm() {
+  editingId = null;
+
+  $("messageForm").reset();
+
+  $("saveMessage").textContent =
+    "Nachricht speichern ♡";
+
+  $("cancelEdit").hidden = true;
+}
+
+function beginEdit(item) {
+  if (item.author_id !== user.id) return;
+
+  editingId = item.id;
+
+  $("messageTitle").value = item.title || "";
+  $("messageContent").value = item.content || "";
+  $("messageVisibility").value = item.visibility;
+
+  $("saveMessage").textContent =
+    "Änderungen speichern ♡";
+
+  $("cancelEdit").hidden = false;
+
+  $("messageForm").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+
+  $("messageContent").focus({
+    preventScroll: true
+  });
+}
+
+$("cancelEdit").addEventListener(
+  "click", resetForm
+);
+
+function renderMessages() {
+  const list = $("messagesList");
+  list.replaceChildren();
+
+  if (!messages.length) {
+    list.appendChild(
+      element(
+        "p",
+        "Hier ist noch Platz für eure erste Nachricht ♡",
+        "empty"
+      )
+    );
+    return;
+  }
+
+  const formatter = new Intl.DateTimeFormat(
+    "de-DE",
+    {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit"
+    }
+  );
+
+  for (const item of messages) {
+    const card = element(
+      "article",
+      undefined,
+      "message"
+    );
+
+    const meta = element(
+      "div",
+      formatter.format(new Date(item.created_at)),
+      "message-meta"
+    );
+
+    meta.appendChild(
+      element(
+        "span",
+        item.visibility === "private"
+          ? "🔒 Privat"
+          : "♡ Gemeinsam",
+        "pill"
+      )
+    );
+
+    card.appendChild(meta);
+
+    if (item.title) {
+      card.appendChild(
+        element("h3", item.title)
+      );
+    }
+
+    card.appendChild(
+      element(
+        "p",
+        item.content,
+        "message-body"
+      )
+    );
+
+    if (item.author_id === user.id) {
+      const actions = element(
+        "div",
+        undefined,
+        "actions message-actions"
+      );
+
+      actions.appendChild(
+        actionButton(
+          "Bearbeiten",
+          () => beginEdit(item)
+        )
+      );
+
+      actions.appendChild(
+        actionButton(
+          "Löschen",
+          () => deleteMessage(item)
+        )
+      );
+
+      card.appendChild(actions);
+    }
+
+    list.appendChild(card);
+  }
+}
+
+async function loadMessages() {
+  setMessageStatus(
+    "Nachrichten werden geladen …"
+  );
+
+  const { data, error } = await client
+    .from("dd_moment_messages")
+    .select(
+      "id,author_id,title,content,visibility,created_at"
+    )
+    .order(
+      "created_at",
+      { ascending: false }
+    )
+    .limit(200);
+
+  if (error) {
+    messagesLoaded = false;
+
+    setMessageStatus(
+      "Nachrichten konnten nicht geladen werden: " +
+      error.message,
+      true
+    );
+
+    return false;
+  }
+
+  messages = data || [];
+  messagesLoaded = true;
+
+  renderMessages();
+  setMessageStatus("");
+
+  return true;
+}
+
+$("messageForm").addEventListener(
+  "submit",
+  async event => {
+    event.preventDefault();
+
+    const content =
+      $("messageContent").value.trim();
+
+    if (!content) {
+      setMessageStatus(
+        "Bitte eine Nachricht eingeben.",
+        true
+      );
+      return;
+    }
+
+    const payload = {
+      title:
+        $("messageTitle").value.trim() || null,
+      content,
+      visibility:
+        $("messageVisibility").value
+    };
+
+    $("saveMessage").disabled = true;
+
+    setMessageStatus(
+      "Nachricht wird gespeichert …"
+    );
+
+    try {
+      const query = editingId
+        ? client
+            .from("dd_moment_messages")
+            .update(payload)
+            .eq("id", editingId)
+            .eq("author_id", user.id)
+        : client
+            .from("dd_moment_messages")
+            .insert(payload);
+
+      const { data, error } =
+        await query.select("id");
+
+      if (error) {
+        throw error;
+      }
+
+      if (!data || data.length !== 1) {
+        throw new Error(
+          "Keine Nachricht gespeichert. " +
+          "Bitte Berechtigungen prüfen."
+        );
+      }
+
+      resetForm();
+
+      if (await loadMessages()) {
+        setMessageStatus(
+          "Nachricht gespeichert ♡"
+        );
+      }
+
+    } catch (error) {
+      setMessageStatus(
+        "Speichern fehlgeschlagen: " +
+        error.message,
+        true
+      );
+
+    } finally {
+      $("saveMessage").disabled = false;
+    }
+  }
+);
+
+async function deleteMessage(item) {
+  if (item.author_id !== user.id) {
+    return;
+  }
+
+  if (!confirm(
+    "Diese Nachricht wirklich löschen?"
+  )) {
+    return;
+  }
+
+  setMessageStatus(
+    "Nachricht wird gelöscht …"
+  );
+
+  try {
+    const { data, error } = await client
+      .from("dd_moment_messages")
+      .delete()
+      .eq("id", item.id)
+      .eq("author_id", user.id)
+      .select("id");
+
+    if (error) {
+      throw error;
+    }
+
+    if (!data || data.length !== 1) {
+      throw new Error(
+        "Nachricht konnte nicht gelöscht werden."
+      );
+    }
+
+    if (editingId === item.id) {
+      resetForm();
+    }
+
+    if (await loadMessages()) {
+      setMessageStatus(
+        "Nachricht gelöscht ♡"
+      );
+    }
+
+  } catch (error) {
+    setMessageStatus(
+      "Löschen fehlgeschlagen: " +
+      error.message,
+      true
+    );
+  }
+}
+
+// ANMELDUNG
+
+async function start() {
+  try {
+    if (!window.supabase?.createClient) {
+      throw new Error(
+        "Supabase konnte nicht geladen werden."
+      );
+    }
+
+    client = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+
+    const auth = await client.auth.getUser();
+
+    if (auth.error) {
+      throw auth.error;
+    }
+
+    user = auth.data?.user;
+
+    if (!user) {
+      setStatus(
+        "Bitte melde dich zuerst an."
+      );
+
+      $("loginInfo").hidden = false;
+      return;
+    }
+
+    const member = await client
+      .from("dd_members")
+      .select("user_id")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    if (member.error) {
+      throw member.error;
+    }
+
+    if (!member.data) {
+      setStatus(
+        "Dieses Konto hat keinen Zugang."
+      );
+      return;
+    }
+
+    $("app").hidden = false;
+
+    setStatus(
+      "Willkommen bei euren Momenten ♡"
+    );
+
+    showTab("photos");
+
+  } catch (error) {
+    console.error(error);
+
+    setStatus(
+      "Fehler: " + error.message,
+      true
+    );
+  }
+}
+
+window.addEventListener(
+  "pagehide",
+  () => {
+    imageUrls.forEach(
+      url => URL.revokeObjectURL(url)
+    );
+  }
+);
 
 start();
 </script>
 </body>
 </html>
+
