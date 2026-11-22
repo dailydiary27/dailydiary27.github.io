@@ -1,0 +1,929 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Dokumente & Tickets ♡ | DailyDiary</title>
+
+  <style>
+    :root {
+      --bg: #f8dce8;
+      --card: #fffdf5;
+      --ink: #352831;
+      --muted: #927b89;
+      --line: #ead8e1;
+      --accent: #94637f;
+    }
+
+    * { box-sizing: border-box; }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Georgia, 'Times New Roman', serif;
+    }
+
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 24px 15px 65px;
+    }
+
+    .back {
+      color: var(--accent);
+      text-decoration: none;
+      display: inline-block;
+      margin-bottom: 23px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 23px;
+    }
+
+    h1 {
+      font-size: clamp(32px, 7vw, 45px);
+      margin: 0 0 9px;
+    }
+
+    header p, .hint {
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: 26px;
+      padding: 25px;
+      margin: 17px 0;
+    }
+
+    h2 {
+      font-size: 25px;
+      font-weight: normal;
+      margin: 0 0 19px;
+    }
+
+    label {
+      display: block;
+      margin: 0 0 7px;
+      color: #715966;
+    }
+
+    input, select {
+      width: 100%;
+      font: 16px Georgia, serif;
+      padding: 13px;
+      border: 1px solid var(--line);
+      background: #fbf6f9;
+      color: var(--ink);
+      border-radius: 13px;
+      min-width: 0;
+    }
+
+    .form {
+      display: grid;
+      gap: 15px;
+    }
+
+    .two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 13px;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .btn {
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: #efe3eb;
+      color: #624457;
+      padding: 11px 15px;
+    }
+
+    .primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+      width: 100%;
+      padding: 15px;
+    }
+
+    button:disabled {
+      opacity: .6;
+      cursor: wait;
+    }
+
+    #status {
+      min-height: 20px;
+      font: 14px/1.55 Arial, sans-serif;
+      color: #765c6c;
+    }
+
+    #status.error {
+      color: #a3314c;
+    }
+
+    .file {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fbf7fa;
+      margin: 13px 0;
+      padding: 18px;
+      overflow-wrap: anywhere;
+    }
+
+    .file h3 {
+      font-size: 20px;
+      margin: 0 0 9px;
+    }
+
+    .meta {
+      font: 13px/1.6 Arial, sans-serif;
+      color: var(--muted);
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 13px;
+    }
+
+    .empty {
+      text-align: center;
+      color: var(--muted);
+      padding: 20px;
+    }
+
+    .fileLink {
+      display: inline-block;
+      margin-top: 12px;
+      color: var(--accent);
+    }
+
+    @media (max-width: 420px) {
+      .card {
+        padding: 20px 16px;
+      }
+
+      .two {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<main>
+
+  <a class="back" href="home.html">
+    ‹ Zurück zur Startseite
+  </a>
+
+  <header>
+    <h1>Dokumente & Tickets ♡</h1>
+    <p>Unsere wichtigen Unterlagen an einem Ort.</p>
+  </header>
+
+  <p id="status" role="status">
+    Anmeldung wird geprüft …
+  </p>
+
+  <p id="loginInfo" hidden>
+    <a href="login.html">Zur Anmeldung ♡</a>
+  </p>
+
+  <div id="app" hidden>
+
+    <!-- DATEI HOCHLADEN -->
+
+    <section class="card">
+      <h2>Datei hinzufügen ♡</h2>
+
+      <form id="uploadForm" class="form">
+
+        <div>
+          <label for="docTitle">
+            Dokumentenname *
+          </label>
+
+          <input
+            id="docTitle"
+            required
+            maxlength="160"
+            placeholder="Zum Beispiel: Flugtickets Rom"
+          >
+        </div>
+
+        <div class="two">
+
+          <div>
+            <label for="docCategory">
+              Kategorie
+            </label>
+
+            <select id="docCategory">
+              <option value="tickets">
+                🎟️ Tickets
+              </option>
+              <option value="bookings">
+                🏨 Buchungen
+              </option>
+              <option value="travel">
+                ✈️ Reiseunterlagen
+              </option>
+              <option value="important">
+                📄 Wichtiges
+              </option>
+              <option value="other">
+                📁 Sonstiges
+              </option>
+            </select>
+          </div>
+
+          <div>
+            <label for="docFolder">
+              Ordner
+            </label>
+
+            <input
+              id="docFolder"
+              maxlength="80"
+              value="Allgemein"
+              required
+            >
+          </div>
+
+        </div>
+
+        <div>
+          <label for="docFile">
+            Datei auswählen *
+          </label>
+
+          <input
+            id="docFile"
+            type="file"
+            required
+            accept=".pdf,.png,.jpg,.jpeg,.webp,.gif,.heic,.avif,.doc,.docx,.xls,.xlsx,.txt"
+          >
+
+          <p class="hint">
+            PDF, Bilder, Word, Excel und Text · maximal 10 MB
+          </p>
+        </div>
+
+        <button
+          id="uploadButton"
+          class="btn primary"
+          type="submit"
+        >
+          + Dokument hochladen ♡
+        </button>
+
+      </form>
+    </section>
+
+    <!-- DOKUMENTE ANZEIGEN -->
+
+    <section class="card">
+      <h2>Unsere Dokumente ♡</h2>
+
+      <div class="two">
+
+        <div>
+          <label for="categoryFilter">
+            Kategorie anzeigen
+          </label>
+
+          <select id="categoryFilter">
+            <option value="all">
+              Alle Kategorien
+            </option>
+            <option value="tickets">Tickets</option>
+            <option value="bookings">Buchungen</option>
+            <option value="travel">Reiseunterlagen</option>
+            <option value="important">Wichtiges</option>
+            <option value="other">Sonstiges</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="folderFilter">
+            Ordner anzeigen
+          </label>
+
+          <select id="folderFilter">
+            <option value="all">
+              Alle Ordner
+            </option>
+          </select>
+        </div>
+
+      </div>
+
+      <div style="margin-top:13px">
+        <label for="search">Suchen</label>
+
+        <input
+          id="search"
+          type="search"
+          placeholder="Nach Dokument oder Dateiname suchen …"
+        >
+      </div>
+
+      <div id="documents"></div>
+
+    </section>
+
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+"use strict";
+
+// SUPABASE
+
+const URL_SUPABASE =
+  "https://cqgrtybenbanfppoiuba.supabase.co";
+
+const KEY =
+  "sb_publishable_oxqVUkLdxj40fLZ8zCfjtw_wFSftxDw";
+
+const BUCKET = "daily-diary-documents";
+
+const $ = id => document.getElementById(id);
+
+const categories = {
+  tickets: "🎟️ Tickets",
+  bookings: "🏨 Buchungen",
+  travel: "✈️ Reiseunterlagen",
+  important: "📄 Wichtiges",
+  other: "📁 Sonstiges"
+};
+
+const allowed =
+  /\.(pdf|png|jpg|jpeg|webp|gif|heic|avif|doc|docx|xls|xlsx|txt)$/i;
+
+let client;
+let user;
+let documents = [];
+
+const temporaryUrls = [];
+
+// HILFSFUNKTIONEN
+
+function status(message, error = false) {
+  $("status").textContent = message;
+  $("status").classList.toggle("error", error);
+}
+
+function node(tag, text, css = "") {
+  const n = document.createElement(tag);
+
+  if (text !== undefined) {
+    n.textContent = text;
+  }
+
+  if (css) {
+    n.className = css;
+  }
+
+  return n;
+}
+
+function formatBytes(value) {
+  return value < 1024 * 1024
+    ? Math.ceil(value / 1024) + " KB"
+    : (value / 1024 / 1024).toFixed(2) + " MB";
+}
+
+function dateLabel(value) {
+  return new Date(value).toLocaleDateString(
+    "de-DE",
+    {
+      day: "2-digit",
+      month: "long",
+      year: "numeric"
+    }
+  );
+}
+
+// ORDNER LADEN
+
+function renderFolders() {
+  const select = $("folderFilter");
+  const selected = select.value;
+
+  select.replaceChildren(
+    new Option("Alle Ordner", "all")
+  );
+
+  const folders = [
+    ...new Set(
+      documents.map(d => d.folder_name)
+    )
+  ];
+
+  folders.sort((a, b) =>
+    a.localeCompare(b, "de")
+  );
+
+  folders.forEach(folder => {
+    select.add(new Option(folder, folder));
+  });
+
+  const exists = [...select.options]
+    .some(o => o.value === selected);
+
+  select.value = exists ? selected : "all";
+}
+
+// DOKUMENTE ANZEIGEN
+
+function render() {
+  const list = $("documents");
+  list.replaceChildren();
+
+  const category = $("categoryFilter").value;
+  const folder = $("folderFilter").value;
+
+  const term = $("search").value
+    .trim()
+    .toLocaleLowerCase("de-DE");
+
+  const visible = documents.filter(d =>
+    (category === "all" || d.category === category) &&
+    (folder === "all" || d.folder_name === folder) &&
+    (
+      !term ||
+      [d.title, d.file_name, d.folder_name].some(
+        v => v.toLocaleLowerCase("de-DE").includes(term)
+      )
+    )
+  );
+
+  if (!visible.length) {
+    list.append(
+      node(
+        "p",
+        "Noch keine passenden Dokumente vorhanden ♡",
+        "empty"
+      )
+    );
+    return;
+  }
+
+  for (const item of visible) {
+    const card = node(
+      "article",
+      undefined,
+      "file"
+    );
+
+    card.append(
+      node("h3", item.title)
+    );
+
+    card.append(
+      node(
+        "div",
+        (categories[item.category] || "📁 Dokument") +
+        " · " + item.folder_name,
+        "meta"
+      )
+    );
+
+    card.append(
+      node(
+        "div",
+        item.file_name +
+        " · " + formatBytes(item.file_size) +
+        " · " + dateLabel(item.created_at),
+        "meta"
+      )
+    );
+
+    const actions = node(
+      "div",
+      undefined,
+      "actions"
+    );
+
+    // DATEI ÖFFNEN
+
+    const open = node(
+      "button",
+      "Datei öffnen ♡",
+      "btn"
+    );
+
+    open.type = "button";
+
+    const link = node(
+      "a",
+      "Datei jetzt ansehen / sichern ♡",
+      "fileLink"
+    );
+
+    link.hidden = true;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+
+    open.addEventListener(
+      "click",
+      async () => {
+        open.disabled = true;
+        status("Datei wird geladen …");
+
+        try {
+          const { data, error } =
+            await client.storage
+              .from(BUCKET)
+              .download(item.storage_path);
+
+          if (error) {
+            throw error;
+          }
+
+          const url = URL.createObjectURL(data);
+
+          temporaryUrls.push(url);
+
+          link.href = url;
+          link.download = item.file_name;
+          link.hidden = false;
+
+          status(
+            "Datei geladen. Tippe auf den " +
+            "eingeblendeten Link, um sie zu " +
+            "öffnen oder zu sichern."
+          );
+
+        } catch (error) {
+          status(
+            "Öffnen fehlgeschlagen: " +
+            error.message,
+            true
+          );
+
+        } finally {
+          open.disabled = false;
+        }
+      }
+    );
+
+    actions.append(open);
+
+    // EIGENE DOKUMENTE LÖSCHEN
+
+    if (item.owner_id === user.id) {
+      const remove = node(
+        "button",
+        "Löschen",
+        "btn"
+      );
+
+      remove.type = "button";
+
+      remove.addEventListener(
+        "click",
+        () => removeDocument(item, remove)
+      );
+
+      actions.append(remove);
+    }
+
+    card.append(actions, link);
+    list.append(card);
+  }
+}
+
+// DOKUMENTE LADEN
+
+async function loadDocuments() {
+  const { data, error } = await client
+    .from("dd_documents")
+    .select(
+      "id,owner_id,title,file_name,storage_path," +
+      "category,folder_name,mime_type,file_size,created_at"
+    )
+    .order(
+      "created_at",
+      { ascending: false }
+    )
+    .limit(500);
+
+  if (error) {
+    status(
+      "Laden fehlgeschlagen: " + error.message,
+      true
+    );
+
+    return false;
+  }
+
+  documents = data || [];
+
+  renderFolders();
+  render();
+
+  return true;
+}
+
+$("categoryFilter").addEventListener(
+  "change",
+  render
+);
+
+$("folderFilter").addEventListener(
+  "change",
+  render
+);
+
+$("search").addEventListener(
+  "input",
+  render
+);
+
+// DOKUMENT HOCHLADEN
+
+$("uploadForm").addEventListener(
+  "submit",
+  async event => {
+    event.preventDefault();
+
+    const file = $("docFile").files[0];
+    const title = $("docTitle").value.trim();
+    const folder = $("docFolder").value.trim();
+
+    if (!file || !title || !folder) {
+      status(
+        "Bitte alle Pflichtfelder ausfüllen.",
+        true
+      );
+      return;
+    }
+
+    if (
+      !allowed.test(file.name) ||
+      !file.size ||
+      file.size > 10 * 1024 * 1024 ||
+      file.name.length > 255
+    ) {
+      status(
+        "Bitte eine unterstützte Datei bis 10 MB auswählen.",
+        true
+      );
+
+      return;
+    }
+
+    const safeName = file.name
+      .replace(/[^a-zA-Z0-9._-]/g, "_")
+      .slice(-110);
+
+    const path =
+      user.id + "/" +
+      crypto.randomUUID() + "-" +
+      safeName;
+
+    $("uploadButton").disabled = true;
+
+    status("Dokument wird hochgeladen …");
+
+    let uploaded = false;
+
+    try {
+      const storage = await client.storage
+        .from(BUCKET)
+        .upload(
+          path,
+          file,
+          {
+            upsert: false,
+            contentType:
+              file.type || "application/octet-stream"
+          }
+        );
+
+      if (storage.error) {
+        throw storage.error;
+      }
+
+      uploaded = true;
+
+      const { data, error } = await client
+        .from("dd_documents")
+        .insert({
+          title,
+          file_name: file.name,
+          storage_path: path,
+          category: $("docCategory").value,
+          folder_name: folder,
+          mime_type: file.type || null,
+          file_size: file.size
+        })
+        .select("id");
+
+      if (error) {
+        throw error;
+      }
+
+      if (!data?.length) {
+        throw new Error(
+          "Dokumenteninformationen konnten " +
+          "nicht gespeichert werden."
+        );
+      }
+
+      $("uploadForm").reset();
+
+      $("docFolder").value = "Allgemein";
+
+      if (await loadDocuments()) {
+        status(
+          "Dokument erfolgreich gespeichert ♡"
+        );
+      }
+
+    } catch (error) {
+      let extra = "";
+
+      if (uploaded) {
+        const clean = await client.storage
+          .from(BUCKET)
+          .remove([path]);
+
+        if (clean.error) {
+          extra =
+            " Die hochgeladene Datei muss " +
+            "möglicherweise manuell entfernt werden.";
+        }
+      }
+
+      status(
+        "Upload fehlgeschlagen: " +
+        error.message + extra,
+        true
+      );
+
+    } finally {
+      $("uploadButton").disabled = false;
+    }
+  }
+);
+
+// DOKUMENT LÖSCHEN
+
+async function removeDocument(item, button) {
+  if (
+    item.owner_id !== user.id ||
+    !confirm("Dieses Dokument wirklich löschen?")
+  ) {
+    return;
+  }
+
+  button.disabled = true;
+
+  status("Dokument wird gelöscht …");
+
+  try {
+    const { error: storageError } =
+      await client.storage
+        .from(BUCKET)
+        .remove([item.storage_path]);
+
+    if (storageError) {
+      throw storageError;
+    }
+
+    const { data, error } = await client
+      .from("dd_documents")
+      .delete()
+      .eq("id", item.id)
+      .eq("owner_id", user.id)
+      .select("id");
+
+    if (error) {
+      throw error;
+    }
+
+    if (!data?.length) {
+      throw new Error(
+        "Datei entfernt, aber der Listeneintrag " +
+        "konnte nicht gelöscht werden."
+      );
+    }
+
+    if (await loadDocuments()) {
+      status("Dokument gelöscht ♡");
+    }
+
+  } catch (error) {
+    status(
+      "Löschen fehlgeschlagen: " +
+      error.message,
+      true
+    );
+
+  } finally {
+    button.disabled = false;
+  }
+}
+
+// ANMELDUNG PRÜFEN
+
+async function start() {
+  try {
+    if (!window.supabase?.createClient) {
+      throw new Error(
+        "Supabase konnte nicht geladen werden."
+      );
+    }
+
+    client = window.supabase.createClient(
+      URL_SUPABASE,
+      KEY
+    );
+
+    const auth = await client.auth.getUser();
+
+    if (auth.error) {
+      throw auth.error;
+    }
+
+    user = auth.data.user;
+
+    if (!user) {
+      $("loginInfo").hidden = false;
+
+      status("Bitte zuerst anmelden.");
+
+      return;
+    }
+
+    const member = await client
+      .from("dd_members")
+      .select("user_id")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    if (member.error) {
+      throw member.error;
+    }
+
+    if (!member.data) {
+      status(
+        "Dieses Konto hat keinen Zugang.",
+        true
+      );
+
+      return;
+    }
+
+    $("app").hidden = false;
+
+    if (await loadDocuments()) {
+      status(
+        "Willkommen bei euren Dokumenten ♡"
+      );
+    }
+
+  } catch (error) {
+    status(
+      "Verbindungsfehler: " + error.message,
+      true
+    );
+  }
+}
+
+// TEMPORÄRE DATEI-LINKS FREIGEBEN
+
+window.addEventListener(
+  "pagehide",
+  () => {
+    temporaryUrls.forEach(
+      url => URL.revokeObjectURL(url)
+    );
+  }
+);
+
+start();
+</script>
+</body>
+</html>
