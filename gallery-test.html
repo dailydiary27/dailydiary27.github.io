@@ -593,6 +593,104 @@ async function loadPhotos() {
   }
 }
 
+  
+// BILDER HOCHLADEN
+
+$("uploadButton").addEventListener(
+  "click",
+  async () => {
+    const input = $("imageUpload");
+    const button = $("uploadButton");
+    const uploadStatus = $("uploadStatus");
+
+    const files = Array.from(input.files || []);
+
+    if (!files.length) {
+      uploadStatus.textContent =
+        "Bitte zuerst Bilder auswählen ♡";
+      return;
+    }
+
+    const validImages = files.every(file =>
+      /\.(png|jpg|jpeg|webp|gif|heic|avif)$/i
+        .test(file.name) &&
+      file.size <= 10 * 1024 * 1024
+    );
+
+    if (!validImages) {
+      uploadStatus.textContent =
+        "Bitte nur unterstützte Bilder bis 10 MB auswählen.";
+      return;
+    }
+
+    button.disabled = true;
+    let uploaded = 0;
+    const errors = [];
+
+    try {
+      for (const file of files) {
+        uploadStatus.textContent =
+          `Bild ${uploaded + 1} von ${files.length} wird hochgeladen …`;
+
+        const safeName = file.name.replace(
+          /[^a-zA-Z0-9._-]/g,
+          "_"
+        );
+
+        const fileName =
+          crypto.randomUUID() + "-" + safeName;
+
+        const { error } = await client.storage
+          .from(bucket)
+          .upload(fileName, file, {
+            upsert: false,
+            contentType: file.type || undefined
+          });
+
+        if (error) {
+          errors.push(error.message);
+          continue;
+        }
+
+        uploaded++;
+      }
+
+      if (uploaded > 0) {
+        imageUrls.forEach(url =>
+          URL.revokeObjectURL(url)
+        );
+
+        imageUrls.length = 0;
+
+        $("gallery").replaceChildren();
+
+        photosLoaded = false;
+
+        await loadPhotos();
+
+        input.value = "";
+      }
+
+      if (errors.length) {
+        uploadStatus.textContent =
+          `${uploaded} Bild(er) hochgeladen. ` +
+          `Fehler: ${errors[0]}`;
+      } else {
+        uploadStatus.textContent =
+          `${uploaded} Bild(er) erfolgreich hochgeladen ♡`;
+      }
+
+    } catch (error) {
+      uploadStatus.textContent =
+        "Upload fehlgeschlagen: " + error.message;
+
+    } finally {
+      button.disabled = false;
+    }
+  }
+);
+
+
 // NACHRICHTEN
 
 function resetForm() {
