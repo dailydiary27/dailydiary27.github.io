@@ -2,115 +2,686 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f8dce8">
 <title>Unsere Reisen ♡ | DailyDiary</title>
 <style>
-:root{--pink:#f8dce8;--cream:#fffdf5;--ink:#352831;--muted:#826d79;--accent:#91536f;--border:#e8d6e1;--soft:#faf6f8}
-*{box-sizing:border-box} [hidden]{display:none!important}
-body{margin:0;background:var(--pink);color:var(--ink);font-family:Cochin,Georgia,serif;font-size:17px}
-main{max-width:880px;margin:auto;padding:24px 16px 60px}
-a{color:var(--accent);overflow-wrap:anywhere} .back{text-decoration:none}
-header{text-align:center;padding:20px 0} h1{font-size:clamp(2rem,6vw,3.4rem);margin:12px 0} h2{font-size:1.55rem;margin:0 0 14px} h3{margin:0 0 8px}
-p{margin:8px 0;overflow-wrap:anywhere} .muted,small{color:var(--muted)}
-.card{background:var(--cream);border-radius:26px;padding:20px;margin:16px 0}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px}
-.item{background:var(--soft);border:1px solid var(--border);border-radius:18px;padding:15px;min-width:0;overflow-wrap:anywhere}.item.active{border:2px solid var(--accent)}
-label{display:block;margin:12px 0 5px;color:var(--muted)}
-input,select,textarea{font:inherit;color:var(--ink);background:var(--soft);border:1px solid var(--border);border-radius:12px;padding:12px;width:100%;min-width:0;max-width:100%}
-textarea{min-height:100px;resize:vertical} input[type=date]{min-height:48px}
-button{font:inherit;border:0;border-radius:12px;padding:11px 15px;background:#f0e5ec;color:var(--ink);cursor:pointer;max-width:100%;overflow-wrap:anywhere}
-button.primary{background:var(--accent);color:white}button:disabled{opacity:.55;cursor:default}
-.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px} .error{color:#a43d4f}
-.big{font-size:1.35rem;color:var(--accent);font-weight:bold} .done{text-decoration:line-through;color:var(--muted)}
-.line{white-space:pre-wrap;overflow-wrap:anywhere} progress{width:100%;accent-color:var(--accent)}
+:root {
+  --pink:#f8dce8; --cream:#fffdf5; --ink:#352831;
+  --muted:#927d88; --accent:#985d7b; --line:#ead9e3;
+  --soft:#fdf9fb; --selected:#f3e8ee;
+}
+* { box-sizing:border-box; }
+[hidden] { display:none!important; }
+body { margin:0; background:var(--pink); color:var(--ink); font:17px/1.45 Cochin,Georgia,serif; }
+main { max-width:860px; margin:auto; padding:26px 16px 75px; }
+a { color:var(--accent); overflow-wrap:anywhere; }
+.back { text-decoration:none; display:inline-block; margin-bottom:17px; }
+header { text-align:center; margin:12px 0 34px; }
+h1 { font-size:clamp(2.3rem,7vw,3.7rem); line-height:1.16; margin:0 0 13px; }
+h2 { font-size:clamp(1.4rem,4vw,1.9rem); line-height:1.2; margin:0 0 18px; }
+h3 { margin:0 0 8px; font-size:1.13rem; }
+p { margin:7px 0; overflow-wrap:anywhere; }
+.muted,small { color:var(--muted); }
+.status { margin:16px 2px; min-height:26px; color:#775c69; }
+.status.error { color:#a43d4f; }
+.card { border-radius:28px; background:var(--cream); padding:clamp(18px,4vw,28px); margin:17px 0; }
+.soft { background:var(--soft); border:1px solid var(--line); border-radius:19px; padding:16px; }
+.grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,235px),1fr)); gap:12px; }
+.trip-card { background:var(--soft); border:1px solid var(--line); border-radius:19px; padding:16px; }
+.trip-card.active { border:2px solid var(--accent); }
+.trip-card h3 { font-size:1.32rem; }
+button { font:inherit; border:1px solid transparent; border-radius:13px; padding:11px 17px; color:var(--ink); background:#f0e5ec; cursor:pointer; }
+button.primary { background:var(--accent); color:#fff; }
+button.secondary { background:var(--selected); }
+button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible { outline:2px solid var(--accent); outline-offset:2px; }
+button:disabled { opacity:.52; cursor:not-allowed; }
+.actions { display:flex; flex-wrap:wrap; gap:9px; margin-top:13px; }
+label { display:block; margin:12px 0 6px; color:#715c68; }
+input,select,textarea { width:100%; min-width:0; padding:12px 13px; border:1px solid var(--line); border-radius:13px; color:var(--ink); background:var(--soft); font:inherit; font-size:16px; }
+textarea { resize:vertical; min-height:86px; }
+.form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 14px; }
+.form-grid > * { min-width:0; }
+.form-buttons { margin-top:16px; }
+.section-note { color:var(--muted); font-size:.94rem; }
+.hero-info { color:var(--muted); }
+.hero-actions { margin-top:14px; }
+.tabs { display:flex; gap:8px; overflow-x:auto; scrollbar-width:thin; margin:16px 0 2px; padding:4px 1px 10px; }
+.tab { flex:0 0 auto; padding:12px 17px; background:var(--soft); border:1px solid var(--line); color:#705b67; border-radius:15px; }
+.tab[aria-selected="true"] { background:var(--selected); border-color:var(--accent); color:#74465f; font-weight:600; }
+.tab-panel { scroll-margin-top:15px; }
+.stat-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin:14px 0; }
+.stat { background:var(--soft); border:1px solid var(--line); border-radius:16px; padding:13px; }
+.stat small { display:block; }
+.stat strong { display:block; margin-top:6px; font-size:clamp(1rem,3.5vw,1.5rem); color:#98627e; overflow-wrap:anywhere; }
+.entry { padding:15px; background:var(--soft); border:1px solid var(--line); border-radius:16px; margin:10px 0; }
+.entry .tag { font-size:.82rem; color:var(--muted); }
+.entry h3 { margin:6px 0; }
+.line { white-space:pre-wrap; overflow-wrap:anywhere; }
+.empty { color:var(--muted); padding:18px 0; text-align:center; }
+.divider { height:1px; background:var(--line); margin:23px 0; }
+.stack { display:grid; gap:12px; }
+.field-help { color:var(--muted); font-size:.85rem; }
+.progress-head { display:flex; justify-content:space-between; gap:10px; color:#826975; font-size:.95rem; }
+.progress-track { width:100%; height:6px; border-radius:99px; background:#eadfe5; overflow:hidden; margin:10px 0 23px; }
+.progress-fill { height:100%; background:#a26d87; transition:width .15s; border-radius:99px; }
+.pack-group { margin:20px 0 0; }
+.pack-group h3 { font-size:1.06rem; margin:0 0 6px; color:#725a67; }
+.pack-row { display:flex; align-items:center; gap:12px; min-height:49px; padding:8px 1px; border-bottom:1px solid #f0e6eb; }
+.pack-row input[type="checkbox"] { flex:0 0 20px; width:20px; height:20px; accent-color:var(--accent); margin:0; }
+.pack-label { flex:1; min-width:0; overflow-wrap:anywhere; }
+.pack-label.is-done { text-decoration:line-through; color:#a2949c; }
+.pack-row-actions { display:flex; gap:3px; }
+.pack-row-actions button { background:transparent; border:0; padding:6px 8px; color:#896c7c; font-size:.82rem; }
+.pack-add { display:grid; grid-template-columns:minmax(0,1fr) minmax(135px,.52fr) auto; gap:9px; margin-top:10px; align-items:end; }
+.pack-add label { margin:0 0 5px; font-size:.9rem; }
+.pack-add button { min-height:47px; white-space:nowrap; }
+.pack-optional { margin-top:13px; }
+button.linkish { background:transparent; border:1px solid var(--line); color:#846274; }
+@media(max-width:570px) {
+  .form-grid { grid-template-columns:1fr; }
+  .stat-grid { grid-template-columns:1fr 1fr; }
+  .pack-add { grid-template-columns:1fr 1fr; }
+  .pack-add .item-field { grid-column:1/-1; }
+  .pack-add button { align-self:end; }
+}
+@media(max-width:380px) { .pack-add{grid-template-columns:1fr}.pack-add .item-field{grid-column:auto}.stat-grid{grid-template-columns:1fr} }
 </style>
 </head>
-<body><main>
-<a class="back" href="home.html">‹ Zurück zur Startseite</a>
-<header><h1>Unsere Reisen ♡</h1><p class="muted">Gemeinsam die Welt entdecken</p></header>
-<p id="message" role="status" aria-live="polite">Verbindung wird hergestellt …</p>
-<div id="app" hidden>
-<section class="card">
-<h2>Unsere Abenteuer</h2>
-<div id="tripList" class="grid"></div>
-<div class="actions"><button id="newTrip" class="primary" type="button">+ Neue Reise ♡</button></div>
-</section>
-<section id="tripEditor" class="card" hidden>
-<h2 id="tripHeading">Neue Reise ♡</h2>
-<form id="tripForm">
-<label for="title">Name der Reise *</label><input id="title" required maxlength="200" placeholder="Unser Sommerurlaub">
-<label for="destination">Reiseziel</label><input id="destination" placeholder="Stadt oder Land">
-<div class="grid"><div><label for="start">Abreise</label><input id="start" type="date"></div><div><label for="end">Rückreise</label><input id="end" type="date"></div></div>
-<div class="grid"><div><label for="budget">Reisebudget</label><input id="budget" type="number" min="0" max="9999999999.99" step="0.01" value="0" required></div><div><label for="currency">Währung (z. B. EUR)</label><input id="currency" value="EUR" required maxlength="3" pattern="[A-Z]{3}"></div></div>
-<label for="status">Reisestatus</label><select id="status"><option value="idea">Reiseidee</option><option value="planning">In Planung</option><option value="booked">Gebucht</option><option value="ongoing">Unterwegs</option><option value="completed">Abgeschlossen</option></select>
-<label for="visibility">Sichtbarkeit</label><select id="visibility"><option value="shared">Gemeinsam</option><option value="private">Nur für mich</option></select>
-<label for="notes">Notizen</label><textarea id="notes" placeholder="Unsere Ideen und Wünsche …"></textarea>
-<div class="actions"><button class="primary" type="submit">Reise speichern ♡</button><button id="cancelTrip" type="button">Abbrechen</button></div>
-</form></section>
-<section id="details" hidden>
-<div class="card"><h2 id="selectedTitle"></h2><p id="selectedInfo" class="muted"></p><p id="selectedNotes" class="line"></p><div id="tripActions" class="actions"></div></div>
-<div class="card"><h2>Unser Reisebudget ♡</h2>
-<div class="grid"><div class="item"><small>Geplant</small><p id="budgetTotal" class="big"></p></div><div class="item"><small>Ausgegeben</small><p id="spent" class="big"></p></div><div class="item"><small>Übrig</small><p id="remaining" class="big"></p></div></div>
-<p class="muted">Nur Einträge unter „Ausgaben“ werden summiert. Alle Beträge gelten in der Währung der Reise.</p>
-</div>
-<div class="card"><h2>Unsere Packliste</h2><p id="packingInfo" class="muted"></p><progress id="packingProgress" value="0" max="1"></progress></div>
-<div class="card"><h2>Unsere Reiseplanung</h2>
-<label for="filter">Bereich anzeigen</label><select id="filter"><option value="all">Alle Bereiche</option><option value="hotel">Hotels &amp; Unterkünfte</option><option value="transport">Flüge &amp; Transport</option><option value="activity">Aktivitäten</option><option value="expense">Ausgaben</option><option value="packing">Packliste</option><option value="booking">Buchungen</option><option value="link">Links</option><option value="note">Notizen</option></select>
-<div id="entryList" class="grid" style="margin-top:14px"></div>
-</div>
-<div class="card" id="entryEditor"><h2 id="entryHeading">Neuer Reiseeintrag ♡</h2>
-<form id="entryForm">
-<label for="kind">Bereich</label><select id="kind"><option value="hotel">Hotels &amp; Unterkünfte</option><option value="transport">Flüge &amp; Transport</option><option value="activity">Aktivitäten</option><option value="expense">Ausgaben</option><option value="packing">Packliste</option><option value="booking">Buchungen</option><option value="link">Links</option><option value="note">Notizen</option></select>
-<label for="entryTitle">Name *</label><input id="entryTitle" required maxlength="200" placeholder="Hotel, Flug, Ausflug …">
-<label for="entryDetails">Beschreibung</label><textarea id="entryDetails" placeholder="Buchungsnummer, Uhrzeit, Adresse …"></textarea>
-<div class="grid"><div><label for="eventDate">Datum</label><input id="eventDate" type="date"></div><div><label for="amount">Betrag</label><input id="amount" type="number" min="0" max="9999999999.99" step="0.01"></div></div>
-<label for="url">Link (https://)</label><input id="url" type="url" placeholder="https://…">
-<div class="actions"><button class="primary" type="submit">Eintrag speichern ♡</button><button id="cancelEntry" type="button" hidden>Abbrechen</button></div>
-</form></div>
-</section></div></main>
+<body>
+<main>
+  <a class="back" href="home.html">‹ Zurück zur Startseite</a>
+  <header>
+    <h1>Unsere Reisen ♡</h1>
+    <p class="muted">Gemeinsam die Welt entdecken</p>
+  </header>
+  <p id="message" class="status" role="status" aria-live="polite">Verbindung wird hergestellt …</p>
+
+  <div id="app" hidden>
+    <section class="card" aria-label="Reiseübersicht">
+      <h2>Unsere Abenteuer</h2>
+      <div id="tripList" class="grid"></div>
+      <div class="actions"><button id="newTrip" class="primary" type="button">+ Neue Reise ♡</button></div>
+    </section>
+
+    <section id="tripEditor" class="card" hidden>
+      <h2 id="tripHeading">Neue Reise ♡</h2>
+      <form id="tripForm">
+        <label for="title">Name der Reise *</label>
+        <input id="title" required maxlength="200" placeholder="Unser Sommerurlaub">
+        <label for="destination">Reiseziel</label>
+        <input id="destination" placeholder="Stadt oder Land">
+        <div class="form-grid">
+          <div><label for="start">Abreise</label><input id="start" type="date"></div>
+          <div><label for="end">Rückreise</label><input id="end" type="date"></div>
+          <div><label for="budget">Reisebudget</label><input id="budget" type="number" min="0" max="9999999999.99" step="0.01" value="0" required></div>
+          <div><label for="currency">Währung (z. B. EUR)</label><input id="currency" value="EUR" required maxlength="3" pattern="[A-Z]{3}"></div>
+          <div><label for="status">Reisestatus</label><select id="status"><option value="idea">Reiseidee</option><option value="planning">In Planung</option><option value="booked">Gebucht</option><option value="ongoing">Unterwegs</option><option value="completed">Abgeschlossen</option></select></div>
+          <div><label for="visibility">Sichtbarkeit</label><select id="visibility"><option value="shared">Gemeinsam</option><option value="private">Nur für mich</option></select></div>
+        </div>
+        <label for="notes">Notizen</label><textarea id="notes" placeholder="Unsere Ideen und Wünsche …"></textarea>
+        <div class="actions form-buttons"><button type="submit" class="primary">Reise speichern ♡</button><button id="cancelTrip" type="button">Abbrechen</button></div>
+      </form>
+    </section>
+
+    <section id="details" hidden>
+      <div class="card" id="tripHero">
+        <h2 id="selectedTitle"></h2>
+        <p class="hero-info" id="selectedInfo"></p>
+        <nav class="tabs" aria-label="Unterbereiche der Reise" role="tablist">
+          <button class="tab" id="tabButton-overview" data-tab="overview" type="button" role="tab" aria-controls="tab-overview" aria-selected="true">♡ Übersicht</button>
+          <button class="tab" id="tabButton-planning" data-tab="planning" type="button" role="tab" aria-controls="tab-planning" aria-selected="false">✈️ Planung</button>
+          <button class="tab" id="tabButton-budget" data-tab="budget" type="button" role="tab" aria-controls="tab-budget" aria-selected="false">€ Budget</button>
+          <button class="tab" id="tabButton-pack" data-tab="pack" type="button" role="tab" aria-controls="tab-pack" aria-selected="false">☑ Packliste</button>
+        </nav>
+      </div>
+
+      <section class="card tab-panel" id="tab-overview" role="tabpanel" aria-labelledby="tabButton-overview">
+        <h2>Unsere Reise auf einen Blick</h2>
+        <div class="stat-grid">
+          <div class="stat"><small>Reisestatus</small><strong id="overviewStatus"></strong></div>
+          <div class="stat"><small>Reisebudget</small><strong id="overviewBudget"></strong></div>
+          <div class="stat"><small>Packfortschritt</small><strong id="overviewPacking"></strong></div>
+        </div>
+        <p id="selectedNotes" class="line muted"></p>
+        <div id="tripActions" class="actions hero-actions"></div>
+        <div class="divider"></div>
+        <p class="section-note">Alle Reiseinformationen sind in vier übersichtliche Bereiche aufgeteilt. Wähle oben „Planung“, „Budget“ oder „Packliste“.</p>
+      </section>
+
+      <section class="card tab-panel" id="tab-planning" role="tabpanel" aria-labelledby="tabButton-planning" hidden>
+        <h2>Unsere Reiseplanung</h2>
+        <p class="section-note">Unterkünfte, Anreise, Aktivitäten, Buchungen, Links und Notizen.</p>
+        <label for="filter">Einträge anzeigen</label>
+        <select id="filter">
+          <option value="all">Alle Planungen</option>
+          <option value="hotel">Hotels &amp; Unterkünfte</option>
+          <option value="transport">Flüge &amp; Transport</option>
+          <option value="activity">Aktivitäten</option>
+          <option value="booking">Buchungen</option>
+          <option value="link">Links</option>
+          <option value="note">Notizen</option>
+        </select>
+        <div id="planningList"></div>
+        <div class="divider"></div>
+        <h2 id="planHeading">Neuer Planungseintrag ♡</h2>
+        <form id="planForm">
+          <label for="planKind">Bereich</label>
+          <select id="planKind">
+            <option value="hotel">Hotels &amp; Unterkünfte</option>
+            <option value="transport">Flüge &amp; Transport</option>
+            <option value="activity">Aktivitäten</option>
+            <option value="booking">Buchungen</option>
+            <option value="link">Links</option>
+            <option value="note">Notizen</option>
+          </select>
+          <label for="planTitle">Name *</label><input id="planTitle" maxlength="200" required placeholder="Hotel, Flug oder Ausflug">
+          <label for="planDetails">Beschreibung</label><textarea id="planDetails" placeholder="Adresse, Buchungsnummer, Ideen …"></textarea>
+          <div class="form-grid"><div><label for="planDate">Datum</label><input id="planDate" type="date"></div><div><label for="planAmount">Betrag (optional)</label><input id="planAmount" type="number" min="0" max="9999999999.99" step="0.01"></div></div>
+          <label for="planUrl">Link</label><input id="planUrl" type="url" placeholder="https://…">
+          <p class="field-help">Für die Berechnung des Reisebudgets nutze bitte den Reiter „Budget“.</p>
+          <div class="actions"><button class="primary" type="submit">Eintrag speichern ♡</button><button id="cancelPlan" type="button" hidden>Abbrechen</button></div>
+        </form>
+      </section>
+
+      <section class="card tab-panel" id="tab-budget" role="tabpanel" aria-labelledby="tabButton-budget" hidden>
+        <h2>Unser Reisebudget ♡</h2>
+        <div class="stat-grid">
+          <div class="stat"><small>Geplant</small><strong id="budgetTotal"></strong></div>
+          <div class="stat"><small>Ausgegeben</small><strong id="spent"></strong></div>
+          <div class="stat"><small>Übrig</small><strong id="remaining"></strong></div>
+        </div>
+        <p class="section-note">Nur Einträge in diesem Bereich zählen als Ausgaben. Ein Betrag bei einem Hotel oder einer Buchung wird nicht automatisch dazugerechnet.</p>
+        <div id="expenseList"></div>
+        <div class="divider"></div>
+        <h2 id="expenseHeading">Ausgabe hinzufügen ♡</h2>
+        <form id="expenseForm">
+          <label for="expenseTitle">Bezeichnung *</label><input id="expenseTitle" required maxlength="200" placeholder="Zum Beispiel: Bahnticket">
+          <div class="form-grid"><div><label for="expenseAmount">Betrag *</label><input id="expenseAmount" type="number" min="0" max="9999999999.99" step="0.01" required></div><div><label for="expenseDate">Datum</label><input id="expenseDate" type="date"></div></div>
+          <label for="expenseDetails">Notiz</label><textarea id="expenseDetails" placeholder="Zum Beispiel: Tickets für uns beide"></textarea>
+          <div class="actions"><button type="submit" class="primary">Ausgabe speichern ♡</button><button id="cancelExpense" type="button" hidden>Abbrechen</button></div>
+        </form>
+      </section>
+
+      <section class="card tab-panel" id="tab-pack" role="tabpanel" aria-labelledby="tabButton-pack" hidden>
+        <h2>Unsere Packliste ♡</h2>
+        <div class="progress-head"><span id="packingInfo">0 von 0 eingepackt</span><span id="packingPercent">0 %</span></div>
+        <div class="progress-track" role="progressbar" aria-label="Packfortschritt" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="packingProgress"><div class="progress-fill" id="packingFill" style="width:0%"></div></div>
+        <div id="packingGroups"></div>
+        <div class="divider"></div>
+        <h2 id="packHeading">Gegenstand hinzufügen</h2>
+        <form id="packForm" class="pack-add">
+          <div class="item-field"><label for="packTitle">Was soll mit? *</label><input id="packTitle" required maxlength="200" placeholder="Zum Beispiel: Ladekabel"></div>
+          <div><label for="packCategory">Kategorie</label><select id="packCategory"><option value="documents">Dokumente</option><option value="clothes">Kleidung</option><option value="hygiene">Hygiene</option><option value="tech">Technik</option><option value="other">Sonstiges</option></select></div>
+          <button class="primary" type="submit" id="savePack">Hinzufügen ♡</button>
+        </form>
+        <div class="actions pack-optional"><button id="cancelPack" type="button" hidden>Bearbeitung abbrechen</button><button id="addTemplate" class="linkish" type="button">+ Standard-Packliste hinzufügen</button></div>
+        <p class="field-help">Die Vorlage ist freiwillig. Bereits vorhandene Gegenstände werden nicht erneut hinzugefügt, wenn sie denselben Namen haben.</p>
+      </section>
+    </section>
+  </div>
+</main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 "use strict";
-const $=id=>document.getElementById(id);
-let client,user,trips=[],entries=[],selected=null,editTrip=null,editEntry=null,busy=false;
-const kinds={hotel:'🏨 Unterkunft',transport:'✈️ Transport',activity:'📍 Aktivität',expense:'💶 Ausgabe',packing:'🧳 Packliste',booking:'🎟️ Buchung',link:'🔗 Link',note:'♡ Notiz'};
-const statuses={idea:'Reiseidee',planning:'In Planung',booked:'Gebucht',ongoing:'Unterwegs',completed:'Abgeschlossen'};
-function message(text,error=false){$('message').textContent=text;$('message').classList.toggle('error',error);}
-function fail(error){if(error)throw error;}
-function node(tag,text='',cls=''){const el=document.createElement(tag);el.textContent=text;if(cls)el.className=cls;return el;}
-function btn(text,action,cls=''){const el=node('button',text,cls);el.type='button';el.addEventListener('click',()=>work(action));return el;}
-async function work(action){if(busy)return;busy=true;try{await action();}catch(e){message(e.message||String(e),true);}finally{busy=false;}}
-function date(v){return v?new Date(v+'T12:00:00').toLocaleDateString('de-DE'):'Offen';}
-function money(v,c){try{return new Intl.NumberFormat('de-DE',{style:'currency',currency:c}).format(Number(v));}catch{return Number(v).toFixed(2)+' '+c;}}
-function safeUrl(value){try{const u=new URL(value);return ['https:','http:'].includes(u.protocol)?u.href:null;}catch{return null;}}
-function resetEntry(){editEntry=null;$('entryForm').reset();$('entryHeading').textContent='Neuer Reiseeintrag ♡';$('cancelEntry').hidden=true;}
-function openTrip(t=null){editTrip=t;$('tripForm').reset();$('tripHeading').textContent=t?'Reise bearbeiten ♡':'Neue Reise ♡';
-if(t){$('title').value=t.title;$('destination').value=t.destination;$('start').value=t.starts_on||'';$('end').value=t.ends_on||'';$('budget').value=t.budget;$('currency').value=t.currency;$('status').value=t.status;$('visibility').value=t.visibility;$('notes').value=t.notes;}
-$('tripEditor').hidden=false;$('tripEditor').scrollIntoView({behavior:'smooth'});}
-function renderTrips(){const box=$('tripList');box.replaceChildren();if(!trips.length)box.append(node('p','Noch keine Reisen vorhanden ♡','muted'));
-for(const t of trips){const card=node('article','', 'item'+(selected?.id===t.id?' active':''));card.append(node('h3','✈️ '+t.title),node('p',t.destination||'Reiseziel noch offen'),node('p',date(t.starts_on)+' – '+date(t.ends_on),'muted'),node('p',statuses[t.status]+' · '+(t.visibility==='shared'?'Gemeinsam':'Privat'),'muted'),btn('Reise öffnen',()=>load(t.id)));box.append(card);}}
-function renderEntries(){const box=$('entryList');box.replaceChildren();const filter=$('filter').value;const list=entries.filter(e=>filter==='all'||e.kind===filter);
-if(!list.length)box.append(node('p','Noch keine Einträge in diesem Bereich ♡','muted'));
-for(const e of list){const card=node('article','','item');card.append(node('small',kinds[e.kind]||e.kind),node('h3',e.title,e.kind==='packing'&&e.is_done?'done':''));if(e.details)card.append(node('p',e.details,'line'));if(e.event_date)card.append(node('p',date(e.event_date),'muted'));if(e.amount!==null)card.append(node('p',money(e.amount,selected.currency),'big'));
-const url=safeUrl(e.url);if(url){const a=node('a','Link öffnen ↗');a.href=url;a.target='_blank';a.rel='noopener noreferrer';card.append(a);}
-const actions=node('div','','actions');if(e.kind==='packing'){const check=btn(e.is_done?'✓ Erledigt':'☐ Abhaken',async()=>{const {error}=await client.from('dd_trip_entries').update({is_done:!e.is_done}).eq('id',e.id).select('id').single();fail(error);await load(selected.id);});check.disabled=e.owner_id!==user.id;actions.append(check);}
-if(e.owner_id===user.id)actions.append(btn('Bearbeiten',()=>openEntry(e)),btn('Löschen',async()=>{if(!confirm('Diesen Eintrag löschen?'))return;const {error}=await client.from('dd_trip_entries').delete().eq('id',e.id).select('id').single();fail(error);resetEntry();await load(selected.id);message('Eintrag gelöscht.');}));card.append(actions);box.append(card);}}
-function renderDetails(){if(!selected){$('details').hidden=true;return;}$('details').hidden=false;$('selectedTitle').textContent=selected.title+' ♡';$('selectedInfo').textContent=(selected.destination||'Reiseziel offen')+' · '+date(selected.starts_on)+' – '+date(selected.ends_on);$('selectedNotes').textContent=selected.notes;
-$('tripActions').replaceChildren();if(selected.owner_id===user.id)$('tripActions').append(btn('Reise bearbeiten',()=>openTrip(selected)),btn('Reise löschen',async()=>{if(!confirm('Diese Reise und ALLE zugehörigen Einträge endgültig löschen?'))return;const {error}=await client.from('dd_trips').delete().eq('id',selected.id).select('id').single();fail(error);$('tripEditor').hidden=true;resetEntry();await load();message('Reise gelöscht.');}));
-const cents=v=>Math.round(Number(v||0)*100);const spent=entries.filter(e=>e.kind==='expense').reduce((sum,e)=>sum+cents(e.amount),0);$('budgetTotal').textContent=money(selected.budget,selected.currency);$('spent').textContent=money(spent/100,selected.currency);$('remaining').textContent=money((cents(selected.budget)-spent)/100,selected.currency);
-const packing=entries.filter(e=>e.kind==='packing');const done=packing.filter(e=>e.is_done).length;$('packingInfo').textContent=done+' von '+packing.length+' erledigt';$('packingProgress').max=packing.length||1;$('packingProgress').value=done;renderEntries();}
-async function load(id=selected?.id){const a=await client.from('dd_trips').select('*').order('created_at',{ascending:false});fail(a.error);const next=a.data.find(t=>t.id===id)||a.data[0]||null;let nextEntries=[];
-if(next){const b=await client.from('dd_trip_entries').select('*').eq('trip_id',next.id).order('event_date',{ascending:true,nullsFirst:false}).order('created_at');fail(b.error);nextEntries=b.data;}
-if(selected?.id!==next?.id){resetEntry();$('filter').value='all';$('tripEditor').hidden=true;editTrip=null;}trips=a.data;selected=next;entries=nextEntries;renderTrips();renderDetails();}
-function openEntry(e){editEntry=e;$('kind').value=e.kind;$('entryTitle').value=e.title;$('entryDetails').value=e.details;$('eventDate').value=e.event_date||'';$('amount').value=e.amount??'';$('url').value=e.url;$('entryHeading').textContent='Eintrag bearbeiten ♡';$('cancelEntry').hidden=false;$('entryEditor').scrollIntoView({behavior:'smooth'});}
-$('newTrip').onclick=()=>work(()=>openTrip());$('cancelTrip').onclick=()=>work(()=>{$('tripEditor').hidden=true;editTrip=null;});$('cancelEntry').onclick=()=>work(resetEntry);$('filter').onchange=()=>{if(selected)renderEntries();};
-$('tripForm').onsubmit=e=>{e.preventDefault();work(async()=>{const data={title:$('title').value.trim(),destination:$('destination').value.trim(),starts_on:$('start').value||null,ends_on:$('end').value||null,budget:$('budget').value||'0',currency:$('currency').value.toUpperCase(),status:$('status').value,visibility:$('visibility').value,notes:$('notes').value.trim()};if(!data.title)throw new Error('Bitte einen Reisenamen eingeben.');if(data.starts_on&&data.ends_on&&data.ends_on<data.starts_on)throw new Error('Die Rückreise darf nicht vor der Abreise liegen.');
-if(editTrip&&editTrip.currency!==data.currency&&!confirm('Die Währung ändern? Bestehende Beträge werden nicht umgerechnet.'))return;if(editTrip?.visibility==='shared'&&data.visibility==='private'&&!confirm('Die Reise samt Einträgen wird privat. Andere Mitglieder verlieren den Zugriff. Fortfahren?'))return;
-const q=editTrip?client.from('dd_trips').update(data).eq('id',editTrip.id):client.from('dd_trips').insert(data);const result=await q.select('id').single();fail(result.error);editTrip=null;$('tripEditor').hidden=true;await load(result.data.id);message('Reise gespeichert ♡');});};
-$('entryForm').onsubmit=e=>{e.preventDefault();work(async()=>{if(!selected)return;const raw=$('url').value.trim();if(raw&&!safeUrl(raw))throw new Error('Bitte einen gültigen HTTP- oder HTTPS-Link eingeben.');const kind=$('kind').value;const data={kind,title:$('entryTitle').value.trim(),details:$('entryDetails').value.trim(),event_date:$('eventDate').value||null,amount:$('amount').value||null,url:raw,is_done:kind==='packing'&&editEntry?.kind==='packing'?editEntry.is_done:false};if(!data.title)throw new Error('Bitte einen Namen eingeben.');if(kind==='expense'&&data.amount===null)throw new Error('Bitte einen Ausgabenbetrag eingeben.');
-const q=editEntry?client.from('dd_trip_entries').update(data).eq('id',editEntry.id):client.from('dd_trip_entries').insert({...data,trip_id:selected.id});const result=await q.select('id').single();fail(result.error);resetEntry();$('filter').value=kind;await load(selected.id);message('Reiseeintrag gespeichert ♡');});};
-work(async()=>{client=window.supabase.createClient('https://cqgrtybenbanfppoiuba.supabase.co','sb_publishable_oxqVUkLdxj40fLZ8zCfjtw_wFSftxDw');const session=await client.auth.getSession();fail(session.error);if(!session.data.session){location.replace('login.html');return;}const result=await client.auth.getUser();fail(result.error);user=result.data.user;if(!user){location.replace('login.html');return;}
-const member=await client.from('dd_members').select('user_id').eq('user_id',user.id).maybeSingle();fail(member.error);if(!member.data){await client.auth.signOut();throw new Error('Kein Zugriff: Dein Konto ist nicht freigeschaltet.');}await load();$('app').hidden=false;message('Willkommen bei euren Reisen ♡');});
+const SUPABASE_URL = "https://cqgrtybenbanfppoiuba.supabase.co";
+const SUPABASE_KEY = "sb_publishable_oxqVUkLdxj40fLZ8zCfjtw_wFSftxDw";
+const $ = id => document.getElementById(id);
+let client, user, trips = [], entries = [], selected = null;
+let activeTab = "overview", editingTrip = null, editingPlan = null;
+let editingExpense = null, editingPack = null, busy = false;
+const kinds = {
+  hotel:"🏨 Unterkunft", transport:"✈️ Transport", activity:"📍 Aktivität",
+  expense:"💶 Ausgabe", packing:"🧳 Packliste", booking:"🎟️ Buchung",
+  link:"🔗 Link", note:"♡ Notiz"
+};
+const statuses = {
+  idea:"Reiseidee", planning:"In Planung", booked:"Gebucht",
+  ongoing:"Unterwegs", completed:"Abgeschlossen"
+};
+const packGroups = [
+  ["documents","1. Dokumente"], ["clothes","2. Kleidung"],
+  ["hygiene","3. Hygiene"], ["tech","4. Technik"],
+  ["other","5. Sonstiges"]
+];
+const starterItems = {
+  documents:["Personalausweis / Reisepass","Geldbeutel","EC- / Kreditkarte","Tickets / Buchungen","Krankenversicherung"],
+  clothes:["Unterwäsche","Socken","Oberteile","Hosen / Shorts","Schlafsachen","Leichte Jacke","Bequeme Schuhe"],
+  hygiene:["Zahnbürste","Zahnpasta","Deo","Medikamente","Sonnencreme"],
+  tech:["Handy","Ladekabel","Powerbank","Kopfhörer"],
+  other:["Trinkflasche","Sonnenbrille","Schlüssel"]
+};
+const planningKinds = new Set(["hotel","transport","activity","booking","link","note"]);
+
+function message(text, error=false) {
+  $("message").textContent = text;
+  $("message").classList.toggle("error", error);
+}
+function fail(error) { if (error) throw error; }
+function node(tag, text="", className="") {
+  const el = document.createElement(tag);
+  el.textContent = text;
+  if (className) el.className = className;
+  return el;
+}
+function button(text, handler, className="") {
+  const el = node("button",text,className);
+  el.type = "button";
+  el.addEventListener("click",()=>work(handler));
+  return el;
+}
+async function work(fn) {
+  if (busy) return;
+  busy = true;
+  try { await fn(); }
+  catch (error) { message(error?.message || String(error), true); }
+  finally { busy = false; }
+}
+function date(value) {
+  return value ? new Date(value+"T12:00:00").toLocaleDateString("de-DE") : "Offen";
+}
+function money(value, currency) {
+  try { return new Intl.NumberFormat("de-DE",{style:"currency",currency}).format(Number(value)); }
+  catch { return Number(value).toFixed(2)+" "+currency; }
+}
+function cents(v) { return Math.round(Number(v || 0)*100); }
+function safeUrl(raw) {
+  try { const u = new URL(raw); return ["https:","http:"].includes(u.protocol) ? u.href : null; }
+  catch { return null; }
+}
+function packTitle(e) {
+  // Alte Packlisten-Einträge nutzten teils "Packliste" als Titel
+  // und den eigentlichen Gegenstand als Beschreibung.
+  return e.title?.trim().toLocaleLowerCase("de-DE") === "packliste" && e.details?.trim()
+    ? e.details.trim() : e.title;
+}
+function resetTripForm() {
+  editingTrip=null;
+  $("tripForm").reset();
+  $("tripHeading").textContent="Neue Reise ♡";
+  $("tripEditor").hidden=true;
+}
+function resetPlan() {
+  editingPlan=null; $("planForm").reset();
+  $("planHeading").textContent="Neuer Planungseintrag ♡";
+  $("cancelPlan").hidden=true;
+}
+function resetExpense() {
+  editingExpense=null; $("expenseForm").reset();
+  $("expenseHeading").textContent="Ausgabe hinzufügen ♡";
+  $("cancelExpense").hidden=true;
+}
+function resetPack() {
+  editingPack=null; $("packForm").reset();
+  $("packHeading").textContent="Gegenstand hinzufügen";
+  $("savePack").textContent="Hinzufügen ♡";
+  $("cancelPack").hidden=true;
+}
+function resetAllEntryForms() { resetPlan(); resetExpense(); resetPack(); }
+function setTab(key, scroll=false) {
+  activeTab=key;
+  for (const button of document.querySelectorAll("[data-tab]")) {
+    const active = button.dataset.tab === key;
+    button.setAttribute("aria-selected",String(active));
+    button.tabIndex = active ? 0 : -1;
+  }
+  for (const id of ["overview","planning","budget","pack"]) {
+    $("tab-"+id).hidden = id !== key;
+  }
+  if (scroll) $("tripHero").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function showTripForm(t=null) {
+  editingTrip=t;
+  $("tripForm").reset();
+  $("tripHeading").textContent=t?"Reise bearbeiten ♡":"Neue Reise ♡";
+  if(t) {
+    $("title").value=t.title;
+    $("destination").value=t.destination;
+    $("start").value=t.starts_on||"";
+    $("end").value=t.ends_on||"";
+    $("budget").value=t.budget;
+    $("currency").value=t.currency;
+    $("status").value=t.status;
+    $("visibility").value=t.visibility;
+    $("notes").value=t.notes;
+  }
+  $("tripEditor").hidden=false;
+  $("tripEditor").scrollIntoView({behavior:"smooth"});
+}
+function renderTrips() {
+  const box=$("tripList"); box.replaceChildren();
+  if(!trips.length) box.append(node("p","Noch keine Reisen vorhanden ♡","muted"));
+  for(const t of trips) {
+    const card=node("article","","trip-card"+(selected?.id===t.id?" active":""));
+    card.append(
+      node("h3","✈️ "+t.title),
+      node("p",t.destination||"Reiseziel noch offen"),
+      node("p",date(t.starts_on)+" – "+date(t.ends_on),"muted"),
+      node("p",statuses[t.status]+" · "+(t.visibility==="shared"?"Gemeinsam":"Privat"),"muted"),
+      button("Reise öffnen",async()=>{ await load(t.id); setTab("overview",true); })
+    );
+    box.append(card);
+  }
+}
+function summary() {
+  const expenseEntries=entries.filter(e=>e.kind==="expense");
+  const spentCents=expenseEntries.reduce((s,e)=>s+cents(e.amount),0);
+  const pack=entries.filter(e=>e.kind==="packing");
+  const done=pack.filter(e=>e.is_done).length;
+  return {spentCents,pack,done};
+}
+function renderSelected() {
+  if(!selected) { $("details").hidden=true; return; }
+  $("details").hidden=false;
+  $("selectedTitle").textContent=selected.title+" ♡";
+  $("selectedInfo").textContent=
+    (selected.destination||"Reiseziel offen")+" · "+
+    date(selected.starts_on)+" – "+date(selected.ends_on)+" · "+
+    (selected.visibility==="shared"?"Gemeinsam":"Privat");
+  const s=summary();
+  $("overviewStatus").textContent=statuses[selected.status]||selected.status;
+  $("overviewBudget").textContent=money(selected.budget,selected.currency);
+  $("overviewPacking").textContent=s.done+" / "+s.pack.length;
+  $("selectedNotes").textContent=selected.notes||"Noch keine Reisenotizen ♡";
+  const actions=$("tripActions"); actions.replaceChildren();
+  if(selected.owner_id===user.id) {
+    actions.append(
+      button("Reise bearbeiten",()=>showTripForm(selected)),
+      button("Reise löschen",async()=>{
+        if(!confirm("Diese Reise und ALLE zugehörigen Einträge endgültig löschen?")) return;
+        const {data,error}=await client.from("dd_trips").delete().eq("id",selected.id).select("id").single();
+        fail(error); if(!data) throw new Error("Reise konnte nicht gelöscht werden.");
+        resetTripForm(); resetAllEntryForms(); await load(null);
+        message("Reise gelöscht ♡");
+      })
+    );
+  }
+  $("budgetTotal").textContent=money(selected.budget,selected.currency);
+  $("spent").textContent=money(s.spentCents/100,selected.currency);
+  $("remaining").textContent=money((cents(selected.budget)-s.spentCents)/100,selected.currency);
+  renderPlanning(); renderExpenses(); renderPacking(); setTab(activeTab);
+}
+function entryActions(e, editFn, afterDeleteFn) {
+  const actions=node("div","","actions");
+  if(e.owner_id===user.id) {
+    actions.append(
+      button("Bearbeiten",()=>editFn(e)),
+      button("Löschen",async()=>{
+        if(!confirm("Diesen Eintrag wirklich löschen?")) return;
+        const {data,error}=await client.from("dd_trip_entries").delete().eq("id",e.id).select("id").single();
+        fail(error); if(!data) throw new Error("Eintrag konnte nicht gelöscht werden.");
+        afterDeleteFn(); await load(selected.id); message("Eintrag gelöscht ♡");
+      })
+    );
+  }
+  return actions;
+}
+function renderPlanning() {
+  const holder=$("planningList"); holder.replaceChildren();
+  const filter=$("filter").value;
+  const list=entries.filter(e=>planningKinds.has(e.kind)&&(filter==="all"||e.kind===filter));
+  if(!list.length) { holder.append(node("p","Noch keine Planungen vorhanden ♡","empty")); return; }
+  for(const e of list) {
+    const card=node("article","","entry");
+    card.append(node("div",kinds[e.kind]||e.kind,"tag"),node("h3",e.title));
+    if(e.details) card.append(node("p",e.details,"line"));
+    if(e.event_date) card.append(node("p",date(e.event_date),"muted"));
+    if(e.amount!==null) card.append(node("p",money(e.amount,selected.currency),"muted"));
+    const url=safeUrl(e.url);
+    if(url) { const a=node("a","Link öffnen ↗"); a.href=url; a.target="_blank"; a.rel="noopener noreferrer"; card.append(a); }
+    card.append(entryActions(e,startEditPlan,resetPlan)); holder.append(card);
+  }
+}
+function startEditPlan(e) {
+  editingPlan=e;
+  $("planKind").value=e.kind;
+  $("planTitle").value=e.title;
+  $("planDetails").value=e.details||"";
+  $("planDate").value=e.event_date||"";
+  $("planAmount").value=e.amount??"";
+  $("planUrl").value=e.url||"";
+  $("planHeading").textContent="Planung bearbeiten ♡";
+  $("cancelPlan").hidden=false;
+  $("planForm").scrollIntoView({behavior:"smooth"});
+}
+function renderExpenses() {
+  const holder=$("expenseList"); holder.replaceChildren();
+  const expenses=entries.filter(e=>e.kind==="expense");
+  if(!expenses.length) { holder.append(node("p","Noch keine Ausgaben vorhanden ♡","empty")); return; }
+  for(const e of expenses) {
+    const card=node("article","","entry");
+    card.append(node("h3",e.title),node("p",money(e.amount,selected.currency),"line"));
+    if(e.event_date) card.append(node("p",date(e.event_date),"muted"));
+    if(e.details) card.append(node("p",e.details,"muted line"));
+    card.append(entryActions(e,startEditExpense,resetExpense)); holder.append(card);
+  }
+}
+function startEditExpense(e) {
+  editingExpense=e;
+  $("expenseTitle").value=e.title;
+  $("expenseAmount").value=e.amount??"";
+  $("expenseDate").value=e.event_date||"";
+  $("expenseDetails").value=e.details||"";
+  $("expenseHeading").textContent="Ausgabe bearbeiten ♡";
+  $("cancelExpense").hidden=false;
+  $("expenseForm").scrollIntoView({behavior:"smooth"});
+}
+function renderPacking() {
+  const holder=$("packingGroups"); holder.replaceChildren();
+  const s=summary();
+  const percent=s.pack.length?Math.round(s.done/s.pack.length*100):0;
+  $("packingInfo").textContent=s.done+" von "+s.pack.length+" eingepackt";
+  $("packingPercent").textContent=percent+" %";
+  $("packingFill").style.width=percent+"%";
+  $("packingProgress").setAttribute("aria-valuenow",String(percent));
+  if(!s.pack.length) {
+    holder.append(node("p","Noch keine Gegenstände in deiner Packliste ♡","empty"));
+    return;
+  }
+  for(const [key,heading] of packGroups) {
+    const group=s.pack.filter(e=>(e.packing_category||"other")===key);
+    if(!group.length) continue;
+    const section=node("section","","pack-group");
+    const done=group.filter(e=>e.is_done).length;
+    section.append(node("h3",heading),node("p",done+" von "+group.length,"field-help"));
+    group.sort((a,b)=>packTitle(a).localeCompare(packTitle(b),"de"));
+    for(const e of group) {
+      const row=node("div","","pack-row");
+      const check=document.createElement("input");
+      check.type="checkbox";
+      check.checked=Boolean(e.is_done);
+      check.disabled=e.owner_id!==user.id;
+      check.setAttribute("aria-label",packTitle(e)+" eingepackt");
+      check.addEventListener("change",()=>work(async()=>{
+        try {
+          const {data,error}=await client.from("dd_trip_entries")
+            .update({is_done:check.checked}).eq("id",e.id).select("id").single();
+          fail(error); if(!data) throw new Error("Gegenstand konnte nicht aktualisiert werden.");
+          await load(selected.id);
+          message("Packliste aktualisiert ♡");
+        } catch(error) { check.checked=e.is_done; throw error; }
+      }));
+      const name=node("span",packTitle(e),"pack-label"+(e.is_done?" is-done":""));
+      row.append(check,name);
+      if(e.owner_id===user.id) {
+        const controls=node("div","","pack-row-actions");
+        controls.append(
+          button("Ändern",()=>startEditPack(e)),
+          button("Löschen",async()=>{
+            if(!confirm("Diesen Gegenstand aus der Packliste löschen?")) return;
+            const {data,error}=await client.from("dd_trip_entries")
+              .delete().eq("id",e.id).select("id").single();
+            fail(error); if(!data) throw new Error("Gegenstand konnte nicht gelöscht werden.");
+            if(editingPack?.id===e.id) resetPack();
+            await load(selected.id); message("Gegenstand entfernt ♡");
+          })
+        );
+        row.append(controls);
+      } else {
+        row.title="Dieser Gegenstand kann nur vom Ersteller geändert werden.";
+      }
+      section.append(row);
+    }
+    holder.append(section);
+  }
+}
+function startEditPack(e) {
+  editingPack=e;
+  $("packTitle").value=packTitle(e);
+  $("packCategory").value=e.packing_category||"other";
+  $("packHeading").textContent="Gegenstand bearbeiten";
+  $("savePack").textContent="Änderungen speichern";
+  $("cancelPack").hidden=false;
+  $("packForm").scrollIntoView({behavior:"smooth"});
+}
+async function load(id=selected?.id) {
+  const a=await client.from("dd_trips").select("*").order("created_at",{ascending:false});
+  fail(a.error);
+  const list=a.data||[];
+  const next=list.find(t=>t.id===id)||list[0]||null;
+  let nextEntries=[];
+  if(next) {
+    const b=await client.from("dd_trip_entries").select("*")
+      .eq("trip_id",next.id).order("created_at",{ascending:true});
+    fail(b.error); nextEntries=b.data||[];
+  }
+  if(selected?.id!==next?.id) {
+    resetAllEntryForms(); resetTripForm(); $("filter").value="all"; activeTab="overview";
+  }
+  trips=list; selected=next; entries=nextEntries;
+  renderTrips(); renderSelected();
+}
+
+for(const tab of document.querySelectorAll("[data-tab]")) {
+  tab.addEventListener("click",()=>setTab(tab.dataset.tab));
+}
+$("newTrip").addEventListener("click",()=>showTripForm());
+$("cancelTrip").addEventListener("click",resetTripForm);
+$("cancelPlan").addEventListener("click",resetPlan);
+$("cancelExpense").addEventListener("click",resetExpense);
+$("cancelPack").addEventListener("click",resetPack);
+$("filter").addEventListener("change",()=>renderPlanning());
+
+$("tripForm").addEventListener("submit",event=>{
+  event.preventDefault();
+  work(async()=>{
+    const data={
+      title:$("title").value.trim(), destination:$("destination").value.trim(),
+      starts_on:$("start").value||null, ends_on:$("end").value||null,
+      budget:$("budget").value||"0",currency:$("currency").value.trim().toUpperCase(),
+      status:$("status").value, visibility:$("visibility").value, notes:$("notes").value.trim()
+    };
+    if(!data.title) throw new Error("Bitte einen Reisenamen eingeben.");
+    if(data.starts_on&&data.ends_on&&data.ends_on<data.starts_on)
+      throw new Error("Die Rückreise darf nicht vor der Abreise liegen.");
+    if(editingTrip&&editingTrip.currency!==data.currency&&!confirm("Die Währung ändern? Bestehende Beträge werden nicht umgerechnet.")) return;
+    if(editingTrip?.visibility==="shared"&&data.visibility==="private"&&!confirm("Andere Mitglieder verlieren den Zugriff auf diese Reise. Fortfahren?")) return;
+    const query=editingTrip
+      ?client.from("dd_trips").update(data).eq("id",editingTrip.id)
+      :client.from("dd_trips").insert(data);
+    const {data:result,error}=await query.select("id").single();
+    fail(error); if(!result) throw new Error("Reise konnte nicht gespeichert werden.");
+    resetTripForm(); await load(result.id); message("Reise gespeichert ♡");
+  });
+});
+
+$("planForm").addEventListener("submit",event=>{
+  event.preventDefault();
+  work(async()=>{
+    if(!selected) return;
+    const raw=$("planUrl").value.trim();
+    if(raw&&!safeUrl(raw)) throw new Error("Bitte einen gültigen Link eingeben.");
+    const data={
+      kind:$("planKind").value,title:$("planTitle").value.trim(),
+      details:$("planDetails").value.trim(),event_date:$("planDate").value||null,
+      amount:$("planAmount").value||null,url:raw
+    };
+    if(!data.title) throw new Error("Bitte einen Namen eingeben.");
+    if(!planningKinds.has(data.kind)) throw new Error("Ungültiger Planungsbereich.");
+    const query=editingPlan
+      ?client.from("dd_trip_entries").update(data).eq("id",editingPlan.id)
+      :client.from("dd_trip_entries").insert({...data,trip_id:selected.id});
+    const {data:result,error}=await query.select("id").single();
+    fail(error); if(!result) throw new Error("Eintrag konnte nicht gespeichert werden.");
+    const kind=data.kind; resetPlan(); $("filter").value=kind;
+    await load(selected.id); message("Reiseeintrag gespeichert ♡");
+  });
+});
+
+$("expenseForm").addEventListener("submit",event=>{
+  event.preventDefault();
+  work(async()=>{
+    if(!selected) return;
+    const data={
+      kind:"expense",title:$("expenseTitle").value.trim(),
+      amount:$("expenseAmount").value,
+      event_date:$("expenseDate").value||null,
+      details:$("expenseDetails").value.trim()
+    };
+    if(!data.title||data.amount==="") throw new Error("Bitte Bezeichnung und Betrag eingeben.");
+    const query=editingExpense
+      ?client.from("dd_trip_entries").update(data).eq("id",editingExpense.id)
+      :client.from("dd_trip_entries").insert({...data,trip_id:selected.id});
+    const {data:result,error}=await query.select("id").single();
+    fail(error); if(!result) throw new Error("Ausgabe konnte nicht gespeichert werden.");
+    resetExpense(); await load(selected.id); message("Ausgabe gespeichert ♡");
+  });
+});
+
+$("packForm").addEventListener("submit",event=>{
+  event.preventDefault();
+  work(async()=>{
+    if(!selected) return;
+    const title=$("packTitle").value.trim();
+    if(!title) throw new Error("Bitte einen Gegenstand eintragen.");
+    const data={title,packing_category:$("packCategory").value,details:""};
+    const query=editingPack
+      ?client.from("dd_trip_entries").update(data).eq("id",editingPack.id)
+      :client.from("dd_trip_entries").insert({...data,kind:"packing",trip_id:selected.id});
+    const {data:result,error}=await query.select("id").single();
+    fail(error); if(!result) throw new Error("Gegenstand konnte nicht gespeichert werden.");
+    resetPack(); await load(selected.id); message("Packliste gespeichert ♡");
+  });
+});
+
+$("addTemplate").addEventListener("click",()=>work(async()=>{
+  if(!selected) return;
+  if(!confirm("Die Standard-Packliste ergänzen? Bereits vorhandene Namen werden ausgelassen.")) return;
+  const existing=new Set(entries.filter(e=>e.kind==="packing")
+    .map(e=>packTitle(e).trim().toLocaleLowerCase("de-DE")));
+  const toAdd=[];
+  for(const [category,items] of Object.entries(starterItems)) {
+    for(const title of items) {
+      if(!existing.has(title.toLocaleLowerCase("de-DE"))) {
+        toAdd.push({trip_id:selected.id,kind:"packing",title,packing_category:category});
+      }
+    }
+  }
+  if(!toAdd.length) { message("Alle Vorschläge stehen bereits auf deiner Packliste ♡"); return; }
+  const {data,error}=await client.from("dd_trip_entries").insert(toAdd).select("id");
+  fail(error); if(!data?.length) throw new Error("Vorlage konnte nicht hinzugefügt werden.");
+  await load(selected.id); message(data.length+" Gegenstände hinzugefügt ♡");
+}));
+
+work(async()=>{
+  if(!window.supabase) throw new Error("Supabase konnte nicht geladen werden.");
+  client=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+  const session=await client.auth.getSession(); fail(session.error);
+  if(!session.data.session) { window.location.replace("login.html"); return; }
+  const result=await client.auth.getUser(); fail(result.error);
+  user=result.data.user;
+  if(!user) { window.location.replace("login.html"); return; }
+  const member=await client.from("dd_members").select("user_id")
+    .eq("user_id",user.id).maybeSingle();
+  fail(member.error);
+  if(!member.data) {
+    await client.auth.signOut();
+    throw new Error("Kein Zugriff: Dein Konto ist nicht freigeschaltet.");
+  }
+  await load();
+  $("app").hidden=false;
+  message("Willkommen bei euren Reisen ♡");
+});
 </script>
 </body>
 </html>
