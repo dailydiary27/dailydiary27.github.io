@@ -742,6 +742,123 @@ $("uploadButton").addEventListener(
   }
 );
 
+  
+// AUTOMATISCHE DIASHOW
+
+let currentSlide = 0;
+let slideshowTimer = null;
+
+function showCurrentSlide() {
+  const photos = Array.from(
+    $("gallery").querySelectorAll("img")
+  );
+
+  if (!photos.length) {
+    $("slideControls").hidden = true;
+    return;
+  }
+
+  currentSlide =
+    (currentSlide + photos.length) % photos.length;
+
+  photos.forEach((photo, index) => {
+    photo.classList.toggle(
+      "active",
+      index === currentSlide
+    );
+  });
+
+  $("slideCounter").textContent =
+    `${currentSlide + 1} / ${photos.length}`;
+
+  $("slideControls").hidden =
+    photos.length < 2;
+}
+
+function changeSlide(direction) {
+  const count =
+    $("gallery").querySelectorAll("img").length;
+
+  if (!count) return;
+
+  currentSlide =
+    (currentSlide + direction + count) % count;
+
+  showCurrentSlide();
+}
+
+function startSlideshow() {
+  clearInterval(slideshowTimer);
+
+  const count =
+    $("gallery").querySelectorAll("img").length;
+
+  if (count < 2) return;
+
+  slideshowTimer = setInterval(() => {
+    if (
+      !document.hidden &&
+      !$("photosPanel").hidden
+    ) {
+      changeSlide(1);
+    }
+  }, 5000);
+}
+
+$("prevSlide").addEventListener("click", () => {
+  changeSlide(-1);
+  startSlideshow();
+});
+
+$("nextSlide").addEventListener("click", () => {
+  changeSlide(1);
+  startSlideshow();
+});
+
+// Auf dem iPhone durch Wischen wechseln
+
+let touchStartX = 0;
+
+$("gallery").addEventListener(
+  "touchstart",
+  event => {
+    touchStartX =
+      event.changedTouches[0].screenX;
+  },
+  { passive: true }
+);
+
+$("gallery").addEventListener(
+  "touchend",
+  event => {
+    const difference =
+      event.changedTouches[0].screenX -
+      touchStartX;
+
+    if (Math.abs(difference) > 50) {
+      changeSlide(difference < 0 ? 1 : -1);
+      startSlideshow();
+    }
+  },
+  { passive: true }
+);
+
+// Reagiert auch auf neu hochgeladene Bilder
+
+const slideObserver = new MutationObserver(() => {
+  currentSlide = 0;
+  showCurrentSlide();
+  startSlideshow();
+});
+
+slideObserver.observe($("gallery"), {
+  childList: true
+});
+
+window.addEventListener("pagehide", () => {
+  clearInterval(slideshowTimer);
+});
+
 
 // NACHRICHTEN
 
