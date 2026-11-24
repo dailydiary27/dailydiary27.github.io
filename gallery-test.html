@@ -883,6 +883,74 @@ window.addEventListener("pagehide", () => {
 });
 
 
+// EINZELNES FOTO LÖSCHEN
+
+$("deletePhotoButton").addEventListener(
+  "click",
+  async () => {
+    const fileName = photoFiles[currentSlide];
+
+    if (!fileName) return;
+
+    const confirmed = confirm(
+      "Möchtest du dieses Foto wirklich " +
+      "dauerhaft löschen?"
+    );
+
+    if (!confirmed) return;
+
+    const button = $("deletePhotoButton");
+
+    button.disabled = true;
+
+    try {
+      const { data, error } =
+        await client.storage
+          .from(bucket)
+          .remove([fileName]);
+
+      if (error) throw error;
+
+      if (!Array.isArray(data) || !data.length) {
+        throw new Error(
+          "Das Foto konnte nicht gelöscht werden. " +
+          "Bitte die Berechtigungen prüfen."
+        );
+      }
+
+      clearInterval(slideshowTimer);
+
+      imageUrls.forEach(url => {
+        URL.revokeObjectURL(url);
+      });
+
+      imageUrls.length = 0;
+
+      $("gallery").replaceChildren();
+
+      photoFiles = [];
+      currentSlide = 0;
+      photosLoaded = false;
+
+      await loadPhotos();
+
+      showCurrentSlide();
+      startSlideshow();
+
+      $("photoStatus").textContent +=
+        " · Foto gelöscht ♡";
+
+    } catch (error) {
+      $("photoStatus").textContent =
+        "Löschen fehlgeschlagen: " +
+        error.message;
+
+    } finally {
+      button.disabled = false;
+    }
+  }
+);
+
 // NACHRICHTEN
 
 function resetForm() {
