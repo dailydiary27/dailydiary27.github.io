@@ -1,0 +1,579 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Unsere kleine Welt ♡ | DailyDiary</title>
+
+<style>
+:root {
+  --pink: #f8dce8;
+  --cream: #fffdf5;
+  --ink: #352831;
+  --muted: #947c8b;
+  --accent: #94637f;
+  --line: #ead8e1;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--pink);
+  color: var(--ink);
+  font-family: Georgia, serif;
+  padding: 25px 15px 70px;
+}
+
+main {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.card {
+  background: var(--cream);
+  border-radius: 28px;
+  padding: 30px 22px;
+  margin-top: 25px;
+}
+
+header { text-align: center; }
+
+.heart {
+  font-size: 54px;
+  color: var(--accent);
+  margin-bottom: 15px;
+}
+
+h1 {
+  font-size: clamp(32px, 8vw, 43px);
+  margin: 0 0 18px;
+}
+
+h2 {
+  font-size: 25px;
+  font-weight: normal;
+  margin: 20px 0;
+}
+
+.subtitle, .hint {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.subtitle { font-size: 18px; }
+
+.line {
+  height: 1px;
+  background: var(--line);
+  margin: 25px 0;
+}
+
+form {
+  display: grid;
+  gap: 17px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #715966;
+  font-size: 17px;
+}
+
+input {
+  width: 100%;
+  padding: 15px;
+  font: 16px Georgia, serif;
+  background: #fbf6f9;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  color: var(--ink);
+}
+
+button {
+  width: 100%;
+  border: 0;
+  padding: 16px;
+  border-radius: 14px;
+  font: 18px Georgia, serif;
+  cursor: pointer;
+}
+
+button:disabled { opacity: .55; }
+
+.primary {
+  background: var(--accent);
+  color: white;
+}
+
+.secondary {
+  background: #f1e5ed;
+  color: #65465a;
+  margin-top: 15px;
+}
+
+#status {
+  font: 14px/1.6 Arial, sans-serif;
+  color: #76596b;
+  margin: 18px 0;
+  overflow-wrap: anywhere;
+}
+
+#status.error { color: #a3314c; }
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 25px;
+}
+</style>
+</head>
+
+<body>
+<main>
+
+<section class="card">
+  <header>
+    <div class="heart">♡</div>
+
+    <h1>Unsere kleine Welt ♡</h1>
+
+    <p class="subtitle">
+      Ein Ort nur für uns zwei.
+      Für unsere Erinnerungen, Bilder,
+      Nachrichten und alles,
+      was noch vor uns liegt.
+    </p>
+
+    <div class="line"></div>
+
+    <p class="subtitle">
+      Du bist eingeladen, Teil unseres
+      kleinen Tagebuchs zu werden.
+    </p>
+  </header>
+
+  <p id="status" role="status"
+     aria-live="polite">
+    Einladung wird vorbereitet …
+  </p>
+
+  <!-- REGISTRIERUNG -->
+
+  <div id="signupPanel" hidden>
+    <h2>Dein eigener Zugang ♡</h2>
+
+    <form id="signupForm">
+      <div>
+        <label for="signupName">
+          Dein Name
+        </label>
+        <input id="signupName"
+               required minlength="2"
+               maxlength="60"
+               autocomplete="name"
+               placeholder="Wie heißt du?">
+      </div>
+
+      <div>
+        <label for="signupEmail">
+          Deine E-Mail-Adresse
+        </label>
+        <input id="signupEmail"
+               type="email"
+               autocomplete="email"
+               required>
+      </div>
+
+      <div>
+        <label for="signupPassword">
+          Dein Passwort
+        </label>
+        <input id="signupPassword"
+               type="password"
+               autocomplete="new-password"
+               minlength="8"
+               required>
+      </div>
+
+      <button type="submit" class="primary">
+        Konto erstellen ♡
+      </button>
+    </form>
+
+    <button id="showLogin" type="button"
+            class="secondary">
+      Ich habe bereits ein Konto
+    </button>
+  </div>
+
+  <!-- BEREITS REGISTRIERT -->
+
+  <div id="loginPanel" hidden>
+    <h2>Willkommen zurück ♡</h2>
+
+    <form id="loginForm">
+      <div>
+        <label for="loginEmail">
+          E-Mail-Adresse
+        </label>
+        <input id="loginEmail"
+               type="email"
+               autocomplete="email"
+               required>
+      </div>
+
+      <div>
+        <label for="loginPassword">
+          Passwort
+        </label>
+        <input id="loginPassword"
+               type="password"
+               autocomplete="current-password"
+               required>
+      </div>
+
+      <button type="submit" class="primary">
+        Anmelden ♡
+      </button>
+    </form>
+
+    <button id="showSignup" type="button"
+            class="secondary">
+      Neues Konto erstellen
+    </button>
+  </div>
+
+  <!-- EINLADUNG EINLÖSEN -->
+
+  <div id="redeemPanel" hidden>
+    <h2>Fast geschafft ♡</h2>
+
+    <p class="hint">
+      Deine E-Mail-Adresse ist bestätigt.
+      Jetzt aktivieren wir deinen Zugang.
+    </p>
+
+    <form id="redeemForm">
+      <div>
+        <label for="redeemName">
+          Wie dürfen wir dich nennen?
+        </label>
+        <input id="redeemName"
+               required minlength="2"
+               maxlength="60"
+               autocomplete="name">
+      </div>
+
+      <button type="submit" class="primary">
+        Unsere Welt betreten ♡
+      </button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  Nur für uns zwei. Für immer unsere Momente. ♡
+</footer>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+"use strict";
+
+const SUPABASE_URL =
+  "https://cqgrtybenbanfppoiuba.supabase.co";
+
+const SUPABASE_KEY =
+  "sb_publishable_oxqVUkLdxj40fLZ8zCfjtw_wFSftxDw";
+
+const $ = id => document.getElementById(id);
+
+const invite = new URLSearchParams(
+  window.location.search
+).get("invite");
+
+const validInvite =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+    .test(invite || "");
+
+const redirectURL =
+  "https://dailydiary27.github.io/register.html" +
+  "?invite=" + encodeURIComponent(invite || "");
+
+let client;
+
+function status(message, error = false) {
+  $("status").textContent = message;
+  $("status").classList.toggle("error", error);
+}
+
+function show(panel) {
+  for (const id of [
+    "signupPanel",
+    "loginPanel",
+    "redeemPanel"
+  ]) {
+    $(id).hidden = id !== panel;
+  }
+}
+
+function formBusy(form, busy) {
+  form.querySelector("button[type=submit]")
+    .disabled = busy;
+}
+
+// REGISTRIEREN
+
+$("signupForm").addEventListener(
+  "submit",
+  async event => {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const name = $("signupName").value.trim();
+    const email = $("signupEmail").value
+      .trim().toLowerCase();
+    const password = $("signupPassword").value;
+
+    if (name.length < 2 || name.length > 60) {
+      status("Bitte einen gültigen Namen eingeben.", true);
+      return;
+    }
+
+    formBusy(form, true);
+    status("Dein Konto wird erstellt …");
+
+    try {
+      const { error } = await client.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: redirectURL,
+          data: { display_name: name }
+        }
+      });
+
+      if (error) throw error;
+
+      status(
+        "Bitte öffne jetzt deine E-Mails " +
+        "und bestätige deine Adresse. " +
+        "Danach kehrst du zu DailyDiary zurück. " +
+        "Falls nötig, melde dich anschließend hier an."
+      );
+
+      show(null);
+
+    } catch (error) {
+      status(
+        "Registrierung fehlgeschlagen: " +
+        error.message,
+        true
+      );
+
+    } finally {
+      formBusy(form, false);
+    }
+  }
+);
+
+// ANMELDEN
+
+$("loginForm").addEventListener(
+  "submit",
+  async event => {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    formBusy(form, true);
+    status("Anmeldung wird geprüft …");
+
+    try {
+      const { error } =
+        await client.auth.signInWithPassword({
+          email: $("loginEmail").value
+            .trim().toLowerCase(),
+          password: $("loginPassword").value
+        });
+
+      if (error) throw error;
+
+      await checkUser();
+
+    } catch (error) {
+      status(
+        "Anmeldung fehlgeschlagen: " +
+        error.message,
+        true
+      );
+
+    } finally {
+      formBusy(form, false);
+    }
+  }
+);
+
+// EINLADUNG EINLÖSEN
+
+$("redeemForm").addEventListener(
+  "submit",
+  async event => {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    formBusy(form, true);
+
+    status("Deine Einladung wird eingelöst …");
+
+    try {
+      const name = $("redeemName").value.trim();
+
+      const { data, error } = await client.rpc(
+        "dd_redeem_invite",
+        {
+          p_token: invite,
+          p_display_name: name
+        }
+      );
+
+      if (error) throw error;
+
+      if (data !== true) {
+        throw new Error(
+          "Die Einladung konnte nicht eingelöst werden."
+        );
+      }
+
+      status("Willkommen in unserer kleinen Welt ♡");
+
+      window.location.replace("home.html");
+
+    } catch (error) {
+      status(
+        "Freischaltung fehlgeschlagen: " +
+        error.message,
+        true
+      );
+
+    } finally {
+      formBusy(form, false);
+    }
+  }
+);
+
+// WECHSEL ZWISCHEN REGISTRIEREN UND ANMELDEN
+
+$("showLogin").addEventListener(
+  "click",
+  () => {
+    show("loginPanel");
+    status("Melde dich mit deinem Konto an.");
+  }
+);
+
+$("showSignup").addEventListener(
+  "click",
+  () => {
+    show("signupPanel");
+    status("Erstelle deinen persönlichen Zugang ♡");
+  }
+);
+
+// ANMELDUNG PRÜFEN
+
+async function checkUser() {
+  const { data, error } =
+    await client.auth.getUser();
+
+  if (error) throw error;
+
+  const user = data?.user;
+
+  if (!user) {
+    show("signupPanel");
+    status("Deine persönliche Einladung ist bereit ♡");
+    return;
+  }
+
+  if (!user.email_confirmed_at) {
+    show("loginPanel");
+    status(
+      "Bitte bestätige zuerst deine E-Mail-Adresse.",
+      true
+    );
+    return;
+  }
+
+  $("redeemName").value =
+    user.user_metadata?.display_name || "";
+
+  show("redeemPanel");
+
+  status(
+    "Dein Konto ist bestätigt. " +
+    "Aktiviere jetzt deine Einladung ♡"
+  );
+}
+
+// START
+
+async function start() {
+  if (!validInvite) {
+    status(
+      "Dieser Link enthält keinen gültigen Einladungscode. " +
+      "Bitte scanne deinen persönlichen QR-Code.",
+      true
+    );
+    return;
+  }
+
+  try {
+    if (!window.supabase?.createClient) {
+      throw new Error(
+        "Die Verbindung konnte nicht geladen werden."
+      );
+    }
+
+    client = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+
+    const callbackError =
+      new URLSearchParams(
+        window.location.hash.slice(1)
+      ).get("error_description");
+
+    if (callbackError) {
+      throw new Error(
+        "Die E-Mail-Bestätigung ist fehlgeschlagen. " +
+        "Bitte versuche es erneut."
+      );
+    }
+
+    await checkUser();
+
+  } catch (error) {
+    show("loginPanel");
+
+    status(
+      "Fehler: " + error.message,
+      true
+    );
+  }
+}
+
+start();
+</script>
+</body>
+</html>
