@@ -888,6 +888,9 @@ window.addEventListener("pagehide", () => {
 $("deletePhotoButton").addEventListener(
   "click",
   async () => {
+    
+alert("Löschbutton funktioniert!");
+
     const fileName = photoFiles[currentSlide];
 
     if (!fileName) return;
