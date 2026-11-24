@@ -358,8 +358,19 @@
   </button>
 </div>
 
-    
+
 <div style="margin-top:25px; text-align:left;">
+  
+<button
+  type="button"
+  id="deletePhotoButton"
+  class="btn"
+  hidden
+  style="margin-top:12px; width:100%;"
+>
+  🗑️ Dieses Foto löschen
+</button>
+
   <h2>Neue Bilder hinzufügen ♡</h2>
 
   <p class="info">
@@ -571,6 +582,10 @@ $("messagesTab").addEventListener(
 
 async function loadPhotos() {
   photosLoaded = true;
+  
+photoFiles = [];
+$("deletePhotoButton").hidden = true;
+
 
   $("photoStatus").textContent =
     "Private Bilder werden geladen …";
@@ -627,6 +642,9 @@ async function loadPhotos() {
       img.loading = "lazy";
 
       $("gallery").appendChild(img);
+      
+photoFiles.push(file.name);
+
 
       loaded++;
     }
@@ -746,6 +764,9 @@ $("uploadButton").addEventListener(
 // AUTOMATISCHE DIASHOW
 
 let currentSlide = 0;
+  
+let photoFiles = [];
+
 let slideshowTimer = null;
 
 function showCurrentSlide() {
