@@ -652,6 +652,8 @@ photoFiles.push(file.name);
     $("photoStatus").textContent =
       loaded + " private(s) Bild(er) geladen ♡";
 
+$("deletePhotoButton").hidden = loaded === 0;
+
   } catch (error) {
     console.error(error);
 
